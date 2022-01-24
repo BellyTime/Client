@@ -1,9 +1,14 @@
 import "../styles/globals.css";
 import type { AppProps } from "next/app";
 import "tailwindcss/tailwind.css";
-
-function MyApp({ Component, pageProps }: AppProps, navigator: Navigator,window:Window) {
-
+import axios from "axios";
+import { baseURL } from "@/static/data";
+function MyApp(
+  { Component, pageProps }: AppProps,
+  navigator: Navigator,
+  window: Window
+) {
+  axios.defaults.baseURL = baseURL;
   if ("serviceWorker" in navigator) {
     navigator.serviceWorker
       .register("/service-worker.js")
