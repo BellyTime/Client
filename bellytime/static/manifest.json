@@ -1,0 +1,21 @@
+{
+  "name": "Belly Time",
+  "short_name": "BT",
+  "background_color": "#FFFFFF",
+  "theme_color": "#BFFF00",
+  "description": "꼬르륵! 뭘먹을지 알고싶은사람 다모여",
+  "display": "standalone",
+  "start_url": "/",
+  "icons": [
+    {
+      "src": "/static/icon.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "/static/icon.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ]
+}
