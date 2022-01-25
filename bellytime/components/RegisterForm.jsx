@@ -1,6 +1,6 @@
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import { registerSchema } from "./validation/registerSchema";
-import {register} from "../fetch/register";
+import { register } from "../fetch/register";
 export const RegisterForm = ({ styles }) => (
   <>
     <Formik
@@ -9,17 +9,17 @@ export const RegisterForm = ({ styles }) => (
         email: "",
         password: "",
         nickname: "",
-        phoneNumer: "",
+        phoneNumber: "",
         profileImg: "",
       }}
       validationSchema={registerSchema}
       onSubmit={(values) => {
-        alert(JSON.stringify(values, null, 2));
+        console.log(values);
         register(values);
       }}
     >
       <Form>
-        <label className={styles.label} htmlFor="Name">
+        <label className={styles.label} htmlFor="name">
           Full Name
         </label>
         <Field className={styles.field} id="name" name="name" />
@@ -29,14 +29,19 @@ export const RegisterForm = ({ styles }) => (
         </label>
         <Field className={styles.field} id="email" name="email" />
         <ErrorMessage component="a" className={styles.errorMsg} name="email" />
-        <label className={styles.label} htmlFor="Password">
-          Password
+        <label className={styles.label} htmlFor="password">
+          password
         </label>
-        <Field className={styles.field} id="Password" name="Password" type="password" />
+        <Field
+          className={styles.field}
+          id="password"
+          name="password"
+          type="password"
+        />
         <ErrorMessage
           component="a"
           className={styles.errorMsg}
-          name="Password"
+          name="password"
         />
         <label className={styles.label} htmlFor="NickName">
           닉네임
@@ -47,29 +52,29 @@ export const RegisterForm = ({ styles }) => (
           className={styles.errorMsg}
           name="nickname"
         />
-        <label className={styles.label} htmlFor="PhoneNumber" >
+        <label className={styles.label} htmlFor="phoneNumber">
           휴대폰번호
         </label>
-        <Field className={styles.field} id="phonenumber" name="phonenumber" />
+        <Field className={styles.field} id="phoneNumber" name="phoneNumber" />
         <ErrorMessage
           component="a"
           className={styles.errorMsg}
-          name="phonenumber"
+          name="phoneNumber"
         />
-        <label className={styles.label} htmlFor="ProfileImg">
+        <label className={styles.label} htmlFor="profileImg">
           프로필이미지
         </label>
-        <Field className={styles.field} id="profileimg" name="profileimg" />
+        <Field className={styles.field} id="profileImg" name="profileImg" />
         <ErrorMessage
           component="a"
           className={styles.errorMsg}
-          name="profileimg"
+          name="profileImg"
         />
-        <div class="mt-8">
-          <button type="submit" className={styles.button}>
+  
+          <button type="submit" className={styles.button} onClick={()=>console.log("hi")}>
             Register
           </button>
-        </div>
+  
       </Form>
     </Formik>
   </>
