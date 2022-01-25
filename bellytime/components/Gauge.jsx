@@ -25,9 +25,10 @@ const Gauge = ({ value = 50, min = 0, max = 100, label, units }) => {
       <svg
         width="9em"
         viewBox={[-1, -1, 2, 1].join(" ")}
-        className="border-solid border-4 border-pink-600 hover:border-dotted"
+        className="overflow-visible"
       >
-        <path d={backgroundArc} fill="#dbdbe7" />
+        <path d={backgroundArc} fill="#dbdbe7" />{" "}
+        <path d={filledArc} fill="#9980FA" />
       </svg>
     </div>
   );
