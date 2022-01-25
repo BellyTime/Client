@@ -9,7 +9,7 @@ export const RegisterForm = ({ styles }) => (
         email: "",
         password: "",
         nickname: "",
-        phoneNumer: "",
+        phonenumer: "",
         profileImg: "",
       }}
       validationSchema={registerSchema}
@@ -29,14 +29,14 @@ export const RegisterForm = ({ styles }) => (
         </label>
         <Field className={styles.field} id="email" name="email" />
         <ErrorMessage component="a" className={styles.errorMsg} name="email" />
-        <label className={styles.label} htmlFor="Password">
-          Password
+        <label className={styles.label} htmlFor="password">
+          password
         </label>
-        <Field className={styles.field} id="Password" name="Password" type="password" />
+        <Field className={styles.field} id="password" name="password" type="password" />
         <ErrorMessage
           component="a"
           className={styles.errorMsg}
-          name="Password"
+          name="password"
         />
         <label className={styles.label} htmlFor="NickName">
           닉네임
@@ -47,7 +47,7 @@ export const RegisterForm = ({ styles }) => (
           className={styles.errorMsg}
           name="nickname"
         />
-        <label className={styles.label} htmlFor="PhoneNumber" >
+        <label className={styles.label} htmlFor="phonenumber" >
           휴대폰번호
         </label>
         <Field className={styles.field} id="phonenumber" name="phonenumber" />
