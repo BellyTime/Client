@@ -1,1 +1,1 @@
-export const baseURL = "http://www.bellytime.kr/"
+export const baseURL = "https://backend.bellytime.kr";

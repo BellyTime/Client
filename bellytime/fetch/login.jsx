@@ -1,13 +1,16 @@
 import axios from "axios";
 
-export const login = async ({ values }) => {
+export const login = async (values) => {
   const URL = `/login`;
   try {
-    await axios.post(URL, values, {
+    const response = await axios.post(URL, values, {
       headers: {
-        "Content-Type": "multipart/form-data",
+        "Content-Type": "application/json",
       },
+      withCredentials: true,
     });
+    console.log(response.data.accessToken);
+    window.localStorage.setItem("accessToken", response.data.accessToken);
   } catch (e) {
     console.log(e);
   }

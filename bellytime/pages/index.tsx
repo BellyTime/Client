@@ -8,13 +8,11 @@ import { Link } from "components";
 const Home: NextPage = () => {
   return (
     <div className={styles.container}>
-      
-        <footer className={styles.footer}>sd</footer>
-       
-            <p>
-              <Link href="/memberPage">로그인 및 회원가입</Link>
-            </p>
-   
+      <Link href="/memberPage">로그인 및 회원가입</Link>
+      <Link href="/check">체크</Link>
+      <Link href="/memberPage">로그인 및 회원가입</Link>
+
+      <footer className={styles.footer}>sd</footer>
     </div>
   );
 };
