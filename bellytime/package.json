@@ -14,6 +14,7 @@
     "@hookform/resolvers": "^2.7.1",
     "axios": "^0.25.0",
     "bcryptjs": "^2.4.3",
+    "d3-shape": "^3.1.0",
     "express-jwt": "^6.1.0",
     "formik": "^2.2.9",
     "jsonwebtoken": "^8.5.1",
