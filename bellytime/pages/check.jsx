@@ -1,9 +1,8 @@
 import axios from "axios";
-import { useEffect } from "react";
-const headers = new Headers({
-  "Content-Type": "application/json",
-});
+import { useEffect, useState } from "react";
+
 const Check = () => {
+  const [accessToken, setToken] = useState("");
   useEffect(() => {
     console.log(
       "access : ",
@@ -12,15 +11,14 @@ const Check = () => {
       document.cookie
     );
     if (window.localStorage.getItem("accessToken")) {
-      headers.append(
-        "Authorization",
-        "Bearer " + window.localStorage.getItem("accessToken")
-      );
+      setToken(window.localStorage.getItem("accessToken"));
     }
   }, []);
   const check = async () => {
     const checkitout = await axios.get("/check", {
-      headers: headers,
+      headers: {
+        Authorization: "Bearer " + accessToken,
+      },
       withCredentials: true,
     });
     console.log(checkitout);
