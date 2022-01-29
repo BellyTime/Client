@@ -3,12 +3,13 @@ import type { AppProps } from "next/app";
 import "tailwindcss/tailwind.css";
 import axios from "axios";
 import { baseURL } from "@/static/data";
+import { Navbar } from "components";
 function MyApp(
   { Component, pageProps }: AppProps,
   navigator: Navigator,
   window: Window
 ) {
-  axios.defaults.baseURL = baseURL;
+  // axios.defaults.baseURL = baseURL;
   if ("serviceWorker" in navigator) {
     navigator.serviceWorker
       .register("/service-worker.js")
@@ -20,12 +21,15 @@ function MyApp(
       });
   }
   return (
-    <Component {...pageProps}>
-      <meta
-        name="viewport"
-        content="minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no, user-scalable=no, viewport-fit=cover"
-      />
-    </Component>
+    <>
+      <Component {...pageProps}>
+        <meta
+          name="viewport"
+          content="minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no, user-scalable=no, viewport-fit=cover"
+        />
+      </Component>
+      <Navbar/>
+    </>
   );
 }
 

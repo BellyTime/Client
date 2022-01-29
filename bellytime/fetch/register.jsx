@@ -6,7 +6,7 @@ export const register = async ( values ) => {
   try {
     await axios.post(URL, values, {
       headers: {
-        "Content-Type": "application/json",
+        "Content-Type": "multipart/form-data",
       },
     });
   } catch (e) {

@@ -1,6 +1,15 @@
 import { arc } from "d3-shape";
 import { scaleLinear } from "d3-scale";
-const Gauge = ({ value = 50, min = 0, max = 100, label, units }) => {
+const Gauge = ({
+  value,
+  min = 0,
+  max = 100,
+  label,
+  units,
+  predictDate,
+  leftDays,
+  foodImg,
+}) => {
   const backgroundArc = arc()
     .innerRadius(0.65)
     .outerRadius(1)
@@ -30,6 +39,10 @@ const Gauge = ({ value = 50, min = 0, max = 100, label, units }) => {
         <path d={backgroundArc} fill="#dbdbe7" />{" "}
         <path d={filledArc} fill="#9980FA" />
       </svg>
+      <img src={foodImg} className="h-20 w-20" />
+      <label>{label}</label>
+      <label>{predictDate}</label>
+      <label>{leftDays}</label>
     </div>
   );
 };
