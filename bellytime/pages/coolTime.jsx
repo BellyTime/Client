@@ -3,12 +3,11 @@ import { fetchCoolTime } from "../fetch/coolTimeList";
 import { useEffect } from "react";
 import { useState } from "react";
 import { Modal } from "@/components";
-import { useRef } from "react";
-// import { toggleModal } from "../util/toggleModal";
-
+import { useRecoilState } from "recoil";
+import { modalState } from "../state/atom";
 const CoolTime = () => {
   const [coolTimeData, setCoolTimeData] = useState(null);
-  const [showModal, setShowModal] = useState(false);
+  const [showModal, setShowModal] = useRecoilState(modalState);
   useEffect(() => {
     fetching();
   }, []);
@@ -40,7 +39,7 @@ const CoolTime = () => {
             )
           )}
       </div>
-      {showModal && <Modal status={showModal} />}
+      {showModal && <Modal setShowModal={setShowModal} />}
     </>
   );
 };

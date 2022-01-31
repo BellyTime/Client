@@ -4,6 +4,7 @@ import "tailwindcss/tailwind.css";
 import axios from "axios";
 import { baseURL } from "@/static/data";
 import { Navbar } from "components";
+import { RecoilRoot } from "recoil";
 function MyApp(
   { Component, pageProps }: AppProps,
   navigator: Navigator,
@@ -22,13 +23,15 @@ function MyApp(
   }
   return (
     <>
-      <Component {...pageProps}>
-        <meta
-          name="viewport"
-          content="minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no, user-scalable=no, viewport-fit=cover"
-        />
-      </Component>
-      <Navbar/>
+      <RecoilRoot>
+        <Component {...pageProps}>
+          <meta
+            name="viewport"
+            content="minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no, user-scalable=no, viewport-fit=cover"
+          />
+        </Component>
+        <Navbar />
+      </RecoilRoot>
     </>
   );
 }
