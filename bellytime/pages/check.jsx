@@ -15,12 +15,13 @@ const Check = () => {
     }
   }, []);
   const check = async () => {
-    const checkitout = await axios.get("/check", {
-      headers: {
-        Authorization: "Bearer " + accessToken,
-      },
-      withCredentials: true,
-    });
+    const checkitout = await axios.get("https://backend.bellytime.kr/check")
+    //   {
+    //   headers: {
+    //     Authorization: "Bearer " + accessToken,
+    //   },
+    //   withCredentials: true,
+    // });
     console.log(checkitout);
   };
   return <button onClick={() => check()}>체크버튼</button>;

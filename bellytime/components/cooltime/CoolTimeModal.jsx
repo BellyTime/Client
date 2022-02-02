@@ -1,14 +1,19 @@
 import { Subject } from "../modal/Subject";
 import { ModalButton } from "..";
 import { DurationModify } from "..";
+import { modalState, setCoolTimeState } from "@/state/atom";
+import { useRecoilValue } from "recoil";
+import { Calender } from "..";
+import { SearchFood } from "./SearchFood";
 const CoolTimeModal = ({
-  setShowModal,
+  setModal,
+  setModalContent,
   subject,
   content,
-  setModify,
-  setModalContent,
-  modify,
+  setAlert,
 }) => {
+  const modal = useRecoilValue(modalState);
+  const coolTimeSet = useRecoilValue(setCoolTimeState);
   return (
     <div
       className={
@@ -20,12 +25,13 @@ const CoolTimeModal = ({
       <div className="relative px-4 w-full max-w-lg h-full md:h-auto">
         <div className="relative bg-white rounded-lg shadow dark:bg-gray-700">
           <div className="flex justify-between items-center p-5 rounded-t border-b dark:border-gray-600">
-            {subject && <Subject subject={subject} />}
+            {subject && <Subject subject={subject} coolTimeSet={coolTimeSet} />}
+
             <button
               type="button"
               className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white"
               data-modal-toggle="medium-modal"
-              onClick={() => setShowModal(false)}
+              onClick={() => setModal(false)}
             >
               <svg
                 className="w-5 h-5"
@@ -43,40 +49,64 @@ const CoolTimeModal = ({
           </div>
 
           <div className="p-6 space-y-6">
-            {!modify ?
+            {(modal == "삭제" || modal == "열림") &&
               content.map((el) => (
-              <p
-                key={el}
-                className="text-base leading-relaxed text-gray-500 dark:text-gray-400"
-              >
-                {el}
-              </p>
-            )):<DurationModify/>}
+                <p
+                  key={el}
+                  className="text-base leading-relaxed text-gray-500 dark:text-gray-400"
+                >
+                  {el}
+                </p>
+              ))}
+            {modal == "수정" && <DurationModify />}
+            {modal == "추가" && (
+              <>
+                <SearchFood />
+                <Calender />
+              </>
+            )}
           </div>
 
           <div className="flex items-center p-6 space-x-2 rounded-b border-t border-gray-200 dark:border-gray-600">
-            {!modify ? (
+            {(modal == "열림" || modal == "삭제") && (
               <>
                 <ModalButton
                   onClick={() => {
-                    setModify((modify) => !modify);
-                    
+                    setModal("수정");
+                    setModalContent(["쿨타임 수정"]);
                   }}
                   label={"쿨타임수정"}
                   modal={"medium-modal"}
                 />
                 <ModalButton
-                  onClick={() => setShowModal((modal) => !modal)}
+                  onClick={() => {
+                    setModal("삭제");
+                    setAlert(true);
+                  }}
                   label={"쿨타임 삭제"}
                   modal={"medium-modal"}
                 />
               </>
-            ) : (
-              <ModalButton
-                onClick={() => console.log("수정 완료")}
-                label={"확인"}
-                modal={"medium-modal"}
-              />
+            )}{" "}
+            {modal == "수정" && (
+              <>
+                <ModalButton
+                  onClick={() => {
+                    setAlert(true);
+                  }}
+                  label={"확인"}
+                  modal={"medium-modal"}
+                />
+                <ModalButton
+                  onClick={() => {
+                    console.log("닫기");
+                    setModal(false);
+                    //모달창 닫기
+                  }}
+                  label={"취소"}
+                  modal={"medium-modal"}
+                />
+              </>
             )}
           </div>
         </div>

@@ -2,9 +2,10 @@ import "../styles/globals.css";
 import type { AppProps } from "next/app";
 import "tailwindcss/tailwind.css";
 import axios from "axios";
-import { baseURL } from "@/static/data";
+import { baseURL } from "@/public/static/data";
 import { Navbar } from "components";
-import { RecoilRoot } from "recoil";
+import { RecoilRoot } from "recoil"; 
+
 function MyApp(
   { Component, pageProps }: AppProps,
   navigator: Navigator,

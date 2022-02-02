@@ -1,45 +1,74 @@
-import Gauge from "../components/Gauge";
-import { fetchCoolTime } from "../fetch/coolTimeList";
-import { useEffect, useState, useRef } from "react";
-import { useRecoilState } from "recoil";
-import { modalState, modifyState, modalContentState } from "../state/atom";
-import { CoolTimeModal} from "@/components";
+import Gauge from "@/components/Gauge";
+import { getCoolTime } from "../fetch/coolTime/coolTimeList";
+import { useEffect, useState } from "react";
+import { useRecoilState, useSetRecoilState } from "recoil";
+import {
+  modalState,
+  modalContentState,
+  alertState,
+  setCoolTimeState,
+} from "../state/atom";
+import { CoolTimeModal, AlertModal, Calender } from "@/components";
+import { ModalButton } from "@/components";
 
 const CoolTime = () => {
-  const [coolTimeData, setCoolTimeData] = useState(null);
-  const [showModal, setShowModal] = useRecoilState(modalState);
-  const [modify, setModify] = useRecoilState(modifyState);
+  const [coolTimeList, setCoolTimeList] = useState(null);
+  const [modal, setModal] = useRecoilState(modalState);
   const [modalContent, setModalContent] = useRecoilState(modalContentState);
+  const [alert, setAlert] = useRecoilState(alertState);
+  const setCoolTimeSet = useSetRecoilState(setCoolTimeState);
   useEffect(() => {
     fetching();
   }, []);
   const fetching = async () => {
-    const fetchList = await fetchCoolTime();
+    const fetchList = await getCoolTime();
     console.log(fetchList);
-    setCoolTimeData(fetchList);
+    setCoolTimeList(fetchList);
   };
 
   return (
     <>
+      <ModalButton
+        onClick={() => {
+          setModal("추가");
+          setModalContent(["쿨타임 추가"]);
+        }}
+        label={"쿨타임 추가하기"}
+      />
       <div className="flex">
-        {coolTimeData &&
-          coolTimeData.map(
-            ({ foodId, name, gauge, foodImg, predictDate, leftDays }) => (
+        {coolTimeList &&
+          coolTimeList.map(
+            ({
+              foodId,
+              foodName,
+              gauge,
+              foodImg,
+              predictDate,
+              leftDays,
+              startDate,
+              duration,
+            }) => (
               <div
                 key={foodId}
                 className="flex-1"
                 onClick={() => {
-                  setShowModal(true);
-                  setModalContent(
-                    ["쿨타임 예정일",
+                  setModal("열림");
+                  setModalContent([
+                    "쿨타임 예정일",
                     predictDate,
-                     `(${leftDays}일남음)`]
-                  );
+                    `(${leftDays}일남음)`,
+                  ]);
+                  setCoolTimeSet({
+                    foodId,
+                    foodName,
+                    startDate,
+                    duration,
+                  });
                 }}
               >
                 <Gauge
                   value={gauge}
-                  label={name}
+                  label={foodName}
                   predictDate={predictDate}
                   leftDays={leftDays}
                   foodImg={foodImg}
@@ -48,18 +77,23 @@ const CoolTime = () => {
             )
           )}
       </div>
-      {showModal && (
+      {modal && (
         <CoolTimeModal
-          setShowModal={setShowModal}
-          setModify={setModify}
-          setModalContent = {setModalContent}
+          modal={modal}
+          setModal={setModal}
+          setModalContent={setModalContent}
           subject={modalContent[0]}
           content={modalContent.slice(1)}
-          modify={modify}
-
+          setAlert={setAlert}
         />
       )}
-
+      {alert && (
+        <AlertModal
+          content={`${modal} 하시겠습니까?`}
+          setAlert={setAlert}
+          setModal={setModal}
+        />
+      )}
     </>
   );
 };

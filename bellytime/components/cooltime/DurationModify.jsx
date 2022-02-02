@@ -1,10 +1,10 @@
+import { useRecoilValue } from "recoil";
+import { setCoolTimeState } from "@/state/atom";
 
 const DurationModify = () => {
-    return (
-        <>
-            hi
-        </>
-    )
-}
+  const coolTimeSet = useRecoilValue(setCoolTimeState);
 
-export {DurationModify}
+  return <>{coolTimeSet.duration}</>;
+};
+
+export { DurationModify };
