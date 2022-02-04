@@ -1,7 +1,7 @@
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import { loginSchema } from "./validation/loginSchema";
 import { handleOauth } from "../fetch/oauthLogin";
-import { baseURL } from "static/data";
+import { baseURL } from "@/public/static/data";
 import {login} from "../fetch/login";
 export const LoginForm = ({ styles }) => (
   <>

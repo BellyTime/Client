@@ -10,9 +10,7 @@ const Home: NextPage = () => {
     <div className={styles.container}>
       <Link href="/memberPage">로그인 및 회원가입</Link>
       <Link href="/check">체크</Link>
-      <Link href="/coolTime">쿨타임설정</Link>
 
-      <footer className={styles.footer}>sd</footer>
     </div>
   );
 };

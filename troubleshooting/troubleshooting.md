@@ -22,3 +22,21 @@ It seems to work that way :
 Install webpack@5 at the root of the monorepo yarn add -W -D webpack
 Add webpack: "*" in peerDependencies of your package.
 ✅
+
+
+4.https://github.com/GoogleChrome/workbox/issues/1790
+As specified in https://www.npmjs.com/package/next-pwa?activeTab=readme#configuration
+
+You can also do:
+
+const withPWA = require('next-pwa')
+ 
+module.exports = withPWA({
+  pwa: {
+    disable: process.env.NODE_ENV === 'development',
+    register: true,
+    scope: '/app',
+    sw: 'service-worker.js',
+    //...
+  }
+})
