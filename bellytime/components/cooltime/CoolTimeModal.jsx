@@ -2,9 +2,10 @@ import { Subject } from "../modal/Subject";
 import { ModalButton } from "..";
 import { DurationModify } from "..";
 import { modalState, setCoolTimeState } from "@/state/atom";
-import { useRecoilValue } from "recoil";
+import { useRecoilState,useRecoilValue } from "recoil";
 import { Calender } from "..";
 import { SearchFood } from "./SearchFood";
+
 const CoolTimeModal = ({
   setModal,
   setModalContent,
@@ -13,7 +14,7 @@ const CoolTimeModal = ({
   setAlert,
 }) => {
   const modal = useRecoilValue(modalState);
-  const coolTimeSet = useRecoilValue(setCoolTimeState);
+  const [coolTimeSet, setCoolTimeSet] = useRecoilState(setCoolTimeState);
   return (
     <div
       className={
@@ -62,7 +63,9 @@ const CoolTimeModal = ({
             {modal == "추가" && (
               <>
                 <SearchFood />
-                <Calender />
+                <Calender setCoolTimeSet={setCoolTimeSet} />
+                <div>시작일:{coolTimeSet.startDate}</div>
+                <DurationModify />
               </>
             )}
           </div>
@@ -89,6 +92,26 @@ const CoolTimeModal = ({
               </>
             )}{" "}
             {modal == "수정" && (
+              <>
+                <ModalButton
+                  onClick={() => {
+                    setAlert(true);
+                  }}
+                  label={"확인"}
+                  modal={"medium-modal"}
+                />
+                <ModalButton
+                  onClick={() => {
+                    console.log("닫기");
+                    setModal(false);
+                    //모달창 닫기
+                  }}
+                  label={"취소"}
+                  modal={"medium-modal"}
+                />
+              </>
+            )}
+            {modal == "추가" && (
               <>
                 <ModalButton
                   onClick={() => {

@@ -1,15 +1,21 @@
 import Gauge from "@/components/Gauge";
-import { getCoolTime } from "../fetch/coolTime/coolTimeList";
+import { getCoolTime } from "../fetch/coolTime/getcoolTime";
 import { useEffect, useState } from "react";
-import { useRecoilState, useSetRecoilState } from "recoil";
+import {
+  useRecoilState,
+  useSetRecoilState,
+  useRecoilValue,
+  useResetRecoilState,
+} from "recoil";
 import {
   modalState,
   modalContentState,
   alertState,
   setCoolTimeState,
 } from "../state/atom";
-import { CoolTimeModal, AlertModal, Calender } from "@/components";
+import { CoolTimeModal, AlertModal } from "@/components";
 import { ModalButton } from "@/components";
+import { deleteCoolTime, setCoolTime } from "@/fetch";
 
 const CoolTime = () => {
   const [coolTimeList, setCoolTimeList] = useState(null);
@@ -17,13 +23,27 @@ const CoolTime = () => {
   const [modalContent, setModalContent] = useRecoilState(modalContentState);
   const [alert, setAlert] = useRecoilState(alertState);
   const setCoolTimeSet = useSetRecoilState(setCoolTimeState);
+  const coolTimeSet = useRecoilValue(setCoolTimeState);
+  const resetCoolTimeSet = useResetRecoilState(setCoolTimeState);
   useEffect(() => {
     fetching();
   }, []);
+  useEffect(() => {
+    console.log(coolTimeSet);
+  }, [coolTimeSet]);
   const fetching = async () => {
     const fetchList = await getCoolTime();
-    console.log(fetchList);
     setCoolTimeList(fetchList);
+  };
+  const alertFunc = async () => {
+    if (modal == "수정" || modal == "추가") {
+      await setCoolTime(coolTimeSet);
+      
+    } else if (modal == "삭제") {
+      await deleteCoolTime({ foodId: coolTimeSet.foodId });
+
+    }
+    
   };
 
   return (
@@ -32,6 +52,7 @@ const CoolTime = () => {
         onClick={() => {
           setModal("추가");
           setModalContent(["쿨타임 추가"]);
+          resetCoolTimeSet();
         }}
         label={"쿨타임 추가하기"}
       />
@@ -92,6 +113,7 @@ const CoolTime = () => {
           content={`${modal} 하시겠습니까?`}
           setAlert={setAlert}
           setModal={setModal}
+          func={alertFunc}
         />
       )}
     </>

@@ -1,5 +1,10 @@
 import { modifyCoolTime } from "@/fetch";
-export const AlertModal = ({ content, setAlert, setModal }) => {
+import { useEffect, useState } from "react";
+export const AlertModal = ({ content, setAlert, setModal, func }) => {
+  const [location, setLocation] = useState(null);
+  useEffect(() => {
+    setLocation(window.location);
+  }, []);
   return (
     <div
       className="overflow-y-auto overflow-x-hidden fixed right-0 left-0 top-4 z-50 justify-center items-center md:inset-0 h-modal sm:h-full"
@@ -12,7 +17,7 @@ export const AlertModal = ({ content, setAlert, setModal }) => {
               type="button"
               className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-800 dark:hover:text-white"
               data-modal-toggle="popup-modal"
-              onClick={()=>setAlert(false)}
+              onClick={() => setAlert(false)}
             >
               <svg
                 className="w-5 h-5"
@@ -54,6 +59,8 @@ export const AlertModal = ({ content, setAlert, setModal }) => {
               onClick={() => {
                 setAlert(false);
                 setModal(false);
+                func();
+                location && location.reload();
               }}
             >
               네
@@ -64,7 +71,6 @@ export const AlertModal = ({ content, setAlert, setModal }) => {
               className="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:ring-gray-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600"
               onClick={() => {
                 setAlert(false);
-                setModal(false);
               }}
             >
               아니요

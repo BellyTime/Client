@@ -10,16 +10,23 @@ import {
   getDay,
 } from "date-fns";
 
-export const Calender = () => {
+export const Calender = ({ setCoolTimeSet }) => {
   const DAYS = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
   const [dayCount, setDayCount] = useState([]);
   const [blankDays, setBlankDays] = useState([]);
   const [datepickerHeaderDate, setDatepickerHeaderDate] = useState(new Date());
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [type, setType] = useState("date");
+
   useEffect(() => {
     console.log(format(selectedDate, "yyyy-MM-dd"));
+
+    setCoolTimeSet((state) => ({
+      ...state,
+      startDate: format(selectedDate, "yyyy-MM-dd"),
+    }));
   }, [selectedDate]);
+
   const decrement = () => {
     switch (type) {
       case "date":
@@ -62,7 +69,7 @@ export const Calender = () => {
         date
       )
     );
-    setShowDatepicker(false);
+    // setShowDatepicker(false);
   };
 
   const getDayCount = (date) => {
