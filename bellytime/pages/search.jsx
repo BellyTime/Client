@@ -1,3 +1,9 @@
+import { useEffect, useState } from "react";
+import { SearchInput } from "../components";
 export default function Search() {
-  return <div>검색페이지입니다</div>;
+  return (
+    <div>
+      <SearchInput />
+    </div>
+  );
 }
