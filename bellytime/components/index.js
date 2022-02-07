@@ -7,3 +7,5 @@ export * from "./cooltime/DurationModify";
 export * from "./modal/ModalButton";
 export * from "./AlertModal";
 export * from "./Calender";
+export * from "./search/SearchInput";
+export * from "./followingShop/Shop";
