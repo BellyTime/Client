@@ -1,0 +1,29 @@
+{
+  "dateList": [
+    {
+      "day": 1,
+      "data": [
+        { "foodName": "apple", "foodId": 1, "foodImg": "/static/icon.png" },
+        { "foodName": "asd", "foodId": 2, "foodImg": "/static/icon.png" },
+        { "foodName": "fdsa", "foodId": 3, "foodImg": "/static/icon.png" }
+      ]
+    },
+    {
+      "day": 2,
+      "data": [
+        { "foodName": "asdf", "foodId": 4, "foodImg": "/static/icon.png" },
+        { "foodName": "rewr", "foodId": 5, "foodImg": "/static/icon.png" },
+        { "foodName": "asdf", "foodId": 6, "foodImg": "/static/icon.png" }
+      ]
+    },
+    {
+      "day": 10,
+      "data": [
+        { "foodName": "adh", "foodId": 73, "foodImg": "/static/icon.png" },
+        { "foodName": "asdfe", "foodId": 8, "foodImg": "/static/icon.png" },
+        { "foodName": "awele", "foodId": 5, "foodImg": "/static/icon.png" }
+      ]
+    }
+  ],
+  "flag": [true, true, true]
+}

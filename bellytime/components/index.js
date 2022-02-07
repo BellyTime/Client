@@ -9,3 +9,5 @@ export * from "./AlertModal";
 export * from "./Calender";
 export * from "./search/SearchInput";
 export * from "./followingShop/Shop";
+export * from "./myPage/Profile";
+export * from "./myPage/CooltimeCalender";
