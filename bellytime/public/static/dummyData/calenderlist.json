@@ -25,5 +25,24 @@
       ]
     }
   ],
-  "flag": [true, true, true]
+  "8": [
+    {
+      "foodName": "adh",
+      "foodId": 73,
+      "foodImg": "/static/icon.png",
+      "eat": true
+    },
+    {
+      "foodName": "asdfe",
+      "foodId": 8,
+      "foodImg": "/static/icon.png",
+      "eat": true
+    },
+    {
+      "foodName": "awele",
+      "foodId": 5,
+      "foodImg": "/static/icon.png",
+      "eat": true
+    }
+  ]
 }

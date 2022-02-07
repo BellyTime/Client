@@ -15,6 +15,7 @@ export const CooltimeCalender = ({
   setCoolTimeDate,
   setYearAndMonth,
   yearAndMonth,
+  setIsToday,
 }) => {
   const DAYS = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
   const [dayCount, setDayCount] = useState([]);
@@ -65,7 +66,7 @@ export const CooltimeCalender = ({
       selectedDate
     );
 
-  const setDateValue = (date) => () => {
+  const setDateValue = (date) => {
     setSelectedDate(
       new Date(
         datepickerHeaderDate.getFullYear(),
@@ -220,7 +221,18 @@ export const CooltimeCalender = ({
                           className="px-1 mb-1"
                         >
                           <div
-                            onClick={setDateValue(d)}
+                            onClick={() => {
+                              setDateValue(d);
+                              setIsToday(
+                                datepickerHeaderDate.getMonth() ==
+                                  new Date().getMonth() &&
+                                  datepickerHeaderDate.getFullYear() ==
+                                    new Date().getFullYear() &&
+                                  new Date().getDate() == d
+                                  ? true
+                                  : false
+                              );
+                            }}
                             className={`cursor-pointer text-center text-sm leading-none rounded-full leading-loose transition ease-in-out duration-100 ${
                               isToday(d)
                                 ? "bg-blue-500 text-white"

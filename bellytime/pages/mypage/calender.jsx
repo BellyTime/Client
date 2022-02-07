@@ -7,10 +7,11 @@ export default function CoolTimeCalender() {
   const [yearAndMonth, setYearAndMonth] = useState({ year: "", month: "" }); //갖고올 연도와 월 설정
   const [coolTimeData, setCoolTimeData] = useState(null);
   const [coolTimeOfDay, setCoolTimeOfDay] = useState(null);
+  const [isToday, setIsToday] = useState(true);
   useEffect(() => {
     getCalender(setTodayCheck, setCoolTimeData);
     return () => {
-      postTodayCheck(todayCheck);
+      postTodayCheck(todayCheck); //형태 변환할것 [{foodId,eat}]
     };
   }, []);
   useEffect(() => {
@@ -21,16 +22,22 @@ export default function CoolTimeCalender() {
   useEffect(() => {
     console.log(coolTimeOfDay);
   }, [coolTimeOfDay]);
+  useEffect(() => {
+    console.log(isToday);
+  }, [isToday]);
   return (
     <>
       <CooltimeCalender
         setCoolTimeDate={setCoolTimeDate}
         setYearAndMonth={setYearAndMonth}
         yearAndMonth={yearAndMonth}
+        setIsToday={setIsToday}
       />
       {
         // coolTimeOfDay?.length && JSON.stringify(coolTimeOfDay.data, 0, 4)
-        coolTimeOfDay?.length ? JSON.stringify(coolTimeOfDay.data, 0, 4) : "없음"
+        coolTimeOfDay?.length
+          ? JSON.stringify(coolTimeOfDay.data, 0, 4)
+          : "없음"
         //     coolTimeOfDay.data?.map(({ foodName, foodId, foodImg }) => (
         //       <div key={foodId}>
         //             <p>{foodName}</p>
@@ -38,6 +45,13 @@ export default function CoolTimeCalender() {
         //       </div>
         //     ))}
         //   <div>안녕</div>
+      }
+      {
+        //isToday&&
+        //todayCheck.map({}=>{
+        //
+        //})
+        //
       }
     </>
   );
