@@ -8,7 +8,7 @@ const Navbar = () => {
       <Icon href="/search" iconImg="/icons/search.png" />
       <Icon href="/coolTime" iconImg="/icons/clock.png" />
       <Icon href="/" iconImg="/icons/chat-alt-2.png" />
-      <Icon href="/" iconImg="/icons/user.png" />
+      <Icon href="/mypage" iconImg="/icons/user.png" />
     </div>
   );
 };
