@@ -5,7 +5,7 @@ export const Shop = ({ shopName, imgSrc, shopId, setUnfollow, unfollow }) => {
   const canvasRef = useRef();
   const imgRef = useRef();
   useEffect(() => {
-    drawCanvas(canvasRef, imgRef, imgSrc);
+    drawCanvas(100, 100, canvasRef, imgRef, imgSrc);
   }, []);
   return (
     <div>

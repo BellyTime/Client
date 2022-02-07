@@ -10,7 +10,12 @@ import {
   getDay,
 } from "date-fns";
 
-export const Calender = ({ setCoolTimeSet }) => {
+export const CooltimeCalender = ({
+  setTodayCheck,
+  setCoolTimeDate,
+  setYearAndMonth,
+  yearAndMonth,
+}) => {
   const DAYS = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
   const [dayCount, setDayCount] = useState([]);
   const [blankDays, setBlankDays] = useState([]);
@@ -19,22 +24,21 @@ export const Calender = ({ setCoolTimeSet }) => {
   const [type, setType] = useState("date");
 
   useEffect(() => {
-    console.log(format(selectedDate, "yyyy-MM-dd"));
-
-    setCoolTimeSet((state) => ({
-      ...state,
-      startDate: format(selectedDate, "yyyy-MM-dd"),
-    }));
-  }, [selectedDate]);
+    setYearAndMonth({
+      year: datepickerHeaderDate.getFullYear(),
+      month: datepickerHeaderDate.getMonth() + 1,
+    });
+  }, [datepickerHeaderDate]);
 
   const decrement = () => {
     switch (type) {
       case "date":
         setDatepickerHeaderDate((prev) => subMonths(prev, 1));
         break;
-      case "month":
+      case "month": {
         setDatepickerHeaderDate((prev) => subYears(prev, 1));
         break;
+      }
       case "year":
         setDatepickerHeaderDate((prev) => subMonths(prev, 1));
         break;
@@ -70,6 +74,7 @@ export const Calender = ({ setCoolTimeSet }) => {
       )
     );
     // setShowDatepicker(false);
+    setCoolTimeDate(date);
   };
 
   const getDayCount = (date) => {
