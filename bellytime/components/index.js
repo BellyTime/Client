@@ -11,3 +11,4 @@ export * from "./search/SearchInput";
 export * from "./followingShop/Shop";
 export * from "./myPage/Profile";
 export * from "./myPage/CooltimeCalender";
+export * from "./followingFriend/Friend";

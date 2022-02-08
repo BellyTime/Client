@@ -1,27 +1,33 @@
 import { useEffect, useRef } from "react";
-import { drawCanvas } from "./drawCanvas";
+import { drawCanvas } from "../followingShop/drawCanvas";
 import { Link } from "..";
-export const Shop = ({ shopName, imgSrc, shopId, setUnfollow, unfollow }) => {
+export const Friend = ({
+  name,
+  profileImg,
+  friendId,
+  setUnfollow,
+  unfollow,
+}) => {
   const canvasRef = useRef();
   const imgRef = useRef();
   useEffect(() => {
-    drawCanvas(100, 100, canvasRef, imgRef, imgSrc);
+    drawCanvas(100, 100, canvasRef, imgRef, profileImg);
   }, []);
   return (
     <div>
       <img ref={imgRef} />
       <canvas ref={canvasRef} />
-      <p>{shopName}</p>
+      <p>{name}</p>
+      <Link href="#">쿨타임</Link>
       <Link href="#">채팅</Link>
-
       <button
         onClick={() => {
-          if (unfollow.includes(shopId)) {
+          if (unfollow.includes(friendId)) {
             setUnfollow((unfollow) =>
-              unfollow.filter((element) => element !== shopId)
+              unfollow.filter((element) => element !== friendId)
             );
           } else {
-            setUnfollow((unfollow) => [...unfollow, shopId]);
+            setUnfollow((unfollow) => [...unfollow, friendId]);
           }
         }}
       >
