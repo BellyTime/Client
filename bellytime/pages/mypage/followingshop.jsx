@@ -7,7 +7,7 @@ export default function FollowingShop() {
   useEffect(() => {
     followingShopList(setFollowingShops);
     return () => {
-      unfollowShop(unfollow);
+      if (unfollow.length) unfollowShop(unfollow);
     };
   }, []);
   useEffect(() => {

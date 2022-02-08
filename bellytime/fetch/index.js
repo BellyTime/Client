@@ -6,3 +6,5 @@ export * from "./myPage/followingShop/unfollowShop";
 export * from "./myPage/getMyProfile";
 export * from "./myPage/calender/getCalender";
 export * from "./myPage/calender/postTodayCheck";
+export * from "./myPage/followingFriend/followingFriendList";
+export * from "./myPage/followingFriend/unfollowFriend";

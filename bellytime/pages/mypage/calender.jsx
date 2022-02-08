@@ -1,4 +1,5 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
+
 import { CooltimeCalender } from "../../components";
 import { getCalender, postTodayCheck } from "../../fetch";
 import { v4 as uuidv4 } from "uuid";
@@ -17,7 +18,7 @@ export default function CoolTimeCalender() {
   useEffect(() => {
     getCalender(setTodayCheck, setCoolTimeData, yearAndMonth, setCheckFood); //오늘데이터, 쿨타임데이터, 쿼리로 보낼 연월
     return () => {
-      postTodayCheck(checkFood); //형태 변환할것 [{foodId,eat}]
+      useCallback(() => postTodayCheck(checkFood), [checkFood]); //형태 변환할것 [{foodId,eat}]
     };
   }, []);
   useEffect(() => {
