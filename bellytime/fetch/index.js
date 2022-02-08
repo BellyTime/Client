@@ -8,3 +8,5 @@ export * from "./myPage/calender/getCalender";
 export * from "./myPage/calender/postTodayCheck";
 export * from "./myPage/followingFriend/followingFriendList";
 export * from "./myPage/followingFriend/unfollowFriend";
+export * from "./myPage/followingFriend/findFriend";
+export * from "./myPage/followingFriend/newFriend";

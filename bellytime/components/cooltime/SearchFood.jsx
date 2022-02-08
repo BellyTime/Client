@@ -35,42 +35,40 @@ export const SearchFood = () => {
         }}
         value={value}
       />
+      <button className="h-10 w-20 text-white rounded-lg bg-red-500 hover:bg-red-600">
+        Search
+      </button>
       <div>
-        <button className="h-10 w-20 text-white rounded-lg bg-red-500 hover:bg-red-600">
-          Search
-        </button>
-        <div>
-          {searchData.length ? (
-            <div>
-              {searchData.map(({ foodId, foodName }) => (
-                <p
-                  onClick={() => {
-                    setCoolTimeSet((state) => {
-                      return { ...state, foodId, foodName };
-                    });
-                  }}
-                  key={foodId}
-                >
-                  {foodName}
-                </p>
-              ))}
-            </div>
-          ) : value ? (
-            <p
-              onClick={() => {
-                setCoolTimeSet((state) => {
-                  return { ...state, foodId: 99999999, foodName: value };
-                });
-              }}
-            >
-              {value}
-            </p>
-          ) : (
-            <p>검색결과</p>
-          )}
-        </div>
-        <div>음식:{coolValue.foodName}</div>
+        {searchData.length ? (
+          <div>
+            {searchData.map(({ foodId, foodName }) => (
+              <p
+                onClick={() => {
+                  setCoolTimeSet((state) => {
+                    return { ...state, foodId, foodName };
+                  });
+                }}
+                key={foodId}
+              >
+                {foodName}
+              </p>
+            ))}
+          </div>
+        ) : value ? (
+          <p
+            onClick={() => {
+              setCoolTimeSet((state) => {
+                return { ...state, foodId: 99999999, foodName: value };
+              });
+            }}
+          >
+            {value}
+          </p>
+        ) : (
+          <p>검색결과</p>
+        )}
       </div>
+      <div>음식:{coolValue.foodName}</div>
     </div>
   );
 };

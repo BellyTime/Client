@@ -2,7 +2,7 @@ import { Subject } from "../modal/Subject";
 import { ModalButton } from "..";
 import { DurationModify } from "..";
 import { modalState, setCoolTimeState } from "@/state/atom";
-import { useRecoilState,useRecoilValue } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import { Calender } from "..";
 import { SearchFood } from "./SearchFood";
 
@@ -26,7 +26,7 @@ const CoolTimeModal = ({
       <div className="relative px-4 w-full max-w-lg h-full md:h-auto">
         <div className="relative bg-white rounded-lg shadow dark:bg-gray-700">
           <div className="flex justify-between items-center p-5 rounded-t border-b dark:border-gray-600">
-            {subject && <Subject subject={subject} coolTimeSet={coolTimeSet} />}
+            {subject && <Subject subject={subject} />}
 
             <button
               type="button"

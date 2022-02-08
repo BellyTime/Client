@@ -12,3 +12,7 @@ export * from "./followingShop/Shop";
 export * from "./myPage/Profile";
 export * from "./myPage/CooltimeCalender";
 export * from "./followingFriend/Friend";
+export * from "./SearchBar";
+export * from "./followingFriend/SearchFriend";
+export * from "./Modal";
+export * from "./followingFriend/NewFriend";
