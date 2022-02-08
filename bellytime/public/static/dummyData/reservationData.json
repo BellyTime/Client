@@ -1,0 +1,16 @@
+[
+  {
+    "shopId": 14,
+    "shopName": "아리송",
+    "profileImg": "/static/icon.png",
+    "reservedDate": "2022-02-09",
+    "personnel": 5
+  },
+  {
+    "shopId": 15,
+    "shopName": "아라송",
+    "profileImg": "/static/icon.png",
+    "reservedDate": "2022-02-10",
+    "personnel": 5
+  }
+]
