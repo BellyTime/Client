@@ -25,7 +25,7 @@
       ]
     }
   ],
-  "8": [
+  "today": [
     {
       "foodName": "adh",
       "foodId": 73,
@@ -42,7 +42,7 @@
       "foodName": "awele",
       "foodId": 5,
       "foodImg": "/static/icon.png",
-      "eat": true
+      "eat": false
     }
   ]
 }

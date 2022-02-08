@@ -62,7 +62,11 @@ export const CooltimeCalender = ({
 
   const isToday = (date) =>
     isEqual(
-      new Date(selectedDate.getFullYear(), selectedDate.getMonth(), date),
+      new Date(
+        datepickerHeaderDate.getFullYear(),
+        datepickerHeaderDate.getMonth(),
+        date
+      ),
       selectedDate
     );
 

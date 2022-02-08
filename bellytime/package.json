@@ -34,6 +34,7 @@
     "recoil": "^0.6.1",
     "rxjs": "^7.3.0",
     "sw-precache-webpack-plugin": "^1.0.0",
+    "uuid": "^8.3.2",
     "yup": "^0.32.9"
   },
   "devDependencies": {
