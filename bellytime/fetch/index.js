@@ -10,3 +10,6 @@ export * from "./myPage/followingFriend/followingFriendList";
 export * from "./myPage/followingFriend/unfollowFriend";
 export * from "./myPage/followingFriend/findFriend";
 export * from "./myPage/followingFriend/newFriend";
+export * from "./myPage/reservation/getReserveData";
+export * from "./myPage/reservation/getCanceledData";
+export * from "./myPage/reservation/getWaitingData";
