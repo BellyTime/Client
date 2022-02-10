@@ -18,3 +18,7 @@ https://exerror.com/devtools-failed-to-load-sourcemap-could-not-load-content-for
 https://quasar.dev/quasar-cli/developing-pwa/hmr-for-dev
 
 https://stackoverflow.com/questions/55616536/lodash-debounce-in-react-functional-component-not-working
+https://maaani.tistory.com/153
+
+https://stackoverflow.com/questions/55987953/how-do-i-update-states-onchange-in-an-array-of-object-in-react-hooks
+https://stackoverflow.com/questions/35817565/how-to-filter-array-when-object-key-value-is-in-array/35817622

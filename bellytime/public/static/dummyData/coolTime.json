@@ -1,34 +1,42 @@
 [
   {
     "foodId": 1,
-    "name": "피자",
+    "foodName": "피자",
     "gauge": 60,
     "foodImg": "/foodImgs/pizza.png",
     "predictDate": "1/1",
-    "leftDays": "1"
+    "leftDays": "1",
+    "startDate": "12/3",
+    "duration": 23
   },
   {
     "foodId": 2,
-    "name": "피자",
+    "foodName": "피자",
     "gauge": 30,
     "foodImg": "/foodImgs/pizza.png",
     "predictDate": "2/2",
-    "leftDays": "2"
+    "leftDays": "2",
+    "startDate": "12/3",
+    "duration": 23
   },
   {
     "foodId": 3,
-    "name": "피자",
+    "foodName": "피자",
     "gauge": 60,
     "foodImg": "/foodImgs/pizza.png",
     "predictDate": "3/3",
-    "leftDays": "3"
+    "leftDays": "3",
+    "startDate": "12/3",
+    "duration": 23
   },
   {
     "foodId": 4,
-    "name": "피자",
+    "foodName": "피자",
     "gauge": 20,
     "foodImg": "/foodImgs/pizza.png",
     "predictDate": "4/4",
-    "leftDays": "4"
+    "leftDays": "4",
+    "startDate": "12/3",
+    "duration": 23
   }
 ]

@@ -1,20 +1,23 @@
 import { Subject } from "../modal/Subject";
 import { ModalButton } from "..";
 import { DurationModify } from "..";
-import { modalState, setCoolTimeState } from "@/state/atom";
-import { useRecoilState, useRecoilValue } from "recoil";
+// import { modalState, setCoolTimeState } from "@/state/atom";
+// import { useRecoilState, useRecoilValue } from "recoil";
 import { Calender } from "..";
 import { SearchFood } from "./SearchFood";
 
 const CoolTimeModal = ({
+  modal,
   setModal,
   setModalContent,
   subject,
   content,
   setAlert,
+  coolTimeSet,
+  setCoolTimeSet,
 }) => {
-  const modal = useRecoilValue(modalState);
-  const [coolTimeSet, setCoolTimeSet] = useRecoilState(setCoolTimeState);
+  // const modal = useRecoilValue(modalState);
+  // const [coolTimeSet, setCoolTimeSet] = useRecoilState(setCoolTimeState);
   return (
     <div
       className={
@@ -59,13 +62,24 @@ const CoolTimeModal = ({
                   {el}
                 </p>
               ))}
-            {modal == "수정" && <DurationModify />}
+            {modal == "수정" && (
+              <DurationModify
+                coolTimeSet={coolTimeSet}
+                setCoolTimeSet={setCoolTimeSet}
+              />
+            )}
             {modal == "추가" && (
               <>
-                <SearchFood />
+                <SearchFood
+                  setCoolTimeSet={setCoolTimeSet}
+                  coolTimeSet={coolTimeSet}
+                />
                 <Calender setCoolTimeSet={setCoolTimeSet} />
                 <div>시작일:{coolTimeSet.startDate}</div>
-                <DurationModify />
+                <DurationModify
+                  coolTimeSet={coolTimeSet}
+                  setCoolTimeSet={setCoolTimeSet}
+                />
               </>
             )}
           </div>

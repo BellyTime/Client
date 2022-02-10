@@ -4,20 +4,15 @@ import { debounce } from "lodash";
 import { useCallback, useEffect, useState } from "react";
 import { useSetRecoilState, useRecoilValue } from "recoil";
 
-export const SearchFood = () => {
+export const SearchFood = ({ setCoolTimeSet,coolTimeSet }) => {
   const [value, setValue] = useState("");
   const [searchData, setSearchData] = useState("");
-  const setCoolTimeSet = useSetRecoilState(setCoolTimeState);
   const onDebounceChange = useCallback(
     debounce((data) => {
       searchFood(data, setSearchData);
     }, 200),
     []
   );
-  const coolValue = useRecoilValue(setCoolTimeState);
-  useEffect(() => {
-    console.log("ㅠ", coolValue);
-  }, [coolValue]);
 
   return (
     <div className="flex flex-col">
@@ -68,7 +63,7 @@ export const SearchFood = () => {
           <p>검색결과</p>
         )}
       </div>
-      <div>음식:{coolValue.foodName}</div>
+      <div>음식:{coolTimeSet.foodName}</div>
     </div>
   );
 };

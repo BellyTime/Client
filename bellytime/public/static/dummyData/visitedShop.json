@@ -1,0 +1,14 @@
+[
+  {
+    "shopId": 14,
+    "shopName": "아리송",
+    "date": "2022-02-09",
+    "state": "writable"
+  },
+  {
+    "shopId": 15,
+    "shopName": "아라송",
+    "date": "2022-02-10",
+    "state": "readable"
+  }
+]

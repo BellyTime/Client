@@ -1,8 +1,8 @@
 import { useEffect, useRef } from "react";
 import { drawCanvas } from "../followingShop/drawCanvas";
 import { Link } from "..";
-import { newFriend } from "../../fetch";
-export const NewFriend = ({ findedFriend }) => {
+
+export const NewFriend = ({ findedFriend, setNewFriendId, newFriendId }) => {
   const canvasRef = useRef();
   const imgRef = useRef();
   const { name, friendId, profileImg } = findedFriend;
@@ -18,7 +18,11 @@ export const NewFriend = ({ findedFriend }) => {
       <Link href="#">채팅</Link>
       <button
         onClick={() => {
-          newFriend(friendId);
+          if (newFriendId) {
+            setNewFriendId(null);
+          } else {
+            setNewFriendId(friendId);
+          }
         }}
       >
         팔로우 활성/비활성

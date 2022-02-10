@@ -1,9 +1,7 @@
 import { useRecoilState } from "recoil";
 import { setCoolTimeState } from "@/state/atom";
 
-const DurationModify = () => {
-  const [coolTimeSet, setCoolTimeSet] = useRecoilState(setCoolTimeState);
-
+const DurationModify = ({ coolTimeSet, setCoolTimeSet }) => {
   return (
     <div className="flex">
       <button

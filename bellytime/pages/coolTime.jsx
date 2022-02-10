@@ -19,12 +19,17 @@ import { deleteCoolTime, setCoolTime } from "@/fetch";
 
 const CoolTime = () => {
   const [coolTimeList, setCoolTimeList] = useState(null);
-  const [modal, setModal] = useRecoilState(modalState);
-  const [modalContent, setModalContent] = useRecoilState(modalContentState);
-  const [alert, setAlert] = useRecoilState(alertState);
-  const setCoolTimeSet = useSetRecoilState(setCoolTimeState);
-  const coolTimeSet = useRecoilValue(setCoolTimeState);
-  const resetCoolTimeSet = useResetRecoilState(setCoolTimeState);
+  const [modal, setModal] = useState(false);
+  const [modalContent, setModalContent] = useState("");
+  const [alert, setAlert] = useState("");
+  const [coolTimeSet, setCoolTimeSet] = useState({
+    foodId: "",
+    foodName: "",
+    startDate: "",
+    duration: 0,
+  });
+
+
   useEffect(() => {
     fetching();
   }, []);
@@ -38,12 +43,9 @@ const CoolTime = () => {
   const alertFunc = async () => {
     if (modal == "수정" || modal == "추가") {
       await setCoolTime(coolTimeSet);
-      
     } else if (modal == "삭제") {
       await deleteCoolTime({ foodId: coolTimeSet.foodId });
-
     }
-    
   };
 
   return (
@@ -52,7 +54,12 @@ const CoolTime = () => {
         onClick={() => {
           setModal("추가");
           setModalContent(["쿨타임 추가"]);
-          resetCoolTimeSet();
+          setCoolTimeSet({
+            foodId: "",
+            foodName: "",
+            startDate: "",
+            duration: 0,
+          });
         }}
         label={"쿨타임 추가하기"}
       />
@@ -106,6 +113,8 @@ const CoolTime = () => {
           subject={modalContent[0]}
           content={modalContent.slice(1)}
           setAlert={setAlert}
+          coolTimeSet={coolTimeSet}
+          setCoolTimeSet={setCoolTimeSet}
         />
       )}
       {alert && (
