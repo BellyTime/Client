@@ -13,3 +13,5 @@ export * from "./myPage/followingFriend/newFriend";
 export * from "./myPage/reservation/getReserveData";
 export * from "./myPage/reservation/getCanceledData";
 export * from "./myPage/reservation/getWaitingData";
+export * from "./myPage/review/getVisitedShop";
+export * from "./myPage/review/enrollReview";

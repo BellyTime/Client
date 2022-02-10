@@ -1,6 +1,11 @@
 import { Subject } from "./modal/Subject";
 import { ModalButton } from ".";
-export const Modal = ({ setModal, subject, content }) => {
+import { newFriend } from "@/fetch";
+import { useEffect } from "react";
+export const Modal = ({ setModal, subject, content, newFriendId }) => {
+  useEffect(() => {
+    return () => newFriendId && newFriend(newFriendId);
+  });
   return (
     <div
       className={
@@ -41,6 +46,7 @@ export const Modal = ({ setModal, subject, content }) => {
             <ModalButton
               onClick={() => {
                 setModal(false);
+                //확인 눌르면 friendid 리스트 서버에 보내기.
               }}
               label={"확인"}
               modal={"medium-modal"}

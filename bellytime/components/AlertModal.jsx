@@ -1,4 +1,3 @@
-import { modifyCoolTime } from "@/fetch";
 import { useEffect, useState } from "react";
 export const AlertModal = ({ content, setAlert, setModal, func }) => {
   const [location, setLocation] = useState(null);
