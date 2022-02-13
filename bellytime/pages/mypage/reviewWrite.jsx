@@ -1,9 +1,14 @@
 import { useState } from "react";
 import { enrollReview } from "../../fetch";
 import { UploadImages } from "../../components";
+import { v4 as uuidv4 } from "uuid";
 
 export default function ReviewWrite() {
   const [value, setValue] = useState("");
+  // const [images, setImages] = useState({
+  //   files: [],
+  //   imagesPreviewUrls: [],
+  // });
   const [images, setImages] = useState([]);
   const [secret, setSecret] = useState(false);
 
