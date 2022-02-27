@@ -18,7 +18,7 @@ export default function CoolTimeCalender() {
   useEffect(() => {
     getCalender(setTodayCheck, setCoolTimeData, yearAndMonth, setCheckFood); //오늘데이터, 쿨타임데이터, 쿼리로 보낼 연월
     return () => {
-     () => postTodayCheck(checkFood); //형태 변환할것 [{foodId,eat}]
+      () => postTodayCheck(checkFood); //형태 변환할것 [{foodId,eat}]
     };
   }, []);
   useEffect(() => {
@@ -28,6 +28,9 @@ export default function CoolTimeCalender() {
     //쿨타임데이터가 있으면, coolTime데이터 중 day가 선택한 coolTimeDate과 같은 데이터를 coolTimeofDay로 지정.
   }, [coolTimeData, coolTimeDate]);
 
+  useEffect(() => {
+    console.log(checkFood);
+  }, [checkFood]);
   return (
     <>
       <Link href="/coolTime">쿨타임 설정하러가기</Link>

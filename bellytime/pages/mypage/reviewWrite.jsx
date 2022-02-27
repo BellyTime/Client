@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { enrollReview } from "../../fetch";
-import { UploadImages } from "../../components";
+import { UploadImages, ImagesUpload } from "../../components";
 import { v4 as uuidv4 } from "uuid";
 
 export default function ReviewWrite() {
@@ -10,6 +10,7 @@ export default function ReviewWrite() {
   //   imagesPreviewUrls: [],
   // });
   const [images, setImages] = useState([]);
+  const [file, setFile] = useState([]);
   const [secret, setSecret] = useState(false);
 
   return (
@@ -20,7 +21,13 @@ export default function ReviewWrite() {
         value={value}
         onChange={(e) => setValue(e.target.value)}
       />
-      <UploadImages setImages={setImages} images={images} />
+      {/* <UploadImages setImages={setImages} images={images} /> */}
+      <ImagesUpload
+        setImages={setImages}
+        images={images}
+        setFile={setFile}
+        file={file}
+      />
       <p>사장만 보기</p>
       <input
         type="checkbox"
@@ -31,7 +38,7 @@ export default function ReviewWrite() {
         }}
         className={`block`}
       />
-      <button onClick={() => enrollReview(value, images, secret)}>확인</button>
+      <button onClick={() => enrollReview(value, file, secret)}>확인</button>
     </>
   );
 }

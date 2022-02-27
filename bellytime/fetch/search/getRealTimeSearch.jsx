@@ -1,10 +1,10 @@
 import axios from "axios";
 export const getRealTimeSearch = async () => {
   try {
-    // const lists = await axios.get("../static/dummyData/coolTime.json");
-    const lists = await axios.get(
-      `https://backend.bellytime.kr/searchby/realpop`
-    );
+    const lists = await axios.get("../static/dummyData/realPopular.json");
+    // const lists = await axios.get(
+    //   `https://backend.bellytime.kr/searchby/realpop`
+    // );
     console.log(lists.data);
     return lists.data;
   } catch (e) {

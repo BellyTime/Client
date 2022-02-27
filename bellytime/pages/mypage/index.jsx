@@ -21,7 +21,7 @@ export default function myPage() {
       <Link href="/mypage/followingfriend">친구</Link>
       <Link href="/mypage/reservation">예약관리</Link>
       <Link href="/mypage/review">후기관리</Link>
-      {/* <Link href="/mypage/setting">설정</Link> */}
+      <Link href="/mypage/setting">설정</Link>
     </>
   );
 }
