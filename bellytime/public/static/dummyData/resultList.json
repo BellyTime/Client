@@ -1,0 +1,48 @@
+[
+  {
+    "shopId": 1,
+    "shopName": "남양주떡갈비",
+    "profileImg": "/static/icon.png",
+    "reviewCount": 3,
+    "score": 3,
+    "address": "남양주",
+    "runtime": "1시",
+    "status": "open",
+    "followerCount": 100,
+    "menu": [
+      {
+        "id": 1,
+        "name": "치킨마요",
+        "price": 2002
+      },
+      {
+        "id": 3,
+        "name": "치킨마요",
+        "price": 2002
+      }
+    ]
+  },
+  {
+    "shopId": 2,
+    "shopName": "벨리타임",
+    "profileImg": "/static/icon.png",
+    "reviewCount": 2,
+    "score": 2,
+    "address": "서울시",
+    "runtime": "2시",
+    "status": "close",
+    "followerCount": 100,
+    "menu": [
+      {
+        "id": 1,
+        "name": "치킨마요",
+        "price": 2002
+      },
+      {
+        "id": 4,
+        "name": "치킨마요",
+        "price": 2002
+      }
+    ]
+  }
+]

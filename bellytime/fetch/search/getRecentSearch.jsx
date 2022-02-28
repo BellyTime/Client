@@ -1,7 +1,7 @@
 import axios from "axios";
-export const getRealTimeSearch = async () => {
+export const getRecentSearch = async () => {
   try {
-    const lists = await axios.get("../static/dummyData/realPopular.json");
+    const lists = await axios.get("../static/dummyData/recentSearchList.json");
     // const lists = await axios.get(
     //   `https://backend.bellytime.kr/searchby/realpop`
     // );

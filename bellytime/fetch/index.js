@@ -16,6 +16,6 @@ export * from "./myPage/reservation/getWaitingData";
 export * from "./myPage/review/getVisitedShop";
 export * from "./myPage/review/enrollReview";
 export * from "./myPage/setting";
-export * from "./search/getRealTimeSearch";
+export * from "./search/getRecentSearch";
 export * from "./search/getSearchWords";
 export * from "./search/getShopList";
