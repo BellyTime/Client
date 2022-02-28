@@ -33,7 +33,7 @@ function MyApp(
         </Component>
         <Navbar />
       </RecoilRoot>
-    </>
+    </>  
   );
 }
 
@@ -42,3 +42,5 @@ export default MyApp;
 //서비스워커설정: https://jamongjjang.tistory.com/65
 //https://developer.mozilla.org/en-US/docs/Web/API/ServiceWorkerContainer/register
 //템플릿 https://github.com/mvllow/next-pwa-template
+
+//interceptor로 토큰 잡는 코드 실행

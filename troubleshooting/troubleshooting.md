@@ -40,3 +40,7 @@ module.exports = withPWA({
     //...
   }
 })
+
+5.
+ //Warning: Maximum update depth exceeded. This can happen when a component calls setState inside useEffect, but useEffect either doesn't have a dependency array, or one of the dependencies changes on every render.
+ => useEffect안에서 dependency가 변할때 dependency를 수정하는 코드를 쓸 때 발생하는 에러이다.

@@ -1,10 +1,18 @@
 import { useState } from "react";
 import { enrollReview } from "../../fetch";
+import { UploadImages, ImagesUpload } from "../../components";
+import { v4 as uuidv4 } from "uuid";
 
 export default function ReviewWrite() {
   const [value, setValue] = useState("");
+  // const [images, setImages] = useState({
+  //   files: [],
+  //   imagesPreviewUrls: [],
+  // });
   const [images, setImages] = useState([]);
+  const [file, setFile] = useState([]);
   const [secret, setSecret] = useState(false);
+
   return (
     <>
       <div>후기작성하기</div>
@@ -13,7 +21,14 @@ export default function ReviewWrite() {
         value={value}
         onChange={(e) => setValue(e.target.value)}
       />
-
+      {/* <UploadImages setImages={setImages} images={images} /> */}
+      <ImagesUpload
+        setImages={setImages}
+        images={images}
+        setFile={setFile}
+        file={file}
+      />
+      <p>사장만 보기</p>
       <input
         type="checkbox"
         checked={secret}
@@ -21,8 +36,9 @@ export default function ReviewWrite() {
           console.log(!secret ? "check" : "unchecked");
           setSecret(!secret);
         }}
+        className={`block`}
       />
-      <button onClick={() => enrollReview(value, images, secret)}>확인</button>
+      <button onClick={() => enrollReview(value, file, secret)}>확인</button>
     </>
   );
 }

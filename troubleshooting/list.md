@@ -22,3 +22,14 @@ https://maaani.tistory.com/153
 
 https://stackoverflow.com/questions/55987953/how-do-i-update-states-onchange-in-an-array-of-object-in-react-hooks
 https://stackoverflow.com/questions/35817565/how-to-filter-array-when-object-key-value-is-in-array/35817622
+
+https://stackoverflow.com/questions/53107439/file-reader-is-slow-and-not-set-state-on-react
+https://www.codegrepper.com/code-examples/javascript/react+read+multiple+files+with+filereader
+https://developer.mozilla.org/ko/docs/Web/API/File/Using_files_from_web_applications
+
+https://stackoverflow.com/questions/25333488/why-isnt-the-filelist-object-an-array
+
+https://stackoverflow.com/questions/57341541/removing-object-from-array-using-hooks-usestate
+
+
+https://stackoverflow.com/questions/55020041/react-hooks-useeffect-cleanup-for-only-componentwillunmount
