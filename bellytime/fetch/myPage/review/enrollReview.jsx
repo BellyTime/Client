@@ -1,5 +1,11 @@
 import axios from "axios";
-export const enrollReview = async (content, images, visible) => {
+export const enrollReview = async (
+  content,
+  images,
+  visible,
+  score,
+  reservationId
+) => {
   // const userId = "dmstjs";
   try {
     // const lists = await axios.post(
@@ -7,13 +13,14 @@ export const enrollReview = async (content, images, visible) => {
     //   data
     // );
     const formData = new FormData();
-    console.log(images);
-    images.forEach(({ index, file }) => {
-      formData.append("images", file, `${index}.jpg`);
+    console.log(content, images, visible, score, reservationId);
+    images.forEach(({ file }) => {
+      formData.append("images", file);
     });
     formData.append("content", content);
     formData.append("visible", visible);
-
+    formData.append("score", score);
+    formData.append("reservationId", reservationId);
   } catch (e) {
     console.log(e);
   }

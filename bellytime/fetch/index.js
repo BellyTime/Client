@@ -19,3 +19,5 @@ export * from "./myPage/setting";
 export * from "./search/getRecentSearch";
 export * from "./search/getSearchWords";
 export * from "./search/getShopList";
+export * from "./myPage/review/getMyReview";
+export * from "./myPage/review/deleteReview";

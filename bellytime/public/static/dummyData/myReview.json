@@ -1,0 +1,9 @@
+{
+  "score": 3,
+  "shopId": 11,
+  "shopName": "방망이",
+  "content": "너무 맛있었습니다",
+  "visible": false,
+  "images": ["/static/icon.png","/static/icon.png"],
+  "reservationId": 10
+}

@@ -17,6 +17,7 @@ export * from "./followingFriend/SearchFriend";
 export * from "./Modal";
 export * from "./followingFriend/NewFriend";
 export * from "./myPage/review/VisitedShop";
+export * from "./myPage/review/BellScore";
 export * from "./UploadImages";
 export * from "./ImagesUpload";
 export * from "./search/RecentSearch";

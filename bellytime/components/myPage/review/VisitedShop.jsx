@@ -1,7 +1,7 @@
 import { useEffect, useRef } from "react";
 import { Link } from "../..";
 export const VisitedShop = ({ content }) => {
-  const { shopId, shopName, date, state } = content;
+  const { shopId, shopName, date, state, reservationId } = content;
 
   return (
     <div>
@@ -9,13 +9,13 @@ export const VisitedShop = ({ content }) => {
       <button>
         {state == "writable" ? (
           <Link
-            href="/mypage/reviewWrite
-          "
+            href={`/mypage/reviewWrite/${reservationId}
+          `}
           >
             후기작성
           </Link>
         ) : (
-          <Link href="#">후기보기</Link>
+          <Link href={`/mypage/review/${reservationId}`}>후기보기</Link>
         )}
       </button>
     </div>
