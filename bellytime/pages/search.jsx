@@ -12,7 +12,7 @@ export default function Search() {
   }, []);
   return (
     <div>
-      <SearchInput />
+      <SearchInput onFocus={}/>
       {realtime?.map((content, index) => (
         <RealTimeSearch  content={content} index={index} />
       ))}

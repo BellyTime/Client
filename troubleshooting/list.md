@@ -30,3 +30,6 @@ https://developer.mozilla.org/ko/docs/Web/API/File/Using_files_from_web_applicat
 https://stackoverflow.com/questions/25333488/why-isnt-the-filelist-object-an-array
 
 https://stackoverflow.com/questions/57341541/removing-object-from-array-using-hooks-usestate
+
+
+https://stackoverflow.com/questions/55020041/react-hooks-useeffect-cleanup-for-only-componentwillunmount
