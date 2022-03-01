@@ -60,11 +60,13 @@ const ImagesUpload = ({ setImages, images, file, setFile }) => {
           accept="img/*"
           multiple
           onChange={handleImageChange}
+          className="hidden"
         />
+        <label htmlFor="image">이미지 추가</label>
       </form>
       <div className="label-holder">
         <label htmlFor="file" className="label">
-          <i>add_a_photo</i>
+          <i></i>
         </label>
       </div>
       <div className="flex flex-wrap">{renderPhotos(images)}</div>

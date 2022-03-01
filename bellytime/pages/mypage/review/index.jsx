@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { getVisitedShop } from "../../fetch";
-import { VisitedShop } from "../../components";
+import { getVisitedShop } from "../../../fetch";
+import { VisitedShop } from "../../../components";
 export default function Review() {
   const [visitedShop, setVisitedShop] = useState(null);
   useEffect(() => {
