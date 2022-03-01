@@ -1,0 +1,14 @@
+[
+  {
+    "chatRoomId": 10,
+    "customerId": 3,
+    "roomName": "종빈",
+    "profileImg": "/static/icon.png"
+  },
+  {
+    "chatRoomId": 11,
+    "customerId": 2,
+    "roomName": "유담",
+    "profileImg": "/static/icon.png"
+  }
+]

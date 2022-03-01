@@ -21,3 +21,5 @@ export * from "./search/getSearchWords";
 export * from "./search/getShopList";
 export * from "./myPage/review/getMyReview";
 export * from "./myPage/review/deleteReview";
+export * from "./chat/getChatList";
+
