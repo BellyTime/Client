@@ -77,22 +77,20 @@ export default function Search() {
             followerCount,
           }) => (
             <Link href={`shop/${shopId}`} key={uuidv4()}>
-              <div>
-                {`${
-                  (shopName,
-                  address,
-                  menu,
-                  reviewCount,
-                  status,
-                  score,
-                  followerCount)
-                }`}
-                <br />
-                <img
-                  className="inline object-cover w-16 h-16 mr-2 rounded-full"
-                  src={profileImg}
-                />
-              </div>
+              {`${
+                (shopName,
+                address,
+                menu,
+                reviewCount,
+                status,
+                score,
+                followerCount)
+              }`}
+              <br />
+              <img
+                className="inline object-cover w-16 h-16 mr-2 rounded-full"
+                src={profileImg}
+              />
             </Link>
           )
         )}
