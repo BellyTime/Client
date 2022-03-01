@@ -11,7 +11,7 @@ function MyApp(
   navigator: Navigator,
   window: Window
 ) {
-  axios.defaults.baseURL = baseURL;
+  // axios.defaults.baseURL = baseURL;
   if ("serviceWorker" in navigator) {
     navigator.serviceWorker
       .register("/service-worker.js")

@@ -16,9 +16,9 @@ export default function ChatList() {
       {chatList &&
         chatList.map(({ roomName, chatRoomId }) => (
           <div
-            key={uuidv4}
+            key={uuidv4()}
             onClick={() => {
-              router.push(`/chatroom/${chatRoomId}`);
+              router.push(`/chatting/room/${chatRoomId}`);
             }}
           >
             <span>{roomName}</span>

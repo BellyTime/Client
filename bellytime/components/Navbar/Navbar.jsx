@@ -7,7 +7,7 @@ const Navbar = () => {
       <Icon href="/" iconImg="/icons/home.png" />
       <Icon href="/search" iconImg="/icons/search.png" />
       <Icon href="/coolTime" iconImg="/icons/clock.png" />
-      <Icon href="/chat/chatList" iconImg="/icons/chat-alt-2.png" />
+      <Icon href="/chatting/chatList" iconImg="/icons/chat-alt-2.png" />
       <Icon href="/mypage" iconImg="/icons/user.png" />
     </div>
   );
