@@ -1,0 +1,14 @@
+[
+  {
+    "chatRoomId": 12,
+    "shopId": 3,
+    "roomName": "하잇",
+    "profileImg": "/static/icon.png"
+  },
+  {
+    "chatRoomId": 13,
+    "shopId": 2,
+    "roomName": "호잇",
+    "profileImg": "/static/icon.png"
+  }
+]
