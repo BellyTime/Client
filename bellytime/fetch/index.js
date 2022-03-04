@@ -24,3 +24,5 @@ export * from "./myPage/review/deleteReview";
 export * from "./chat/getChatList";
 export * from "./chat/getPreviousChat";
 export * from "./chat/plusChatRoom";
+export * from "./chat/exitChatRoom";
+export * from "./chat/plusFriend";

@@ -48,7 +48,7 @@ export default function FollowingShop() {
             />
           }
           subject={"친구찾기"}
-          setModal={setModal}
+          setModal={() => setModal(false)}
           newFriendId={newFriendId}
         />
       )}
