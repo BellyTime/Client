@@ -34,4 +34,8 @@ export const settingState = atom({
   }, // default value (aka initial value)
 });
 
+export const chatImageState = atom({
+  key: "chatImageState",
+  default: { contactImage: "", contactName: "" },
+});
 //페이지간 전달할것이 아니면 지우기
