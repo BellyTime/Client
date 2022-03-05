@@ -26,13 +26,13 @@ export default function FollowingShop() {
     followingFriendList(setFollowingFriends);
   }, []);
 
-  useEffect(() => {
-    console.log("unfollow", unfollow);
-  }, [unfollow]);
+  // useEffect(() => {
+  //   console.log("unfollow", unfollow);
+  // }, [unfollow]);
 
-  useEffect(() => {
-    console.log("newFriendId", newFriendId);
-  }, [newFriendId]);
+  // useEffect(() => {
+  //   console.log("newFriendId", newFriendId);
+  // }, [newFriendId]);
   return (
     <>
       <button

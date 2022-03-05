@@ -26,3 +26,5 @@ export * from "./chat/getPreviousChat";
 export * from "./chat/plusChatRoom";
 export * from "./chat/exitChatRoom";
 export * from "./chat/plusFriend";
+export * from "./myPage/followingFriend/moveToChattingFriend";
+export * from "./myPage/followingFriend/moveToChattingShop";

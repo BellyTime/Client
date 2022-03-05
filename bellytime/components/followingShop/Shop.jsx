@@ -1,18 +1,39 @@
 import { useEffect, useRef } from "react";
 import { drawCanvas } from "./drawCanvas";
 import { Link } from "..";
-export const Shop = ({ shopName, imgSrc, shopId, setUnfollow, unfollow }) => {
+import { useRecoilState } from "recoil";
+import { chatImageState } from "../../state/atom";
+import { useRouter } from "next/router";
+import { moveToChattingShop } from "@/fetch";
+
+export const Shop = ({ shopName, profileImg, shopId, setUnfollow, unfollow }) => {
   const canvasRef = useRef();
   const imgRef = useRef();
+  const router = useRouter();
+  const [chatState, setChatState] = useRecoilState(chatImageState);
   useEffect(() => {
-    drawCanvas(100, 100, canvasRef, imgRef, imgSrc);
+    drawCanvas(100, 100, canvasRef, imgRef, profileImg);
   }, []);
+
+  const handleChattingButton = async () => {
+    setChatState({
+      contact: [{ profileImg, contactId: shopId }],
+      roomName: [shopName],
+    });
+    const { roomId } = await moveToChattingShop(shopId);
+    router.push({
+      pathname: `/chatting/room/${roomId}`,
+      query: { IsFriend: "shop" },
+    });
+  };
   return (
     <div>
       <img ref={imgRef} />
       <canvas ref={canvasRef} />
       <p>{shopName}</p>
-      <Link href="#">채팅</Link>
+      <button onClick={handleChattingButton} className="block">
+        채팅
+      </button>
 
       <button
         onClick={() => {
