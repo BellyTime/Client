@@ -19,7 +19,7 @@ import { ContactList } from "../../../components";
 export default function ChatRoom() {
   const router = useRouter();
   const [id, setId] = useState("");
-  // const { id } = router.query;
+  const [IsFriend, setIsFriend] = useState("");
   const [contactInfo, setContactInfo] = useRecoilState(chatImageState);
   const [content, setContent] = useState("");
   const [allContent, setAllContent] = useState([]);
@@ -43,9 +43,8 @@ export default function ChatRoom() {
   }, []);
 
   useEffect(() => {
-    console.log("useEffect");
     setId(router.query.id);
-    // .then(()=>getPreviousChat(id, setAllContent));
+    setIsFriend(router.query.IsFriend);
   }, []);
 
   useEffect(() => {
@@ -97,6 +96,9 @@ export default function ChatRoom() {
     setModal(false);
     inviteId.length && plusFriend(inviteId, id);
     setIsOpen(false);
+  };
+  const handleGoReserve = () => {
+    router.push(`/shop/${contactInfo.contact[0].contactId}`);
   };
   // const sendWithStomp = (e) => {
   //   e.preventDefault();
@@ -201,9 +203,15 @@ export default function ChatRoom() {
               방나가기
             </button>
 
-            <button onClick={handlePlusFriend} className="block">
-              친구초대하기
-            </button>
+            {IsFriend == "customer" ? (
+              <button onClick={handlePlusFriend} className="block">
+                친구초대하기
+              </button>
+            ) : (
+              <button onClick={handleGoReserve} className="block">
+                예약하기
+              </button>
+            )}
           </div>
         }
       />

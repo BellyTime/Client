@@ -37,7 +37,7 @@ export default function ChatList() {
   const handleContact = (inviteId) => {
     plusChatRoom(inviteId, IsFriend).then((res) => {
       if (res) {
-        router.push(`/chatting/room/${res}`);
+        router.push({ pathname: `/chatting/room/${res}`, query: { IsFriend } });
       }
     });
   }; //친구를 inviteId 배열에 담은 후 방으로 이동
@@ -64,7 +64,10 @@ export default function ChatList() {
             key={uuidv4()}
             onClick={() => {
               setContactInfo({ contact, roomName: [roomName] });
-              router.push(`/chatting/room/${chatRoomId}`);
+              router.push({
+                pathname: `/chatting/room/${chatRoomId}`,
+                query: { IsFriend },
+              });
             }}
           >
             {contact?.map(({ profileImg }) => (
