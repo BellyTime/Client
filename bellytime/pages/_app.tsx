@@ -4,7 +4,7 @@ import "tailwindcss/tailwind.css";
 import axios from "axios";
 import { baseURL } from "@/public/static/data";
 import { Navbar } from "components";
-import { RecoilRoot } from "recoil"; 
+import { RecoilRoot } from "recoil";
 
 function MyApp(
   { Component, pageProps }: AppProps,
@@ -12,6 +12,7 @@ function MyApp(
   window: Window
 ) {
   // axios.defaults.baseURL = baseURL;
+
   if ("serviceWorker" in navigator) {
     navigator.serviceWorker
       .register("/service-worker.js")
@@ -22,7 +23,8 @@ function MyApp(
         console.warn("service worker registration failed", err.message);
       });
   }
-  return (
+
+    return (
     <>
       <RecoilRoot>
         <Component {...pageProps}>
@@ -33,7 +35,7 @@ function MyApp(
         </Component>
         <Navbar />
       </RecoilRoot>
-    </>  
+    </>
   );
 }
 
@@ -44,3 +46,6 @@ export default MyApp;
 //템플릿 https://github.com/mvllow/next-pwa-template
 
 //interceptor로 토큰 잡는 코드 실행
+
+//캐시 지우는법
+//https://gist.github.com/deanhume/4b7e1f136cbee288cff9f0fc46318fbb

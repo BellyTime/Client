@@ -63,6 +63,10 @@ export default function ChatRoom() {
   //     });
   //   });
   // }, []);
+
+  useEffect(() => {
+    console.log(contactInfo);
+  }, [contactInfo]);
   const handleContent = (e) => {
     setContent(e.target.value);
   };
@@ -91,8 +95,8 @@ export default function ChatRoom() {
 
   const handleSetModal = () => {
     setModal(false);
-    plusFriend(inviteId, id);
-    
+    inviteId.length && plusFriend(inviteId, id);
+    setIsOpen(false);
   };
   // const sendWithStomp = (e) => {
   //   e.preventDefault();
@@ -117,11 +121,11 @@ export default function ChatRoom() {
         <div className="flex justify-center items-center">
           {" "}
           <i className="mdi mdi-arrow-left font-normal text-gray-300 ml-1"></i>{" "}
-          {contactInfo?.contactImage &&
-            contactInfo.contactImage.map((el) => (
+          {contactInfo?.contact &&
+            contactInfo.contact.map(({ profileImg, contactId }) => (
               <img
                 key={uuidv4()}
-                src={el}
+                src={profileImg}
                 className="rounded-full ml-1"
                 width="25"
                 height="25"
@@ -196,6 +200,7 @@ export default function ChatRoom() {
             <button onClick={handleExitButton} className="block">
               방나가기
             </button>
+
             <button onClick={handlePlusFriend} className="block">
               친구초대하기
             </button>
@@ -208,11 +213,13 @@ export default function ChatRoom() {
           subject="친구추가"
           content={
             <ContactList
+              inviteId={inviteId}
               setInviteId={setInviteId}
               contact={contact}
               IsFriend="customer"
             />
           }
+          close={() => setModal(false)}
         />
       )}
     </div>

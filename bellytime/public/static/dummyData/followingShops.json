@@ -1,12 +1,12 @@
 [
   {
-    "shopId": "10",
-    "shopName": "웰컴투 동막골",
+    "contactId": "10",
+    "name": "웰컴투 동막골",
     "profileImg": "/static/icon.png"
   },
   {
-    "shopId": "9",
-    "shopName": "만두전골",
+    "contactId": "9",
+    "name": "만두전골",
     "profileImg": "/static/icon.png"
   }
 ]
