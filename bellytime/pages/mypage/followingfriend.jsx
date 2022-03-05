@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { followingFriendList, unfollowFriend } from "../../fetch";
+import { followingFriendList, newFriend, unfollowFriend } from "../../fetch";
 import { Friend, SearchFriend, Modal } from "../../components";
 
 export default function FollowingShop() {
@@ -27,14 +27,14 @@ export default function FollowingShop() {
       </button>
       <div>팔로우하는 친구리스트</div>
       {followingFriends.length &&
-        followingFriends.map(({ name, friendId, profileImg }) => (
+        followingFriends.map(({ name, contactId, profileImg }) => (
           <Friend
             setUnfollow={setUnfollow}
             unfollow={unfollow}
             name={name}
-            friendId={friendId}
+            friendId={contactId}
             profileImg={profileImg}
-            key={friendId}
+            key={contactId}
           />
         ))}{" "}
       {modal && (
@@ -48,7 +48,14 @@ export default function FollowingShop() {
             />
           }
           subject={"친구찾기"}
-          setModal={() => setModal(false)}
+          setModal={() => {
+            setModal(false);
+            newFriendId && newFriend(newFriendId);
+          }}
+          close={() => {
+            setModal(false);
+            newFriendId && newFriend(newFriendId);
+          }}
           newFriendId={newFriendId}
         />
       )}
