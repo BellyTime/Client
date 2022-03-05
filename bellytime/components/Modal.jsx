@@ -1,11 +1,8 @@
 import { Subject } from "./modal/Subject";
 import { ModalButton } from ".";
-import { newFriend } from "@/fetch";
 import { useEffect } from "react";
-export const Modal = ({ setModal, subject, content, newFriendId, close }) => {
-  useEffect(() => {
-    return () => newFriendId && newFriend(newFriendId);
-  });
+export const Modal = ({ setModal, subject, content,close }) => {
+  
   return (
     <div
       className={
