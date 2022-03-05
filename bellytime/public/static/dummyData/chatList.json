@@ -1,14 +1,22 @@
 [
   {
     "chatRoomId": 10,
-    "customerId": 3,
-    "roomName": "종빈",
-    "profileImg": "/static/icon.png"
+
+    "roomName": "종빈,은선",
+
+    "contact": [
+      { "contactId": 3, "profileImg": "/static/icon.png" },
+      { "contactId": 4, "profileImg": "/static/icon.png" }
+    ],
+    "recentContent": "자니"
   },
   {
     "chatRoomId": 11,
-    "customerId": 2,
-    "roomName": "유담",
-    "profileImg": "/static/icon.png"
+    "roomName": "유담,하정",
+    "contact": [
+      { "contactId": 3, "profileImg": "/static/icon.png" },
+      { "contactId": 4, "profileImg": "/static/icon.png" }
+    ],
+    "recentContent": "뭐해"
   }
 ]

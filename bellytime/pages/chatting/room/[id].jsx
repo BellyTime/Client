@@ -3,24 +3,53 @@ import Stomp from "stompjs";
 import axios from "axios";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
-import { useState } from "react";
-import { getPreviousChat } from "../../../fetch";
+import { useState, useRef } from "react";
+import {
+  exitChatRoom,
+  getPreviousChat,
+  plusFriend,
+  followingFriendList,
+} from "../../../fetch";
 import { v4 as uuidv4 } from "uuid";
 import { set } from "lodash";
-import { Drawer } from "../../../components";
+import { Drawer, Modal } from "../../../components";
 import { chatImageState } from "../../../state/atom";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useResetRecoilState } from "recoil";
+import { ContactList } from "../../../components";
 export default function ChatRoom() {
   const router = useRouter();
-  const { id } = router.query;
+  const [id, setId] = useState("");
+  const [IsFriend, setIsFriend] = useState("");
   const [contactInfo, setContactInfo] = useRecoilState(chatImageState);
   const [content, setContent] = useState("");
   const [allContent, setAllContent] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
-  // useEffect(() => {
-  //   console.log("useEffect");
-  //   getPreviousChat(id, setAllContent);
-  // }, [id]);
+  const [modal, setModal] = useState(false);
+  const [inviteId, setInviteId] = useState([]);
+  const [contact, setContact] = useState("");
+  const componentWillUnmount = useRef(false);
+  const reset = useResetRecoilState(chatImageState);
+
+  useEffect(() => {
+    return () => {
+      componentWillUnmount.current = true;
+    };
+  }, []);
+
+  useEffect(() => {
+    return () => {
+      if (componentWillUnmount.current) reset();
+    };
+  }, []);
+
+  useEffect(() => {
+    setId(router.query.id);
+    setIsFriend(router.query.IsFriend);
+  }, []);
+
+  useEffect(() => {
+    console.log(inviteId);
+  }, [inviteId]);
   // const socketJs = new SockJS("http://3.35.179.18:8080/chat/chatting");
   // const stompcli = Stomp.over(socketJs);
   // stompcli.debug = () => {};
@@ -33,6 +62,10 @@ export default function ChatRoom() {
   //     });
   //   });
   // }, []);
+
+  useEffect(() => {
+    console.log(contactInfo);
+  }, [contactInfo]);
   const handleContent = (e) => {
     setContent(e.target.value);
   };
@@ -49,7 +82,24 @@ export default function ChatRoom() {
     };
     setAllContent((old) => [...old, msg]);
   };
+  const handleExitButton = (e) => {
+    exitChatRoom(id).then(() => {
+      router.push("/chatting/chatList");
+    });
+  };
+  const handlePlusFriend = () => {
+    setModal(true);
+    followingFriendList(setContact);
+  };
 
+  const handleSetModal = () => {
+    setModal(false);
+    inviteId.length && plusFriend(inviteId, id);
+    setIsOpen(false);
+  };
+  const handleGoReserve = () => {
+    router.push(`/shop/${contactInfo.contact[0].contactId}`);
+  };
   // const sendWithStomp = (e) => {
   //   e.preventDefault();
   //   let date = new Date(+new Date() + 3240 * 10000).toISOString().split("T")[0];
@@ -73,15 +123,24 @@ export default function ChatRoom() {
         <div className="flex justify-center items-center">
           {" "}
           <i className="mdi mdi-arrow-left font-normal text-gray-300 ml-1"></i>{" "}
-          <img
-            src={contactInfo?.contactImage}
-            className="rounded-full ml-1"
-            width="25"
-            height="25"
-          />{" "}
-          <span className="text-xs font-medium text-gray-300 ml-1">
-            {contactInfo?.contactName}
-          </span>{" "}
+          {contactInfo?.contact &&
+            contactInfo.contact.map(({ profileImg, contactId }) => (
+              <img
+                key={uuidv4()}
+                src={profileImg}
+                className="rounded-full ml-1"
+                width="25"
+                height="25"
+              />
+            ))}
+          {contactInfo?.roomName && (
+            <span
+              key={uuidv4()}
+              className="text-xs font-medium text-gray-300 ml-1"
+            >
+              {contactInfo.roomName.join(",")}
+            </span>
+          )}
         </div>
         <div className="flex items-center" onClick={() => setIsOpen(!isOpen)}>
           <svg
@@ -135,7 +194,42 @@ export default function ChatRoom() {
         </form>
       </div>
       <div className="h-30" />
-      <Drawer isOpen={isOpen} setIsOpen={setIsOpen} />
+      <Drawer
+        isOpen={isOpen}
+        setIsOpen={setIsOpen}
+        children={
+          <div>
+            <button onClick={handleExitButton} className="block">
+              방나가기
+            </button>
+
+            {IsFriend == "customer" ? (
+              <button onClick={handlePlusFriend} className="block">
+                친구초대하기
+              </button>
+            ) : (
+              <button onClick={handleGoReserve} className="block">
+                예약하기
+              </button>
+            )}
+          </div>
+        }
+      />
+      {modal && (
+        <Modal
+          setModal={handleSetModal}
+          subject="친구추가"
+          content={
+            <ContactList
+              inviteId={inviteId}
+              setInviteId={setInviteId}
+              contact={contact}
+              IsFriend="customer"
+            />
+          }
+          close={() => setModal(false)}
+        />
+      )}
     </div>
   );
 }

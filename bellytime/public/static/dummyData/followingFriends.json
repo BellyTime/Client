@@ -1,12 +1,12 @@
 [
   {
     "name": "동식이",
-    "friendId": 10,
+    "contactId": 10,
     "profileImg": "/static/icon.png"
   },
   {
     "name": "혜린이",
-    "friendId": 11,
+    "contactId": 11,
     "profileImg": "/static/icon.png"
   }
 ]

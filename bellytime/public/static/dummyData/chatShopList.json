@@ -1,14 +1,14 @@
 [
   {
     "chatRoomId": 12,
-    "shopId": 3,
     "roomName": "하잇",
-    "profileImg": "/static/icon.png"
+    "contact": [{ "contactId": 3, "profileImg": "/static/icon.png" }],
+    "recentContent": "예약되나요"
   },
   {
     "chatRoomId": 13,
-    "shopId": 2,
     "roomName": "호잇",
-    "profileImg": "/static/icon.png"
+    "contact": [{ "contactId": 2, "profileImg": "/static/icon.png" }],
+    "recentContent": "예약할게요"
   }
 ]
