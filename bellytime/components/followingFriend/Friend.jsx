@@ -41,12 +41,13 @@ export const Friend = ({
       </button>
       <button
         onClick={() => {
-          if (unfollow.includes(friendId)) {
+
+          if (unfollow.filter((e) => e.friendId == friendId).length > 0) {
             setUnfollow((unfollow) =>
-              unfollow.filter((element) => element !== friendId)
+              unfollow.filter((e) => e.friendId !== friendId)
             );
           } else {
-            setUnfollow((unfollow) => [...unfollow, friendId]);
+            setUnfollow((unfollow) => [...unfollow, { friendId }]);
           }
         }}
       >

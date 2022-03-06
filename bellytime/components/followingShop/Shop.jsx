@@ -45,10 +45,10 @@ export const Shop = ({
         onClick={() => {
           if (unfollow.includes(shopId)) {
             setUnfollow((unfollow) =>
-              unfollow.filter((element) => element !== shopId)
+              unfollow.filter(({ shopId }) => element !== shopId)
             );
           } else {
-            setUnfollow((unfollow) => [...unfollow, shopId]);
+            setUnfollow((unfollow) => [...unfollow, { shopId }]);
           }
         }}
       >

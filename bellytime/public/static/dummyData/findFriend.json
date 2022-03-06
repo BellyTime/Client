@@ -2,5 +2,5 @@
   "name": "라린이",
   "friendId": 11,
   "profileImg": "/static/icon.png",
-  "follow": true
+  "follow": false
 }

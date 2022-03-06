@@ -27,6 +27,7 @@ export default function FollowingShop() {
     console.log(unfollow);
   }, [unfollow]);
 
+
   return (
     <>
       <div>팔로우하는 가게리스트</div>
