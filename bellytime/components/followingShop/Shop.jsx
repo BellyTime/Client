@@ -4,9 +4,15 @@ import { Link } from "..";
 import { useRecoilState } from "recoil";
 import { chatImageState } from "../../state/atom";
 import { useRouter } from "next/router";
-import { moveToChattingShop } from "@/fetch";
+import { moveToChatting } from "@/fetch";
 
-export const Shop = ({ shopName, profileImg, shopId, setUnfollow, unfollow }) => {
+export const Shop = ({
+  shopName,
+  profileImg,
+  shopId,
+  setUnfollow,
+  unfollow,
+}) => {
   const canvasRef = useRef();
   const imgRef = useRef();
   const router = useRouter();
@@ -20,7 +26,7 @@ export const Shop = ({ shopName, profileImg, shopId, setUnfollow, unfollow }) =>
       contact: [{ profileImg, contactId: shopId }],
       roomName: [shopName],
     });
-    const { roomId } = await moveToChattingShop(shopId);
+    const { roomId } = await moveToChatting(shopId, "shop");
     router.push({
       pathname: `/chatting/room/${roomId}`,
       query: { IsFriend: "shop" },

@@ -1,7 +1,7 @@
 import { useEffect, useRef } from "react";
 import { drawCanvas } from "../followingShop/drawCanvas";
 import { Link } from "..";
-import { moveToChattingFriend } from "@/fetch";
+import { moveToChatting } from "@/fetch";
 import { useRecoilState } from "recoil";
 import { chatImageState } from "../../state/atom";
 import { useRouter } from "next/router";
@@ -10,7 +10,7 @@ export const NewFriend = ({ findedFriend, setNewFriendId, newFriendId }) => {
   const canvasRef = useRef();
   const imgRef = useRef();
 
-  const { name, friendId, profileImg } = findedFriend;
+  const { name, friendId, profileImg, follow } = findedFriend;
   const router = useRouter();
   const [chatState, setChatState] = useRecoilState(chatImageState);
   useEffect(() => {
@@ -21,7 +21,7 @@ export const NewFriend = ({ findedFriend, setNewFriendId, newFriendId }) => {
       contact: [{ profileImg, contactId: friendId }],
       roomName: [name],
     });
-    const { roomId } = await moveToChattingFriend(friendId);
+    const { roomId } = await moveToChatting(friendId, "customer");
     router.push({
       pathname: `/chatting/room/${roomId}`,
       query: { IsFriend: "customer" },
@@ -44,8 +44,11 @@ export const NewFriend = ({ findedFriend, setNewFriendId, newFriendId }) => {
             setNewFriendId(friendId);
           }
         }}
+        disabled={follow}
       >
-        팔로우 활성/비활성
+        <span className={follow ? "text-gray-100" : "text-red-600"}>
+          팔로우
+        </span>
       </button>
     </div>
   );
