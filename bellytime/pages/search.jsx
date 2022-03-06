@@ -1,3 +1,5 @@
+import { deleteRecentSearch } from "../fetch";
+
 import {
   useRef,
   useLayoutEffect,
@@ -19,6 +21,21 @@ export default function Search() {
   const [searchData, setSearchData] = useState("");
   const [shopList, setShopList] = useState("");
   const [input, setInput] = useState("");
+  const [recentDel, setRecentDel] = useState([]);
+  const componentWillUnmount = useRef(false);
+
+  useEffect(() => {
+    return () => {
+      componentWillUnmount.current = true;
+    };
+  }, []);
+
+  useEffect(() => {
+    return () => {
+      if (componentWillUnmount.current && recentDel.length)
+        deleteRecentSearch(recentDel);
+    };
+  }, [recentDel]);
 
   useEffect(async () => {
     const rct = await getRecentSearch();
@@ -50,6 +67,9 @@ export default function Search() {
               handleOnClick();
               setInput(content);
             }}
+            setRecent={setRecent}
+            setRecentDel={setRecentDel}
+            recentDel={recentDel}
           />
           //x누르면 검색어 삭제되게.
         ))}

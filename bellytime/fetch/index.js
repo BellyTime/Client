@@ -19,6 +19,7 @@ export * from "./myPage/setting";
 export * from "./search/getRecentSearch";
 export * from "./search/getSearchWords";
 export * from "./search/getShopList";
+export * from "./search/deleteRecentSearch";
 export * from "./myPage/review/getMyReview";
 export * from "./myPage/review/deleteReview";
 export * from "./chat/getChatList";
