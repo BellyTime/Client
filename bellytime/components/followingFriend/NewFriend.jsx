@@ -1,7 +1,7 @@
 import { useEffect, useRef } from "react";
 import { drawCanvas } from "../followingShop/drawCanvas";
 import { Link } from "..";
-import { moveToChatting } from "@/fetch";
+import { plusChatRoom } from "@/fetch";
 import { useRecoilState } from "recoil";
 import { chatImageState } from "../../state/atom";
 import { useRouter } from "next/router";
@@ -21,7 +21,7 @@ export const NewFriend = ({ findedFriend, setNewFriendId, newFriendId }) => {
       contact: [{ profileImg, contactId: friendId }],
       roomName: [name],
     });
-    const { roomId } = await moveToChatting(friendId, "customer");
+    const { roomId } = await plusChatRoom([friendId], "customer");
     router.push({
       pathname: `/chatting/room/${roomId}`,
       query: { IsFriend: "customer" },
