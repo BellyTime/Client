@@ -7,10 +7,11 @@ import {
   useState,
   useCallback,
 } from "react";
-import { SearchInput, RecentSearch } from "../components";
+import { SearchInput, RecentSearch, ShopList } from "../components";
 import { getSearchWords, getShopList, getRecentSearch } from "../fetch";
 import { v4 as uuidv4 } from "uuid";
 import { Link } from "../components";
+import { sortBy } from "lodash";
 //1. 실시간 인기 검색
 // 2. 검색어 리스트
 //input 클릭했을때 input element가 focus 될 것.
@@ -23,7 +24,8 @@ export default function Search() {
   const [input, setInput] = useState("");
   const [recentDel, setRecentDel] = useState([]);
   const componentWillUnmount = useRef(false);
-
+  const [sortBy, setSortBy] = useState("follow");
+  const [searched, setSearched] = useState(false);
   useEffect(() => {
     return () => {
       componentWillUnmount.current = true;
@@ -37,15 +39,35 @@ export default function Search() {
     };
   }, [recentDel]);
 
+  useEffect(() => {
+    console.log(input);
+  }, [input]);
+
   useEffect(async () => {
     const rct = await getRecentSearch();
     setRecent(rct);
   }, []);
 
-  const handleOnClick = async () => {
-    const sl = await getShopList();
+  const handleOnClick = async (input) => {
+    const sl = await getShopList(input, sortBy);
     setShopList(sl);
-    if (input) setRecent([...recent, input]);
+    if (input) setRecent((recent) => [...new Set([...recent, input])]);
+    setSearched(true);
+  };
+
+  const handleInputEnter = useCallback(
+    (e) => {
+      e.preventDefault();
+      if (input) {
+        handleOnClick(input);
+      }
+    },
+    [input]
+  );
+  //useCallback 안먹힘;
+  const handleRecentSearch = async (content) => {
+    setInput(content);
+    handleOnClick(content);
   };
   return (
     <div>
@@ -54,7 +76,8 @@ export default function Search() {
         setInput={setInput}
         setSearchData={setSearchData}
         setShopList={setShopList}
-        onClick={handleOnClick}
+        onSubmit={handleInputEnter}
+        setSearched={setSearched}
         //엔터눌럿을때도 검색가게. 엔터누르면 키보드 사라지기
       />
       {!input &&
@@ -63,10 +86,7 @@ export default function Search() {
             key={uuidv4()}
             content={content}
             index={index}
-            onClick={() => {
-              handleOnClick();
-              setInput(content);
-            }}
+            onClick={() => handleRecentSearch(content)}
             setRecent={setRecent}
             setRecentDel={setRecentDel}
             recentDel={recentDel}
@@ -78,42 +98,15 @@ export default function Search() {
         !shopList &&
         searchData &&
         searchData.map((el, index) => (
-          <p onClick={handleOnClick} key={index}>
+          <p onClick={() => handleOnClick(el)} key={index}>
             {el}
           </p>
         ))}
       {input &&
         shopList &&
-        shopList.map(
-          ({
-            shopId,
-            shopName,
-            address,
-            menu,
-            profileImg,
-            reviewCount,
-            status,
-            score,
-            followerCount,
-          }) => (
-            <Link href={`shop/${shopId}`} key={uuidv4()}>
-              {`${
-                (shopName,
-                address,
-                menu,
-                reviewCount,
-                status,
-                score,
-                followerCount)
-              }`}
-              <br />
-              <img
-                className="inline object-cover w-16 h-16 mr-2 rounded-full"
-                src={profileImg}
-              />
-            </Link>
-          )
-        )}
+        shopList.map((content) => (
+          <ShopList key={uuidv4()} content={content} />
+        ))}
     </div>
   );
 }

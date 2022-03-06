@@ -7,7 +7,7 @@ export const drawCanvas = function (width, height, canvasRef, imgRef, imgSrc) {
     canvas.width = width;
     canvas.height = height;
     // canvas.backgroundColor = "rgb(255, 255, 255)";
-
+    
     image.src = imgSrc;
 
     image.onload = function () {

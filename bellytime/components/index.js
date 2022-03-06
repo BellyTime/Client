@@ -24,3 +24,4 @@ export * from "./search/RecentSearch";
 export * from "./search/SearchInput";
 export * from "./chatting/Drawer";
 export * from "./chatting/ContactList";
+export * from "./ShopList";

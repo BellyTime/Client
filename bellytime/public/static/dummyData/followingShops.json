@@ -1,12 +1,22 @@
 [
   {
-    "contactId": "10",
-    "name": "웰컴투 동막골",
-    "profileImg": "/static/icon.png"
+    "shopId": "10",
+    "shopName": "웰컴투 동막골",
+    "profileImg": "/static/icon.png",
+    "reviewCount": "100",
+    "score": "4",
+    "address": "서울시",
+    "status": "open",
+    "followerCount": "123123"
   },
   {
-    "contactId": "9",
-    "name": "만두전골",
-    "profileImg": "/static/icon.png"
+    "shopId": "9",
+    "shopName": "만두전골",
+    "profileImg": "/static/icon.png",
+    "reviewCount": "200",
+    "score": "5",
+    "address": "송파구",
+    "status": "close",
+    "followerCount": "41132131"
   }
 ]
