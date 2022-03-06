@@ -6,6 +6,7 @@ export const VisitedShop = ({ content }) => {
   return (
     <div>
       <p>{shopName}</p>
+      <p>{date}</p>
       <button>
         {state == "writable" ? (
           <Link

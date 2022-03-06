@@ -13,6 +13,9 @@ export const ReservedShop = ({ content }) => {
       <img ref={imgRef} />
       <canvas ref={canvasRef} />
       <p>{shopName}</p>
+      <p>{reservedDate}</p>
+      <p>{dDay}</p>
+      <p>{personnel}명</p>
     </div>
   );
 };
