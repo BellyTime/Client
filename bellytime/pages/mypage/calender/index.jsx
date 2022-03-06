@@ -1,9 +1,9 @@
 import { useEffect, useState, useRef } from "react";
 
-import { CooltimeCalender } from "../../components";
-import { getCalender, postTodayCheck } from "../../fetch";
+import { CooltimeCalender } from "../../../components";
+import { getCalender, postTodayCheck } from "../../../fetch";
 import { v4 as uuidv4 } from "uuid";
-import { Link } from "../../components";
+import { Link } from "../../../components";
 export default function CoolTimeCalender() {
   const [todayCheck, setTodayCheck] = useState(null); // 쿨타임음식 체크
   const [checkFood, setCheckFood] = useState([]);

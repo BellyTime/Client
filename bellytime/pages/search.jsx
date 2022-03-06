@@ -1,17 +1,10 @@
 import { deleteRecentSearch } from "../fetch";
 
-import {
-  useRef,
-  useLayoutEffect,
-  useEffect,
-  useState,
-  useCallback,
-} from "react";
+import { useRef, useEffect, useState, useCallback } from "react";
 import { SearchInput, RecentSearch, ShopList } from "../components";
-import { getSearchWords, getShopList, getRecentSearch } from "../fetch";
+import { getShopList, getRecentSearch } from "../fetch";
 import { v4 as uuidv4 } from "uuid";
-import { Link } from "../components";
-import { sortBy } from "lodash";
+
 //1. 실시간 인기 검색
 // 2. 검색어 리스트
 //input 클릭했을때 input element가 focus 될 것.
@@ -27,6 +20,7 @@ export default function Search() {
   const [sortBy, setSortBy] = useState("follow");
   const [searched, setSearched] = useState(false);
   useEffect(() => {
+    getRecentSearch(setRecent);
     return () => {
       componentWillUnmount.current = true;
     };
@@ -40,34 +34,34 @@ export default function Search() {
   }, [recentDel]);
 
   useEffect(() => {
-    console.log(input);
-  }, [input]);
+    handleOnClick(input, sortBy);
+  }, [sortBy]);
 
-  useEffect(async () => {
-    const rct = await getRecentSearch();
-    setRecent(rct);
-  }, []);
-
-  const handleOnClick = async (input) => {
-    const sl = await getShopList(input, sortBy);
-    setShopList(sl);
-    if (input) setRecent((recent) => [...new Set([...recent, input])]);
-    setSearched(true);
-  };
+  const handleOnClick = useCallback(
+    async (input, sortBy) => {
+      if (input) {
+        const sl = await getShopList(input, sortBy);
+        setShopList(sl);
+        if (input) setRecent((recent) => [...new Set([...recent, input])]);
+        setSearched(true);
+      }
+    },
+    [input]
+  );
 
   const handleInputEnter = useCallback(
-    (e) => {
+    (e, input, sortBy) => {
       e.preventDefault();
       if (input) {
-        handleOnClick(input);
+        handleOnClick(input, sortBy);
       }
     },
     [input]
   );
   //useCallback 안먹힘;
-  const handleRecentSearch = async (content) => {
+  const handleRecentSearch = async (content, sortBy) => {
     setInput(content);
-    handleOnClick(content);
+    handleOnClick(content, sortBy);
   };
   return (
     <div>
@@ -76,17 +70,39 @@ export default function Search() {
         setInput={setInput}
         setSearchData={setSearchData}
         setShopList={setShopList}
-        onSubmit={handleInputEnter}
+        onSubmit={(e) => {
+          handleInputEnter(e, input, sortBy);
+        }}
         setSearched={setSearched}
         //엔터눌럿을때도 검색가게. 엔터누르면 키보드 사라지기
       />
+      {searched && (
+        <div className="flex justify-evenly">
+          <button
+            onClick={(e) => {
+              e.preventDefault();
+              setSortBy("follow");
+            }}
+          >
+            팔로우순
+          </button>
+          <button
+            onClick={(e) => {
+              e.preventDefault();
+              setSortBy("bellScore");
+            }}
+          >
+            벨점순
+          </button>
+        </div>
+      )}
       {!input &&
         recent?.map((content, index) => (
           <RecentSearch
             key={uuidv4()}
             content={content}
             index={index}
-            onClick={() => handleRecentSearch(content)}
+            onClick={() => handleRecentSearch(content, sortBy)}
             setRecent={setRecent}
             setRecentDel={setRecentDel}
             recentDel={recentDel}

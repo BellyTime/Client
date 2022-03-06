@@ -1,11 +1,12 @@
 import axios from "axios";
-export const getRecentSearch = async () => {
+export const getRecentSearch = async (setRecent) => {
   try {
     const lists = await axios.get("../static/dummyData/recentSearchList.json");
     // const lists = await axios.get(
     //   `https://backend.bellytime.kr/searchby/realpop`
     // );
     console.log(lists.data);
+    setRecent(lists.data);
     return lists.data;
   } catch (e) {
     console.log(e);

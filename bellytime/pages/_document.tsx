@@ -15,6 +15,7 @@ class MyDocument extends Document {
           <link rel="apple-touch-icon" href="/static/icon_192.png" />
           <link rel="shortcut icon" href="/static/icon_192.png" />
           <link rel="manifest" href="/static/manifest.json" />
+          <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
         </Head>
         <body>
           <Main />

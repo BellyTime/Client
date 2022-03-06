@@ -71,16 +71,21 @@ export default function ChatRoom() {
   };
   const handleSubmit = (e) => {
     e.preventDefault();
-    let date = new Date(+new Date() + 3240 * 10000).toISOString().split("T")[0];
-    let time = new Date().toTimeString().split(" ")[0];
-    let msg = {
-      roomId: "11",
-      sender: 4,
-      nickName: "eunsun",
-      content,
-      sendTime: time,
-    };
-    setAllContent((old) => [...old, msg]);
+    if (content) {
+      let date = new Date(+new Date() + 3240 * 10000)
+        .toISOString()
+        .split("T")[0];
+      let time = new Date().toTimeString().split(" ")[0];
+      let msg = {
+        roomId: "11",
+        sender: 4,
+        nickName: "eunsun",
+        content,
+        sendTime: time,
+      };
+      setAllContent((old) => [...old, msg]);
+      setContent("");
+    }
   };
   const handleExitButton = (e) => {
     exitChatRoom(id).then(() => {
@@ -116,7 +121,7 @@ export default function ChatRoom() {
   //   console.log("send", msg);
   //   setContent("");
   // };
-
+  //try catch문으로 안됐을때 에러메시지 띄우기. content가 비워지지 않았을때로 확인?
   return (
     <div className="h-screen">
       <nav className="w-full h-10 bg-gray-900 rounded-tr rounded-tl flex justify-between items-center">
@@ -183,8 +188,8 @@ export default function ChatRoom() {
             </div>
           ))}
       </div>
-      <div className={`border fixed bottom-14 w-full float`}>
-        <form onSubmit={handleSubmit}>
+      <div className={`flex border fixed bottom-14 w-full float`}>
+        <form id="chat-input" onSubmit={handleSubmit}>
           <input
             type="content"
             onChange={handleContent}
@@ -192,6 +197,9 @@ export default function ChatRoom() {
             className={`border w-full`}
           />
         </form>
+        <button type="submit" form="chat-input" className="border w-1/5">
+          보내기
+        </button>
       </div>
       <div className="h-30" />
       <Drawer
@@ -236,3 +244,4 @@ export default function ChatRoom() {
 //프로필사진
 //사람 바뀔때만 별명 표시 https://nextjs.org/docs/api-reference/next/router
 //https://heroicons.com/
+//https://stackoverflow.com/questions/52577141/how-to-submit-form-from-a-button-outside-that-component-in-react

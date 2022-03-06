@@ -1,5 +1,6 @@
 import Gauge from "@/components/Gauge";
-import { getCoolTime } from "../fetch/coolTime/getcoolTime";
+import { CoolTimeList } from "@/components";
+import { getCoolTime } from "@/fetch";
 import { useEffect, useState } from "react";
 import {
   useRecoilState,
@@ -16,7 +17,7 @@ import {
 import { CoolTimeModal, AlertModal } from "@/components";
 import { ModalButton } from "@/components";
 import { deleteCoolTime, setCoolTime } from "@/fetch";
-
+import { v4 as uuidv4 } from "uuid";
 const CoolTime = () => {
   const [coolTimeList, setCoolTimeList] = useState(null);
   const [modal, setModal] = useState(false);
@@ -28,7 +29,6 @@ const CoolTime = () => {
     startDate: "",
     duration: 0,
   });
-
 
   useEffect(() => {
     fetching();
@@ -47,63 +47,41 @@ const CoolTime = () => {
       await deleteCoolTime({ foodId: coolTimeSet.foodId });
     }
   };
+  const handleClickPlusButton = () => {
+    setModal("추가");
+    setModalContent(["쿨타임 추가"]);
+    setCoolTimeSet({
+      foodId: "",
+      foodName: "",
+      startDate: "",
+      duration: 0,
+    });
+  };
 
+  const handleClickGauge = (content) => {
+    const { predictDate, leftDays, foodId, foodName, startDate, duration } =
+      content;
+    setModal("열림");
+    setModalContent(["쿨타임 예정일", predictDate, `(${leftDays}일남음)`]);
+    setCoolTimeSet({
+      foodId,
+      foodName,
+      startDate,
+      duration,
+    });
+  };
   return (
     <>
-      <ModalButton
-        onClick={() => {
-          setModal("추가");
-          setModalContent(["쿨타임 추가"]);
-          setCoolTimeSet({
-            foodId: "",
-            foodName: "",
-            startDate: "",
-            duration: 0,
-          });
-        }}
-        label={"쿨타임 추가하기"}
-      />
+      <ModalButton onClick={handleClickPlusButton} label={"쿨타임 추가하기"} />
       <div className="flex">
         {coolTimeList &&
-          coolTimeList.map(
-            ({
-              foodId,
-              foodName,
-              gauge,
-              foodImg,
-              predictDate,
-              leftDays,
-              startDate,
-              duration,
-            }) => (
-              <div
-                key={foodId}
-                className="flex-1"
-                onClick={() => {
-                  setModal("열림");
-                  setModalContent([
-                    "쿨타임 예정일",
-                    predictDate,
-                    `(${leftDays}일남음)`,
-                  ]);
-                  setCoolTimeSet({
-                    foodId,
-                    foodName,
-                    startDate,
-                    duration,
-                  });
-                }}
-              >
-                <Gauge
-                  value={gauge}
-                  label={foodName}
-                  predictDate={predictDate}
-                  leftDays={leftDays}
-                  foodImg={foodImg}
-                />
-              </div>
-            )
-          )}
+          coolTimeList.map((content) => (
+            <CoolTimeList
+              key={uuidv4()}
+              content={content}
+              handleClickGauge={() => handleClickGauge(content)}
+            />
+          ))}
       </div>
       {modal && (
         <CoolTimeModal
