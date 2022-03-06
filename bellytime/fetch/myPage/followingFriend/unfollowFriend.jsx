@@ -1,9 +1,9 @@
 import axios from "axios";
 export const unfollowFriend = async (data) => {
   try {
-    // const lists = await axios.post(
+    // const lists = await axios.delete(
     //   "https://backend.bellytime.kr/cooltime/setting",
-    //   data
+    //   {data}
     // );
     console.log("unfollowFetch", data);
   } catch (e) {

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { followingFriendList, newFriend, unfollowFriend } from "../../fetch";
 import { Friend, SearchFriend, Modal } from "../../components";
 
@@ -8,13 +8,31 @@ export default function FollowingShop() {
   const [findedFriend, setFindedFriend] = useState(null);
   const [modal, setModal] = useState(false);
   const [newFriendId, setNewFriendId] = useState(null);
+  const componentWillUnmount = useRef(false);
+
   useEffect(() => {
-    followingFriendList(setFollowingFriends);
     return () => {
-      if (unfollow.length) unfollowFriend(unfollow);
+      componentWillUnmount.current = true;
     };
   }, []);
+  useEffect(() => {
+    return () => {
+      if (componentWillUnmount.current && unfollow.length)
+        unfollowFriend(unfollow);
+    };
+  }, [unfollow]);
 
+  useEffect(() => {
+    followingFriendList(setFollowingFriends);
+  }, []);
+
+  // useEffect(() => {
+  //   console.log("unfollow", unfollow);
+  // }, [unfollow]);
+
+  // useEffect(() => {
+  //   console.log("newFriendId", newFriendId);
+  // }, [newFriendId]);
   return (
     <>
       <button
