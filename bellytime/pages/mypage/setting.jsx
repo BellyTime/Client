@@ -87,3 +87,6 @@ export default function Setting() {
 // 저장한것을 여기서 useEffect, useRecoilState로 적용
 // 로그인한 상태면,,,, 로그아웃하기전까진 계속 로그인
 //로그아웃하면 쿠키,제거
+
+
+//https://headlessui.dev/react/switch

@@ -1,0 +1,18 @@
+[
+  {
+    "shopId": 123,
+    "shopName": "종빈이네 만두가게",
+    "profileImg": "/static/icon.png",
+    "title": "먹으러오세요",
+    "content": "만두가 아주 먹음직하게 쪄젓어요",
+    "image": ["/static/icon.png", "/static/icon.png", "/static/icon.png"]
+  },
+  {
+    "shopId": 2214,
+    "shopName": "은선이네 만두가게",
+    "profileImg": "/static/icon.png",
+    "title": "저희가 더 맛있어요",
+    "content": "옆집 만두는 어디서 떼오는거래요 글쎼",
+    "image": ["/static/icon.png", "/static/icon.png", "/static/icon.png"]
+  }
+]
