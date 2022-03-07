@@ -1,0 +1,16 @@
+[
+  {
+    "shopId": 234,
+    "postId": 1,
+    "shopName": "종빈이네 만두가게",
+    "representImg": "/static/icon.png",
+    "title": "먹으러오세요"
+  },
+  {
+    "shopId": 2214,
+    "postId": 1231,
+    "shopName": "은선이네 만두가게",
+    "representImg": "/static/icon.png",
+    "title": "저희가 더 맛있어요"
+  }
+]
