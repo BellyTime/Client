@@ -32,3 +32,5 @@ export * from "./myPage/moveToChatting";
 export * from "./main/getShopFeed";
 export * from "./main/getPopularShopList";
 export * from "./main/getPostDetail";
+export * from "./recommend/getFriendWithFood";
+export * from "./recommend/getShopWithFood";

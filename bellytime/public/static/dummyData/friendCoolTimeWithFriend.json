@@ -1,0 +1,20 @@
+[
+  {
+    "friendId": 23,
+    "name": "박종빈",
+    "gauge": 60,
+    "profileImg": "/static/icon.png"
+  },
+  {
+    "friendId": 25,
+    "name": "남궁은선",
+    "gauge": 70,
+    "profileImg": "/static/icon.png"
+  },
+  {
+    "friendId": 234,
+    "name": "최유담",
+    "gauge": 10,
+    "profileImg": "/static/icon.png"
+  }
+]

@@ -30,3 +30,4 @@ export * from "./main/Address";
 export * from "./main/Feed";
 export * from "./recommend/FeedDetail";
 export * from "./PhotoSlider";
+export * from "./Gauge";

@@ -1,6 +1,6 @@
 import Gauge from "../Gauge";
 
-export const CoolTimeList = ({  content, handleClickGauge }) => {
+export const CoolTimeList = ({ content, handleClickGauge }) => {
   const { foodId, foodName, gauge, foodImg, predictDate, leftDays } = content;
   return (
     <div className="flex-1" onClick={handleClickGauge}>

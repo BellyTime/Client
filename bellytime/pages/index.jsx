@@ -59,6 +59,9 @@ export default function Home() {
         {position.address ? `주소: ${position.address}` : "주소를 설정하세요"}
         <button onClick={() => setModal(true)}>주소설정</button>
       </div>
+      <button onClick={() => router.push("/mypage/calender")}>
+        쿨타임기록하기
+      </button>
       {
         //주소설정
         modal && (
