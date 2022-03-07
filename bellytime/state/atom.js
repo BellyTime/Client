@@ -43,5 +43,10 @@ export const chatImageState = atom({
 
 export const positionState = atom({
   key: "positionState",
-  default: { lat: 33.489, lng: 126.4983, address: null },
+  default: { lat: null, lng: null, address: null },
+});
+
+export const mainPageCoolTimeState = atom({
+  key: "mainPageCoolTimeState",
+  default: null,
 });

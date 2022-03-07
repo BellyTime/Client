@@ -7,10 +7,13 @@ import { useRecoilState } from "recoil";
 export const Address = ({ setAlert, alert }) => {
   const [position, setPosition] = useRecoilState(positionState);
   useEffect(() => console.log(position), [position]);
+  
+  const geocoder = new kakao.maps.services.Geocoder();
+
   const handlePostCodeComplete = (address) => {
     setPosition((old) => ({ ...old, address }));
-    const ps = new daum.maps.services.Geocoder();
-    ps.addressSearch(address, (result, status) => {
+
+    geocoder.addressSearch(address, (result, status) => {
       if (status == daum.maps.services.Status.OK) {
         const { x, y } = result[0];
         console.log({ y, x });
@@ -21,7 +24,6 @@ export const Address = ({ setAlert, alert }) => {
   };
 
   const coordToRegionCode = (lng, lat) => {
-    const geocoder = new kakao.maps.services.Geocoder();
     geocoder.coord2RegionCode(lng, lat, function (result, status) {
       if (status === kakao.maps.services.Status.OK) {
         console.log("현재주소", result[0].address_name);

@@ -46,7 +46,7 @@ export const ShopList = ({ content, child }) => {
         <div>{shopName}</div>
         <div>{address}</div>
         <div>리뷰수:{reviewCount}</div>
-        <div>{status}</div>
+        <div>운영상태:{status}</div>
         <div>벨점:{score}</div>
         <div>팔로워수:{followerCount}</div>
         <button onClick={handleChattingButton} className="block">

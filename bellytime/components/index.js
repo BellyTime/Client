@@ -26,4 +26,8 @@ export * from "./search/SearchInput";
 export * from "./chatting/Drawer";
 export * from "./chatting/ContactList";
 export * from "./ShopList";
-export * from "./main/Address"
+export * from "./main/Address";
+export * from "./main/Feed";
+export * from "./recommend/FeedDetail";
+export * from "./PhotoSlider";
+export * from "./Gauge";

@@ -24,7 +24,7 @@ function MyApp(
       });
   }
 
-    return (
+  return (
     <>
       <RecoilRoot>
         <Component {...pageProps}>

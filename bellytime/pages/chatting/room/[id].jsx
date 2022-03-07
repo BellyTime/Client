@@ -124,7 +124,7 @@ export default function ChatRoom() {
   //try catch문으로 안됐을때 에러메시지 띄우기. content가 비워지지 않았을때로 확인?
   return (
     <div className="h-screen">
-      <nav className="w-full h-10 bg-gray-900 rounded-tr rounded-tl flex justify-between items-center">
+      <nav className="w-full h-[5vh] bg-gray-900 rounded-tr rounded-tl flex justify-between items-center">
         <div className="flex justify-center items-center">
           {" "}
           <i className="mdi mdi-arrow-left font-normal text-gray-300 ml-1"></i>{" "}
@@ -164,7 +164,7 @@ export default function ChatRoom() {
           </svg>
         </div>
       </nav>
-      <div className="bg-gray-300 h-4/5  overflow-scroll scrollbar-hide">
+      <div className="bg-gray-300 h-[80vh]  overflow-scroll scrollbar-hide">
         {allContent &&
           allContent.map(({ nickName, content, sendTime }) => (
             <div
@@ -188,16 +188,20 @@ export default function ChatRoom() {
             </div>
           ))}
       </div>
-      <div className={`flex border fixed bottom-14 w-full float`}>
+      <div className={`flex border fixed w-screen h-[15vh] float`}>
         <form id="chat-input" onSubmit={handleSubmit}>
           <input
             type="content"
             onChange={handleContent}
             value={content}
-            className={`border w-full`}
+            className={`border mb-[10vh] h-[5vh] w-[90vw]`}
           />
         </form>
-        <button type="submit" form="chat-input" className="border w-1/5">
+        <button
+          type="submit"
+          form="chat-input"
+          className="border  mb-[10vh] w-[10vw]"
+        >
           보내기
         </button>
       </div>
