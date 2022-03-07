@@ -40,3 +40,8 @@ export const chatImageState = atom({
 });
 
 //페이지간 전달할것이 아니면 지우기
+
+export const positionState = atom({
+  key: "positionState",
+  default: { lat: 33.489, lng: 126.4983, address: null },
+});

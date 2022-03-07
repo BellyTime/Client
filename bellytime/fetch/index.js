@@ -29,3 +29,4 @@ export * from "./chat/plusChatRoom";
 export * from "./chat/exitChatRoom";
 export * from "./chat/plusFriend";
 export * from "./myPage/moveToChatting";
+export * from "./main/getNearShopList";
