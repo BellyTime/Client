@@ -31,14 +31,12 @@ export default function FollowingShop() {
     <>
       <div>팔로우하는 가게리스트</div>
       {followingShops.length &&
-        followingShops.map(({ contactId, name, profileImg }) => (
+        followingShops.map((content) => (
           <Shop
-            key={contactId}
-            shopName={name}
-            profileImg={profileImg}
+            key={content.shopId}
             setUnfollow={setUnfollow}
             unfollow={unfollow}
-            shopId={contactId}
+            content={content}
           />
         ))}
     </>

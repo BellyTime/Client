@@ -14,7 +14,7 @@ export const SearchFriend = ({
       <SearchBar
         value={value}
         setValue={setValue}
-        onClick={() => findFriend(setFindedFriend, value)}
+        onClick={() => value && findFriend(setFindedFriend, value)}
       />
 
       {findedFriend ? (

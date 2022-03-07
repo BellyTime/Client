@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react";
 import { drawCanvas } from "../followingShop/drawCanvas";
-import { moveToChattingFriend } from "@/fetch";
+import { plusChatRoom } from "@/fetch";
 import { Link } from "..";
 import { useRouter } from "next/router";
 import { useRecoilState } from "recoil";
@@ -24,7 +24,7 @@ export const Friend = ({
       contact: [{ profileImg, contactId: friendId }],
       roomName: [name],
     });
-    const { roomId } = await moveToChattingFriend(friendId);
+    const { roomId } = await plusChatRoom([friendId], "customer");
     router.push({
       pathname: `/chatting/room/${roomId}`,
       query: { IsFriend: "customer" },
@@ -41,12 +41,13 @@ export const Friend = ({
       </button>
       <button
         onClick={() => {
-          if (unfollow.includes(friendId)) {
+
+          if (unfollow.filter((e) => e.friendId == friendId).length > 0) {
             setUnfollow((unfollow) =>
-              unfollow.filter((element) => element !== friendId)
+              unfollow.filter((e) => e.friendId !== friendId)
             );
           } else {
-            setUnfollow((unfollow) => [...unfollow, friendId]);
+            setUnfollow((unfollow) => [...unfollow, { friendId }]);
           }
         }}
       >

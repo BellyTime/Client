@@ -8,6 +8,7 @@ export const AlertModal = ({ content, setAlert, setModal, func }) => {
     <div
       className="overflow-y-auto overflow-x-hidden fixed right-0 left-0 top-4 z-50 justify-center items-center md:inset-0 h-modal sm:h-full"
       id="popup-modal"
+      onClick={() => !setModal && setAlert(false)}
     >
       <div className="relative px-4 w-full max-w-md h-full md:h-auto">
         <div className="relative bg-white rounded-lg shadow dark:bg-gray-700">
@@ -51,29 +52,33 @@ export const AlertModal = ({ content, setAlert, setModal, func }) => {
             <h3 className="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">
               {content}
             </h3>
-            <button
-              data-modal-toggle="popup-modal"
-              type="button"
-              className="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center mr-2"
-              onClick={() => {
-                setAlert(false);
-                if (setModal) setModal(false);
-                func();
-                if (setModal) location && location.reload();
-              }}
-            >
-              네
-            </button>
-            <button
-              data-modal-toggle="popup-modal"
-              type="button"
-              className="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:ring-gray-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600"
-              onClick={() => {
-                setAlert(false);
-              }}
-            >
-              아니요
-            </button>
+            {setModal && (
+              <>
+                <button
+                  data-modal-toggle="popup-modal"
+                  type="button"
+                  className="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center mr-2"
+                  onClick={() => {
+                    setAlert(false);
+                    if (setModal) setModal(false);
+                    func();
+                    if (setModal) location && location.reload();
+                  }}
+                >
+                  네
+                </button>
+                <button
+                  data-modal-toggle="popup-modal"
+                  type="button"
+                  className="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:ring-gray-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600"
+                  onClick={() => {
+                    setAlert(false);
+                  }}
+                >
+                  아니요
+                </button>
+              </>
+            )}
           </div>
         </div>
       </div>

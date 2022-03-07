@@ -15,6 +15,10 @@ class MyDocument extends Document {
           <link rel="apple-touch-icon" href="/static/icon_192.png" />
           <link rel="shortcut icon" href="/static/icon_192.png" />
           <link rel="manifest" href="/static/manifest.json" />
+          <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
+          <script
+            src={`http://dapi.kakao.com/v2/maps/sdk.js?appkey=${process.env.KAKAOMAP_API_KEY}&libraries=services`}
+          ></script>
         </Head>
         <body>
           <Main />
