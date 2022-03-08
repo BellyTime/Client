@@ -42,8 +42,8 @@ export default function ChatRoom() {
           const mssg = JSON.parse(data.body);
           console.log(mssg);
           setAllContent((old) => [...old, mssg]);
-          setConneted(true);
         });
+        setConneted(true);
       },
       () => setConneted(false)
     );
@@ -118,19 +118,21 @@ export default function ChatRoom() {
   const sendWithStomp = (e) => {
     e.preventDefault();
     if (content && connected) {
-    let date = new Date(+new Date() + 3240 * 10000).toISOString().split("T")[0];
-    let time = new Date().toTimeString().split(" ")[0];
-    let msg = {
-      roomId: router.query.id,
-      sender: 4,
-      nickName: "eunsun",
-      content,
-      sendTime: date + " " + time,
-    };
+      let date = new Date(+new Date() + 3240 * 10000)
+        .toISOString()
+        .split("T")[0];
+      let time = new Date().toTimeString().split(" ")[0];
+      let msg = {
+        roomId: router.query.id,
+        sender: 4,
+        nickName: "eunsun",
+        content,
+        sendTime: date + " " + time,
+      };
 
-    stompcli.send(`/pub/chat/chatting`, {}, JSON.stringify(msg));
-    console.log("send", msg);
-    setContent("");
+      stompcli.send(`/pub/chat/chatting`, {}, JSON.stringify(msg));
+      console.log("send", msg);
+      setContent("");
     }
   };
   //try catch문으로 안됐을때 에러메시지 띄우기. content가 비워지지 않았을때로 확인?
