@@ -7,8 +7,8 @@ import { useRecoilState } from "recoil";
 import { chatImageState } from "../state/atom";
 export const ShopList = ({ content, child }) => {
   const {
-    shopId,
-    shopName,
+    contactId,
+    name,
     profileImg,
     reviewCount,
     score,
@@ -25,10 +25,10 @@ export const ShopList = ({ content, child }) => {
   const router = useRouter();
   const handleChattingButton = async () => {
     setChatState({
-      contact: [{ profileImg, contactId: shopId }],
-      roomName: [shopName],
+      contact: [{ profileImg, contactId: contactId }],
+      roomName: [name],
     });
-    const { roomId } = await plusChatRoom([shopId], "shop");
+    const { roomId } = await plusChatRoom([contactId], "shop");
     router.push({
       pathname: `/chatting/room/${roomId}`,
       query: { IsFriend: "shop" },
@@ -36,14 +36,14 @@ export const ShopList = ({ content, child }) => {
   };
   return (
     <div>
-      <Link href={`../shop/${shopId}`}>
+      <Link href={`../shop/${contactId}`}>
         <img
           // ref={imgRef}
           src={profileImg}
           className="inline object-cover w-16 h-16 mr-2 rounded-full"
         />
         {/* <canvas ref={canvasRef} /> */}
-        <div>{shopName}</div>
+        <div>{name}</div>
         <div>{address}</div>
         <div>리뷰수:{reviewCount}</div>
         <div>운영상태:{status}</div>

@@ -1,7 +1,8 @@
 import axios from "axios";
+import { axiosInstance } from "../instance";
 export const deleteRecentSearch = async (recentDel) => {
   try {
-    // await axios.delete("../static/dummyData/recentSearchList.json",{data:{recentDel}});
+    await axiosInstance.delete("/searchby/recent", { data: { recentDel } });
     // const lists = await axios.get(
     //   `https://backend.bellytime.kr/searchby/realpop`
     // );
