@@ -2,7 +2,7 @@ import { useEffect, useState, useRef } from "react";
 import { followingFriendList, newFriend, unfollowFriend } from "../../fetch";
 import { Friend, SearchFriend, Modal } from "../../components";
 
-export default function FollowingShop() {
+export default function FollowingFriend() {
   const [followingFriends, setFollowingFriends] = useState([]);
   const [unfollow, setUnfollow] = useState([]);
   const [findedFriend, setFindedFriend] = useState(null);

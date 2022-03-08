@@ -14,6 +14,7 @@ export default function Recommend() {
   const [shopList, setShopList] = useState("");
   const [filter, setFilter] = useState("follow");
   const [modal, setModal] = useState(false);
+
   const { id } = router.query;
 
   useEffect(() => {
@@ -21,11 +22,11 @@ export default function Recommend() {
   }, []);
 
   useEffect(() => {
-    getShopWithFood(filter, id, setShopList);
+    getShopWithFood(filter, id, position.lat, position.lng, setShopList);
   }, [filter]);
 
-  const handleClickGauge = (foodId) => {
-    router.push(`/recommend/${foodId}`);
+  const handleClickGauge = (id) => {
+    router.push(`/recommend/${id}`);
   };
   const handleClickFeedFilter = (e) => {
     e.preventDefault();

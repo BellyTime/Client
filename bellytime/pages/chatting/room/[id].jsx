@@ -50,18 +50,18 @@ export default function ChatRoom() {
   useEffect(() => {
     console.log(inviteId);
   }, [inviteId]);
-  // const socketJs = new SockJS("http://3.35.179.18:8080/chat/chatting");
-  // const stompcli = Stomp.over(socketJs);
-  // stompcli.debug = () => {};
-  // useEffect(() => {
-  //   stompcli.connect({}, () => {
-  //     stompcli.subscribe(`/sub/chatting/room/11`, (data) => {
-  //       const mssg = JSON.parse(data.body);
-  //       console.log(mssg);
-  //       setAllContent((old) => [...old, mssg]);
-  //     });
-  //   });
-  // }, []);
+  const socketJs = new SockJS("http://3.35.179.18:8080/chat/chatting");
+  const stompcli = Stomp.over(socketJs);
+  stompcli.debug = () => {};
+  useEffect(() => {
+    stompcli.connect({}, () => {
+      stompcli.subscribe(`/sub/chatting/room/11`, (data) => {
+        const mssg = JSON.parse(data.body);
+        console.log(mssg);
+        setAllContent((old) => [...old, mssg]);
+      });
+    });
+  }, []);
 
   useEffect(() => {
     console.log(contactInfo);
@@ -69,24 +69,24 @@ export default function ChatRoom() {
   const handleContent = (e) => {
     setContent(e.target.value);
   };
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (content) {
-      let date = new Date(+new Date() + 3240 * 10000)
-        .toISOString()
-        .split("T")[0];
-      let time = new Date().toTimeString().split(" ")[0];
-      let msg = {
-        roomId: "11",
-        sender: 4,
-        nickName: "eunsun",
-        content,
-        sendTime: time,
-      };
-      setAllContent((old) => [...old, msg]);
-      setContent("");
-    }
-  };
+  // const handleSubmit = (e) => {
+  //   e.preventDefault();
+  //   if (content) {
+  //     let date = new Date(+new Date() + 3240 * 10000)
+  //       .toISOString()
+  //       .split("T")[0];
+  //     let time = new Date().toTimeString().split(" ")[0];
+  //     let msg = {
+  //       roomId: "11",
+  //       sender: 4,
+  //       nickName: "eunsun",
+  //       content,
+  //       sendTime: time,
+  //     };
+  //     // setAllContent((old) => [...old, msg]);
+  //     setContent("");
+  //   }
+  // };
   const handleExitButton = (e) => {
     exitChatRoom(id).then(() => {
       router.push("/chatting/chatList");
@@ -105,22 +105,26 @@ export default function ChatRoom() {
   const handleGoReserve = () => {
     router.push(`/shop/${contactInfo.contact[0].contactId}`);
   };
-  // const sendWithStomp = (e) => {
-  //   e.preventDefault();
-  //   let date = new Date(+new Date() + 3240 * 10000).toISOString().split("T")[0];
-  //   let time = new Date().toTimeString().split(" ")[0];
-  //   let msg = {
-  //     roomId: "11",
-  //     sender: 4,
-  //     nickName: "eunsun",
-  //     content,
-  //     sendTime: date + " " + time,
-  //   };
+  const sendWithStomp = (e) => {
+    e.preventDefault();
+    if (content) {
+      let date = new Date(+new Date() + 3240 * 10000)
+        .toISOString()
+        .split("T")[0];
+      let time = new Date().toTimeString().split(" ")[0];
+      let msg = {
+        roomId: "11",
+        sender: 4,
+        nickName: "eunsun",
+        content,
+        sendTime: date + " " + time,
+      };
 
-  //   stompcli.send(`/pub/chat/chatting`, {}, JSON.stringify(msg));
-  //   console.log("send", msg);
-  //   setContent("");
-  // };
+      stompcli.send(`/pub/chat/chatting`, {}, JSON.stringify(msg));
+      console.log("send", msg);
+      setContent("");
+    }
+  };
   //try catch문으로 안됐을때 에러메시지 띄우기. content가 비워지지 않았을때로 확인?
   return (
     <div className="h-screen">
@@ -189,7 +193,7 @@ export default function ChatRoom() {
           ))}
       </div>
       <div className={`flex border fixed w-screen h-[15vh] float`}>
-        <form id="chat-input" onSubmit={handleSubmit}>
+        <form id="chat-input" onSubmit={sendWithStomp}>
           <input
             type="content"
             onChange={handleContent}
