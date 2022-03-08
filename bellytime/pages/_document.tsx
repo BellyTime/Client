@@ -11,14 +11,17 @@ class MyDocument extends Document {
             name="apple-mobile-web-app-status-bar-style"
             content="ios status bar color"
           />
-
+          {/* <meta
+            http-equiv="Content-Security-Policy"
+            content="upgrade-insecure-requests"
+          ></meta> */}
           <meta name="apple-mobile-web-app-title" content="Your app title" />
           <link rel="apple-touch-icon" href="/static/icon_192.png" />
           <link rel="shortcut icon" href="/static/icon_192.png" />
           <link rel="manifest" href="/static/manifest.json" />
-          <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
+          <script src="https://ssl.daumcdn.net/dmaps/map_js_init/postcode.v2.js?autoload=false"></script>
           <script
-            src={`http://dapi.kakao.com/v2/maps/sdk.js?appkey=${process.env.KAKAOMAP_API_KEY}&libraries=services`}
+            src={`https://dapi.kakao.com/v2/maps/sdk.js?appkey=${process.env.KAKAOMAP_API_KEY}&libraries=services`}
           ></script>
         </Head>
         <body>
