@@ -5,19 +5,15 @@ import { FeedDetail } from "../../components";
 import { v4 } from "uuid";
 export default function ShopFeed() {
   const router = useRouter();
-  const [postId, setPostId] = useState(null);
-
   const [detail, setDetail] = useState(null);
+  const { id } = router.query;
+  console.log(id);
   useEffect(() => {
-    const { id } = router.query;
-    setPostId(id);
+    handlePostDetail(id);
   }, []);
-  useEffect(() => {
-    handlePostDetail(postId);
-  }, []);
-  const handlePostDetail = async (postId) => {
-    const detail = await getPostDetail(postId);
-    setDetail(detail[0]);
+  const handlePostDetail = async (id) => {
+    const detail = await getPostDetail(id);
+    setDetail(detail);
   };
   return <div>{detail && <FeedDetail feedContent={detail} />}</div>;
 }

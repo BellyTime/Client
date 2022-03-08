@@ -8,9 +8,10 @@ export const plusChatRoom = async (inviteId, type) => {
       type,
     });
 
-    console.log({ inviteId, type });
+    console.log("invite", { inviteId, type });
+    console.log(lists);
     // setRoomId(lists.data.roomId);
-    return "11";
+    return lists.data.roomId;
   } catch (e) {
     console.log(e);
     return [];

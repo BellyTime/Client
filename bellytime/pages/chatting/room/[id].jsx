@@ -18,8 +18,8 @@ import { useRecoilState, useResetRecoilState } from "recoil";
 import { ContactList } from "../../../components";
 export default function ChatRoom() {
   const router = useRouter();
-  const [id, setId] = useState("");
-  const [IsFriend, setIsFriend] = useState("");
+  // const [id, setId] = useState("");
+  // const [IsFriend, setIsFriend] = useState("");
   const [contactInfo, setContactInfo] = useRecoilState(chatImageState);
   const [content, setContent] = useState("");
   const [allContent, setAllContent] = useState([]);
@@ -27,9 +27,27 @@ export default function ChatRoom() {
   const [modal, setModal] = useState(false);
   const [inviteId, setInviteId] = useState([]);
   const [contact, setContact] = useState("");
+  const [connected, setConneted] = useState(false);
   const componentWillUnmount = useRef(false);
   const reset = useResetRecoilState(chatImageState);
-
+  const socketJs = new SockJS("https://backend.bellytime.kr/chat/chatting");
+  let stompcli = Stomp.over(socketJs);
+  stompcli.debug = () => {};
+  //https://stackoverflow.com/questions/25683022/how-to-disable-debug-messages-on-sockjs-stomp
+  useEffect(() => {
+    stompcli.connect(
+      {},
+      () => {
+        stompcli.subscribe(`/sub/chatting/room/${router.query.id}`, (data) => {
+          const mssg = JSON.parse(data.body);
+          console.log(mssg);
+          setAllContent((old) => [...old, mssg]);
+          setConneted(true);
+        });
+      },
+      () => setConneted(false)
+    );
+  }, []);
   useEffect(() => {
     return () => {
       componentWillUnmount.current = true;
@@ -42,26 +60,18 @@ export default function ChatRoom() {
     };
   }, []);
 
-  useEffect(() => {
-    setId(router.query.id);
-    setIsFriend(router.query.IsFriend);
-  }, []);
+  // useEffect(() => {
+  //   setId(router.query.id);
+  //   setIsFriend(router.query.IsFriend);
+  // }, []);
 
   useEffect(() => {
     console.log(inviteId);
   }, [inviteId]);
-  const socketJs = new SockJS("http://3.35.179.18:8080/chat/chatting");
-  const stompcli = Stomp.over(socketJs);
-  stompcli.debug = () => {};
+
   useEffect(() => {
-    stompcli.connect({}, () => {
-      stompcli.subscribe(`/sub/chatting/room/11`, (data) => {
-        const mssg = JSON.parse(data.body);
-        console.log(mssg);
-        setAllContent((old) => [...old, mssg]);
-      });
-    });
-  }, []);
+    console.log(connected);
+  }, [connected]);
 
   useEffect(() => {
     console.log(contactInfo);
@@ -88,7 +98,7 @@ export default function ChatRoom() {
   //   }
   // };
   const handleExitButton = (e) => {
-    exitChatRoom(id).then(() => {
+    exitChatRoom(router.query.id).then(() => {
       router.push("/chatting/chatList");
     });
   };
@@ -99,7 +109,7 @@ export default function ChatRoom() {
 
   const handleSetModal = () => {
     setModal(false);
-    inviteId.length && plusFriend(inviteId, id);
+    inviteId.length && plusFriend(inviteId, router.query.id);
     setIsOpen(false);
   };
   const handleGoReserve = () => {
@@ -107,22 +117,20 @@ export default function ChatRoom() {
   };
   const sendWithStomp = (e) => {
     e.preventDefault();
-    if (content) {
-      let date = new Date(+new Date() + 3240 * 10000)
-        .toISOString()
-        .split("T")[0];
-      let time = new Date().toTimeString().split(" ")[0];
-      let msg = {
-        roomId: "11",
-        sender: 4,
-        nickName: "eunsun",
-        content,
-        sendTime: date + " " + time,
-      };
+    if (content && connected) {
+    let date = new Date(+new Date() + 3240 * 10000).toISOString().split("T")[0];
+    let time = new Date().toTimeString().split(" ")[0];
+    let msg = {
+      roomId: router.query.id,
+      sender: 4,
+      nickName: "eunsun",
+      content,
+      sendTime: date + " " + time,
+    };
 
-      stompcli.send(`/pub/chat/chatting`, {}, JSON.stringify(msg));
-      console.log("send", msg);
-      setContent("");
+    stompcli.send(`/pub/chat/chatting`, {}, JSON.stringify(msg));
+    console.log("send", msg);
+    setContent("");
     }
   };
   //try catch문으로 안됐을때 에러메시지 띄우기. content가 비워지지 않았을때로 확인?
@@ -219,7 +227,7 @@ export default function ChatRoom() {
               방나가기
             </button>
 
-            {IsFriend == "customer" ? (
+            {router.query.IsFriend == "customer" ? (
               <button onClick={handlePlusFriend} className="block">
                 친구초대하기
               </button>

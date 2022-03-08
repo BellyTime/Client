@@ -2,7 +2,7 @@ import { v4 as uuidv4 } from "uuid";
 import { Profile } from "../myPage/Profile";
 import { PhotoSlider } from "../PhotoSlider";
 export const FeedDetail = ({ feedContent }) => {
-  const { shopId, shopName, title, profileImg, content, image } = feedContent;
+  const { shopId, shopName, title, profileImg, content, images } = feedContent;
   return (
     <>
       <img
@@ -11,7 +11,7 @@ export const FeedDetail = ({ feedContent }) => {
       />
       <p>{shopName}</p>
       <p>{title}</p>
-      <PhotoSlider images={image} />
+      <PhotoSlider images={images} />
       <p>{content}</p>
     </>
   );
