@@ -10,7 +10,7 @@ export const NewFriend = ({ findedFriend, setNewFriendId, newFriendId }) => {
   const canvasRef = useRef();
   const imgRef = useRef();
 
-  const { name, friendId, profileImg, follow } = findedFriend;
+  const { nickName, id, profileImg, follow } = findedFriend;
   const router = useRouter();
   const [chatState, setChatState] = useRecoilState(chatImageState);
   useEffect(() => {
@@ -18,10 +18,10 @@ export const NewFriend = ({ findedFriend, setNewFriendId, newFriendId }) => {
   }, []);
   const handleChattingButton = async () => {
     setChatState({
-      contact: [{ profileImg, contactId: friendId }],
-      roomName: [name],
+      contact: [{ profileImg, contactId: id }],
+      roomName: [nickName],
     });
-    const { roomId } = await plusChatRoom([friendId], "customer");
+    const { roomId } = await plusChatRoom([id], "customer");
     router.push({
       pathname: `/chatting/room/${roomId}`,
       query: { IsFriend: "customer" },
@@ -31,17 +31,18 @@ export const NewFriend = ({ findedFriend, setNewFriendId, newFriendId }) => {
     <div>
       <img ref={imgRef} />
       <canvas ref={canvasRef} />
-      <p>{name}</p>
+      <p>{nickName}</p>
       <Link href="#">쿨타임</Link>
       <button onClick={handleChattingButton} className="block">
         채팅
       </button>
       <button
         onClick={() => {
+          console.log(id);
           if (newFriendId) {
             setNewFriendId(null);
           } else {
-            setNewFriendId(friendId);
+            setNewFriendId(id);
           }
         }}
         disabled={follow}

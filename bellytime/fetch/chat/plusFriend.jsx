@@ -1,7 +1,11 @@
 import axios from "axios";
-export const plusFriend = async (inviteId,roomId) => {
+import { axiosInstance } from "../instance";
+export const plusFriend = async (inviteId, roomId) => {
   try {
-    // const lists = await axios.delete("/chat/exit", { data: { inviteId } });
+    const lists = await axiosInstance.post("/chat/add/friend", {
+      inviteId,
+      roomId,
+    });
     console.log({ inviteId, roomId });
     return { inviteId, roomId };
   } catch (e) {

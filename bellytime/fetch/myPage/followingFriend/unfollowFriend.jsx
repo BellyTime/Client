@@ -1,10 +1,10 @@
 import axios from "axios";
+import { axiosInstance } from "@/fetch/instance";
 export const unfollowFriend = async (data) => {
   try {
-    // const lists = await axios.delete(
-    //   "https://backend.bellytime.kr/cooltime/setting",
-    //   {data}
-    // );
+    axiosInstance.delete("/user/follow/friends", {
+      data,
+    });
     console.log("unfollowFetch", data);
   } catch (e) {
     console.log(e);
