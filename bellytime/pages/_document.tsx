@@ -11,10 +11,10 @@ class MyDocument extends Document {
             name="apple-mobile-web-app-status-bar-style"
             content="ios status bar color"
           />
-          <meta
+          {/* <meta
             http-equiv="Content-Security-Policy"
             content="upgrade-insecure-requests"
-          />
+          /> */}
           <meta name="apple-mobile-web-app-title" content="Your app title" />
           <link rel="apple-touch-icon" href="/static/icon_192.png" />
           <link rel="shortcut icon" href="/static/icon_192.png" />
