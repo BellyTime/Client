@@ -15,6 +15,7 @@ class MyDocument extends Document {
             http-equiv="Content-Security-Policy"
             content="upgrade-insecure-requests"
           ></meta> */}
+          {/* https://wellsw.tistory.com/34 */}
           <meta name="apple-mobile-web-app-title" content="Your app title" />
           <link rel="apple-touch-icon" href="/static/icon_192.png" />
           <link rel="shortcut icon" href="/static/icon_192.png" />
