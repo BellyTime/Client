@@ -24,7 +24,8 @@ export const Friend = ({
       contact: [{ profileImg, contactId: friendId }],
       roomName: [name],
     });
-    const { roomId } = await plusChatRoom([friendId], "customer");
+    const roomId = await plusChatRoom([friendId], "customer");
+    console.log(roomId);
     router.push({
       pathname: `/chatting/room/${roomId}`,
       query: { IsFriend: "customer" },
@@ -41,7 +42,6 @@ export const Friend = ({
       </button>
       <button
         onClick={() => {
-
           if (unfollow.filter((e) => e.friendId == friendId).length > 0) {
             setUnfollow((unfollow) =>
               unfollow.filter((e) => e.friendId !== friendId)
