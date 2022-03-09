@@ -6,7 +6,7 @@ export const getPreviousChat = async (roomId, setAllContent) => {
     const lists = await axiosInstance.post("/chat/chatlog", {
       roomId,
     });
-    console.log(lists.data);
+    console.log("previous", lists.data);
     setAllContent(lists.data);
   } catch (e) {
     console.log(e);

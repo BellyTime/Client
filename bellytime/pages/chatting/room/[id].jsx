@@ -49,6 +49,7 @@ export default function ChatRoom() {
     );
   }, []);
   useEffect(() => {
+    getPreviousChat(router.query.id, setAllContent);
     return () => {
       componentWillUnmount.current = true;
     };
