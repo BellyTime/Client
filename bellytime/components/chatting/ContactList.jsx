@@ -13,19 +13,17 @@ export const ContactList = ({ inviteId, setInviteId, contact, IsFriend }) => {
     console.log(contact);
     setContactCheck(new Array(contact.length).fill(false));
   }, [contact]);
-  const handleContact = (Id, name, profileImg, index) => {
+  const handleContact = (Id, nickName, profileImg, index) => {
     console.log("selectedId", Id);
     if (inviteId.includes(Id)) {
       const filtered = contactInfo.contact.filter(
-        ({ contactId }) => contactId != Id
+        ({ contactId }) => contactId !== Id
       );
+
       console.log("filtered", filtered);
-      setContactInfo(({ contact, roomName }) => ({
-        contact: filtered.map(({ contactId, profileImg }) => ({
-          contactId,
-          profileImg,
-        })),
-        roomName: roomName.filter((el) => el != name),
+      setContactInfo(({ roomName }) => ({
+        contact: filtered,
+        roomName,
       }));
 
       setInviteId((old) => {
@@ -35,14 +33,12 @@ export const ContactList = ({ inviteId, setInviteId, contact, IsFriend }) => {
       setInviteId((old) => [...old, Id]);
 
       setContactInfo(({ contact, roomName }) => ({
-        contact: [...contact, { profileImg, contactId: Id }],
-        roomName: [...roomName, name],
+        contact: [...contact, { profileImg, contactId: Id, nickName }],
+        roomName,
       }));
     }
-    setContactCheck((old) =>
-      old.map((item, idx) => (idx == index ? (item = !item) : item))
-    );
   };
+
   useEffect(() => {
     console.log(contactCheck);
   }, [contactCheck]);
@@ -66,7 +62,8 @@ export const ContactList = ({ inviteId, setInviteId, contact, IsFriend }) => {
               viewBox="0 0 24 24"
               stroke="currentColor"
               strokeWidth={2}
-              onClick={() => {
+              onClick={(e) => {
+                e.preventDefault();
                 handleContact(contactId, name, profileImg, index);
               }}
             >

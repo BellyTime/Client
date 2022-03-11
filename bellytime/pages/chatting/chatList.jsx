@@ -1,5 +1,5 @@
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { useEffect } from "react";
 import { v4 as uuidv4 } from "uuid";
 import {
@@ -8,7 +8,7 @@ import {
   getChatList,
   plusChatRoom,
 } from "../../fetch";
-import { ContactList, Modal } from "../../components";
+import { ContactList, Modal, ShopList } from "../../components";
 import { useResetRecoilState, useRecoilState } from "recoil";
 import { chatImageState } from "../../state/atom";
 export default function ChatList() {
@@ -19,6 +19,7 @@ export default function ChatList() {
   const [inviteId, setInviteId] = useState([]);
   const [contactInfo, setContactInfo] = useRecoilState(chatImageState); //채팅방에 담을 정보
   const router = useRouter();
+  const roomNameRef = useRef();
 
   useEffect(() => {
     getChatList(IsFriend, setChatList);
@@ -35,7 +36,8 @@ export default function ChatList() {
   }, [inviteId]);
 
   const handleContact = (inviteId) => {
-    plusChatRoom(inviteId, IsFriend).then((res) => {
+    plusChatRoom(inviteId, IsFriend, roomNameRef.current.value).then((res) => {
+      
       if (res) {
         router.push({ pathname: `/chatting/room/${res}`, query: { IsFriend } });
       }
@@ -63,7 +65,8 @@ export default function ChatList() {
           <div
             key={uuidv4()}
             onClick={() => {
-              setContactInfo({ contact, roomName: [roomName] });
+              setContactInfo({ contact, roomName: roomName });
+              //contact :  [{”contactId”:””,profileImg:””,nickName:””},{}]
               router.push({
                 pathname: `/chatting/room/${chatRoomId}`,
                 query: { IsFriend },
@@ -78,7 +81,11 @@ export default function ChatList() {
               />
             ))}
 
-            <span>{roomName}</span>
+            <span>
+              {roomName
+                ? roomName
+                : contact.map(({ nickName }) => nickName).join(",")}
+            </span>
             <p>{recentContent}</p>
           </div>
         ))}
@@ -88,20 +95,36 @@ export default function ChatList() {
             if (inviteId.length) {
               setModal(false);
               handleContact(inviteId);
+
+              setContactInfo((old) => ({
+                ...old,
+                roomName: roomNameRef.current.value,
+              }));
             }
           }}
-          close={() => setModal(false)}
+          close={() => {
+            setModal(false);
+          }}
           subject={IsFriend == "customer" ? "친구목록" : "가게목록"}
           content={
-            IsFriend &&
-            contact && (
-              <ContactList
-                inviteId={inviteId}
-                setInviteId={setInviteId}
-                contact={contact}
-                IsFriend={IsFriend}
-              />
-            )
+            IsFriend == "customer"
+              ? contact && (
+                  <>
+                    <ContactList
+                      inviteId={inviteId}
+                      setInviteId={setInviteId}
+                      contact={contact}
+                      IsFriend={IsFriend}
+                    />
+                    <input
+                      ref={roomNameRef}
+                      placeholder="방이름을 입력하세요"
+                    />
+                  </>
+                )
+              : contact.map((content) => (
+                  <ShopList key={uuidv4()} content={content} />
+                ))
           }
         />
       )}

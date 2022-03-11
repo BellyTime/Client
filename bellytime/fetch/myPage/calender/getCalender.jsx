@@ -1,4 +1,5 @@
 import axios from "axios";
+import { axiosInstance } from "@/fetch/instance";
 export const getCalender = async (
   setTodayCheck,
   setCoolTimeData,
@@ -6,9 +7,10 @@ export const getCalender = async (
   setCheckFood
 ) => {
   try {
-    const list = await axios.get("/static/dummyData/calenderlist.json");
+    // const list = await axios.get("/static/dummyData/calenderlist.json");
+    const list = await axiosInstance.post("/user/cal", yearAndMonth);
     setCoolTimeData(list.data.dateList);
-
+    console.log(list);
     if (
       yearAndMonth.year == new Date().getFullYear() &&
       yearAndMonth.month == new Date().getMonth() + 1 &&

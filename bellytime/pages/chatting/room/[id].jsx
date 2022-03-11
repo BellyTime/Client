@@ -21,7 +21,8 @@ export default function ChatRoom() {
   // const [id, setId] = useState("");
   // const [IsFriend, setIsFriend] = useState("");
   const [contactInfo, setContactInfo] = useRecoilState(chatImageState);
-  const [content, setContent] = useState("");
+
+  // const [content, setContent] = useState("");
   const [allContent, setAllContent] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
   const [modal, setModal] = useState(false);
@@ -29,7 +30,9 @@ export default function ChatRoom() {
   const [contact, setContact] = useState("");
   const [connected, setConneted] = useState(false);
   const componentWillUnmount = useRef(false);
+  const inputRef = useRef();
   const reset = useResetRecoilState(chatImageState);
+  console.log("contactInfo", contactInfo);
   const socketJs = new SockJS("https://backend.bellytime.kr/chat/chatting");
   let stompcli = Stomp.over(socketJs);
   stompcli.debug = () => {};
@@ -42,6 +45,27 @@ export default function ChatRoom() {
           const mssg = JSON.parse(data.body);
           console.log(mssg);
           setAllContent((old) => [...old, mssg]);
+          if (mssg.sender == -1) {
+            setContactInfo(({ contact, roomName }) => ({
+              roomName,
+              contact: contact.filter(
+                ({ nickName }) => nickName !== mssg.nickName
+              ),
+            }));
+          }
+          if (mssg.sender == -2) {
+            setContactInfo(({ contact, roomName }) => ({
+              contact: [
+                ...contact,
+                {
+                  contactId: mssg.contactId,
+                  profileImg: mssg.profileImg,
+                  nickName: mssg.nickName,
+                },
+              ],
+              roomName,
+            }));
+          }
         });
         setConneted(true);
       },
@@ -76,10 +100,12 @@ export default function ChatRoom() {
 
   useEffect(() => {
     console.log(contactInfo);
+    console.log(contactInfo.roomName);
   }, [contactInfo]);
-  const handleContent = (e) => {
-    setContent(e.target.value);
-  };
+  // const handleContent = (e) => {
+  //   e.preventDefault();
+  //   setContent(e.target.value);
+  // };
   // const handleSubmit = (e) => {
   //   e.preventDefault();
   //   if (content) {
@@ -112,29 +138,26 @@ export default function ChatRoom() {
     setModal(false);
     inviteId.length && plusFriend(inviteId, router.query.id);
     setIsOpen(false);
+    setInviteId("");
   };
   const handleGoReserve = () => {
     router.push(`/shop/${contactInfo.contact[0].contactId}`);
   };
-  const sendWithStomp = (e) => {
-    e.preventDefault();
-    if (content && connected) {
-      let date = new Date(+new Date() + 3240 * 10000)
-        .toISOString()
-        .split("T")[0];
-      let time = new Date().toTimeString().split(" ")[0];
-      let msg = {
-        roomId: router.query.id,
-        sender: 4,
-        nickName: "eunsun",
-        content,
-        sendTime: date + " " + time,
-      };
+  const sendWithStomp = (sender, nickName, content) => {
+    let date = new Date(+new Date() + 3240 * 10000).toISOString().split("T")[0];
+    let time = new Date().toTimeString().split(" ")[0];
+    let msg = {
+      roomId: router.query.id,
+      sender,
+      nickName,
+      content,
+      sendTime: date + " " + time,
+    };
 
-      stompcli.send(`/pub/chat/chatting`, {}, JSON.stringify(msg));
-      console.log("send", msg);
-      setContent("");
-    }
+    stompcli.send(`/pub/chat/chatting`, {}, JSON.stringify(msg));
+    console.log("send", msg);
+    // setContent("");
+    inputRef.current.value = "";
   };
   //try catch문으로 안됐을때 에러메시지 띄우기. content가 비워지지 않았을때로 확인?
   return (
@@ -153,12 +176,19 @@ export default function ChatRoom() {
                 height="25"
               />
             ))}
-          {contactInfo?.roomName && (
+          {contactInfo?.roomName ? (
             <span
               key={uuidv4()}
               className="text-xs font-medium text-gray-300 ml-1"
             >
-              {contactInfo.roomName.join(",")}
+              {contactInfo.roomName}
+            </span>
+          ) : (
+            <span
+              key={uuidv4()}
+              className="text-xs font-medium text-gray-300 ml-1"
+            >
+              {contactInfo.contact.map(({ nickName }) => nickName).join(",")}
             </span>
           )}
         </div>
@@ -181,38 +211,59 @@ export default function ChatRoom() {
       </nav>
       <div className="bg-gray-300 h-[80vh]  overflow-scroll scrollbar-hide">
         {allContent &&
-          allContent.map(({ nickName, content, sendTime }) => (
+          allContent.map(({ nickName, content, sendTime, sender }) => (
             <div
               key={uuidv4()}
-              className={`${
-                nickName !== "eunsun" ? "text-left" : "text-right"
-              } px-1 py-1 w-full`}
+              className={
+                sender == -1 || sender == -2
+                  ? ""
+                  : `${
+                      nickName !== "eunsun" ? "text-left" : "text-right"
+                    } px-1 py-1 w-full`
+              }
             >
-              <p className="text-blue-600 ">
-                {nickName == "eunsun"
-                  ? null
-                  : nickName
-                  ? nickName
-                  : "undefined"}
-              </p>
               <div>
-                <span className="w-40 bg-yellow-300">{content}</span>
+                {sender == -1 || sender == -2 ? ( //친구가 나가거나 들어올때
+                  <span className="bg-gray-300">{content}</span>
+                ) : (
+                  <>
+                    <p className="text-blue-600 ">
+                      {nickName == "eunsun"
+                        ? null
+                        : nickName
+                        ? nickName
+                        : "undefined"}
+                    </p>
+                    <span className="w-40 bg-yellow-300">{content}</span>
+                    <p>{sendTime}</p>
+                  </>
+                )}
               </div>
-
-              <p>{sendTime}</p>
             </div>
           ))}
       </div>
       <div className={`flex border fixed w-screen h-[15vh] float`}>
-        <form id="chat-input" onSubmit={sendWithStomp}>
+        <form
+          key={uuidv4()}
+          id="chat-input"
+          onSubmit={(e) => {
+            e.preventDefault();
+            const value = inputRef.current.value;
+            // setContent(value);
+            if (value && connected) sendWithStomp(4, "eunsun", value);
+          }}
+        >
           <input
+            key={uuidv4()}
             type="content"
-            onChange={handleContent}
-            value={content}
+            ref={inputRef}
+            // onChange={handleContent}
+            // value={content}
             className={`border mb-[10vh] h-[5vh] w-[90vw]`}
           />
         </form>
         <button
+          key={uuidv4()}
           type="submit"
           form="chat-input"
           className="border  mb-[10vh] w-[10vw]"
@@ -260,7 +311,11 @@ export default function ChatRoom() {
     </div>
   );
 }
+
 //프로필사진
 //사람 바뀔때만 별명 표시 https://nextjs.org/docs/api-reference/next/router
 //https://heroicons.com/
 //https://stackoverflow.com/questions/52577141/how-to-submit-form-from-a-button-outside-that-component-in-react
+//https://velog.io/@dev_hikun/React-%EB%A0%8C%EB%8D%94%EC%8B%9C-%EA%B9%9C%EB%B9%A1%EA%B1%B0%EB%A6%BC-%ED%95%B4%EA%B2%B0-Trouble-shooting
+//https://ui.toast.com/weekly-pick/ko_20190731
+//https://stackoverflow.com/questions/57843103/preact-avoid-unnecessary-rerender-on-submit
