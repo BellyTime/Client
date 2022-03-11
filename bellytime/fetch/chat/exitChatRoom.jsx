@@ -1,10 +1,10 @@
 import axios from "axios";
+import { axiosInstance } from "../instance";
 export const exitChatRoom = async (chatRoomId) => {
+  console.log("chatRoomId", chatRoomId);
   try {
-    // const lists = await axios.delete("/chat/exit", { data: { chatRoomId } });
-    
+    await axiosInstance.post("/chat/exit", { chatRoomId });
     console.log({ chatRoomId });
-    // return lists.data;
   } catch (e) {
     console.log(e);
     return [];

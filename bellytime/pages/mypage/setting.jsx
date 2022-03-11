@@ -5,6 +5,7 @@ import { settingState } from "../../state/atom";
 import { useEffect } from "react";
 import { Link } from "../../components";
 import { fetchSetting } from "../../fetch/myPage/setting";
+
 export default function Setting() {
   const [setting, setSetting] = useRecoilState(settingState);
   const componentWillUnmount = useRef(false);

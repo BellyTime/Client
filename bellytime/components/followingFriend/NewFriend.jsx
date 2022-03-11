@@ -19,7 +19,7 @@ export const NewFriend = ({ findedFriend, setNewFriendId, newFriendId }) => {
   const handleChattingButton = async () => {
     setChatState({
       contact: [{ profileImg, contactId: id }],
-      roomName: [nickName],
+      roomName: nickName,
     });
     const { roomId } = await plusChatRoom([id], "customer");
     router.push({

@@ -35,7 +35,7 @@ export default function CoolTimeCalender() {
 
   useEffect(() => {
     getCalender(setTodayCheck, setCoolTimeData, yearAndMonth, setCheckFood); //오늘데이터, 쿨타임데이터, 쿼리로 보낼 연월
-  }, []);
+  }, [yearAndMonth]);
 
   useEffect(() => {
     if (coolTimeData)

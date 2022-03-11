@@ -38,7 +38,7 @@ export default function Search() {
   }, [sortBy]);
 
   const handleOnClick = useCallback(
-    async (input, sortBy) => {
+    async (input) => {
       if (input) {
         const sl = await getShopList(input, sortBy);
         setShopList(sl);
@@ -59,9 +59,9 @@ export default function Search() {
     [input]
   );
   //useCallback 안먹힘;
-  const handleRecentSearch = async (content, sortBy) => {
+  const handleRecentSearch = async (content) => {
     setInput(content);
-    handleOnClick(content, sortBy);
+    handleOnClick(content);
   };
   return (
     <div>
@@ -102,7 +102,7 @@ export default function Search() {
             key={uuidv4()}
             content={content}
             index={index}
-            onClick={() => handleRecentSearch(content, sortBy)}
+            onClick={() => handleRecentSearch(content)}
             setRecent={setRecent}
             setRecentDel={setRecentDel}
             recentDel={recentDel}
@@ -112,7 +112,7 @@ export default function Search() {
 
       {input &&
         !shopList &&
-        searchData &&
+        searchData?.length &&
         searchData.map((el, index) => (
           <p onClick={() => handleOnClick(el)} key={index}>
             {el}

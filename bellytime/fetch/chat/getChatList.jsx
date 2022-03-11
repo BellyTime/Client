@@ -12,7 +12,7 @@ export const getChatList = async (IsFriend, setChatList) => {
         ? "/chat/list/friend"
         : "/chat/list/shop"
     );
-    console.log(lists.data);
+    console.log("chatList", lists.data);
     setChatList(lists.data);
     return lists.data;
   } catch (e) {

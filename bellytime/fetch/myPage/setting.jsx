@@ -1,5 +1,5 @@
 import axios from "axios";
-
+import { axiosInstance } from "../instance";
 export const fetchSetting = async (data) => {
   try {
     const { alarm, duration } = data;
@@ -7,7 +7,11 @@ export const fetchSetting = async (data) => {
     //   "https://backend.bellytime.kr/cooltime/setting",
     //   data
     // );
-    console.log("setting", { alarm, duration });
+    await axiosInstance.post("https://backend.bellytime.kr/cooltime/setting", {
+      alarm,
+      duration,
+    });
+    console.log("setting", data);
   } catch (e) {
     console.log(e);
   }

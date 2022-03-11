@@ -3,10 +3,19 @@ import "tailwindcss/tailwind.css";
 import { Address, Modal, AlertModal } from "components";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
-import { getCoolTime, getShopFeed, getPopularShopList } from "@/fetch";
+import {
+  getCoolTime,
+  getShopFeed,
+  getPopularShopList,
+  fetchSetting,
+} from "@/fetch";
 import { CoolTimeList, ShopList, Feed } from "components";
 import { v4 as uuidv4 } from "uuid";
-import { positionState, mainPageCoolTimeState } from "../state/atom";
+import {
+  positionState,
+  mainPageCoolTimeState,
+  settingState,
+} from "../state/atom";
 
 import { useRecoilState } from "recoil";
 export default function Home() {
@@ -18,6 +27,7 @@ export default function Home() {
   const [filter, setFilter] = useState("follow");
   const [shopFeed, setShopFeed] = useState("");
   const [popularShopList, setPopularShopList] = useState(null);
+  // const [setting, setSetting] = useRecoilState(settingState);
   // useEffect(() => {
   //   if (!document.cookie) router.push("/memberPage");
   // }, []);
@@ -36,6 +46,7 @@ export default function Home() {
     const fetchList = await getPopularShopList();
     setPopularShopList(fetchList);
   };
+
   const handleClickFeedFilter = (e) => {
     e.preventDefault();
     setFilter(e.target.id);

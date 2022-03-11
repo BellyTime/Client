@@ -1,6 +1,7 @@
 import { useEffect, useState, useRef } from "react";
 import { followingFriendList, newFriend, unfollowFriend } from "../../fetch";
 import { Friend, SearchFriend, Modal } from "../../components";
+import { useUnload } from "../../useHook/useUnload";
 
 export default function FollowingFriend() {
   const [followingFriends, setFollowingFriends] = useState([]);
@@ -9,7 +10,14 @@ export default function FollowingFriend() {
   const [modal, setModal] = useState(false);
   const [newFriendId, setNewFriendId] = useState(null);
   const componentWillUnmount = useRef(false);
+  const handleUnfollowFriend = () => {
+    unfollowFriend(unfollow);
+  };
 
+  useUnload((e) => {
+    e.preventDefault();
+    unfollowFriend(unfollow);
+  });
   useEffect(() => {
     return () => {
       componentWillUnmount.current = true;

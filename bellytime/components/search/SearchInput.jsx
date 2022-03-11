@@ -11,8 +11,8 @@ export const SearchInput = ({
   setSearched,
 }) => {
   const onDebounceChange = useCallback(
-    debounce((data) => {
-      getSearchWords(data, setSearchData);
+    debounce((value) => {
+      value && getSearchWords(value, setSearchData);
     }, 500),
     []
   );
@@ -25,10 +25,11 @@ export const SearchInput = ({
           name="search"
           placeholder="Search"
           onChange={(e) => {
+            e.preventDefault();
             setSearched(false);
             setShopList("");
             setInput(e.target.value);
-            onDebounceChange();
+            onDebounceChange(e.target.value);
           }}
           onFocus={() => {}}
           value={input}

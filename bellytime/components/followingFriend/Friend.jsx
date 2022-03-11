@@ -22,7 +22,7 @@ export const Friend = ({
   const handleChattingButton = async () => {
     setChatState({
       contact: [{ profileImg, contactId: friendId }],
-      roomName: [name],
+      roomName: name,
     });
     const roomId = await plusChatRoom([friendId], "customer");
     console.log(roomId);
