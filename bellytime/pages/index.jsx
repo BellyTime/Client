@@ -29,14 +29,8 @@ export default function Home() {
   const [shopFeed, setShopFeed] = useState("");
   const [popularShopList, setPopularShopList] = useState(null);
   const [setting, setSetting] = useRecoilState(settingState);
-  useEffect(async () => {
-    const cookie = await getCookie(document.cookie, "refreshToken");
-    console.log("cookie", cookie);
-    if (!cookie) router.push("/memberPage");
-
-    // if (!cookie) router.push("/memberPage");
-    // console.log();
-
+  useEffect(() => {
+    if (!setting.token) router.push("/memberPage");
     //https://www.tabnine.com/academy/javascript/how-to-get-cookies/
     //https://www.codegrepper.com/code-examples/javascript/get+cookie+by+name+javascript
 
