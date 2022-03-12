@@ -10,6 +10,7 @@ axiosInstance.interceptors.request.use(
     config.baseURL = "https://backend.bellytime.kr/";
     config.params = { ...config.params, timestamp: Date.now() };
     config.headers = { Authorization: "Bearer " + setting.token };
+    config.withCredentials = true;
     return config;
   },
   function (error) {
