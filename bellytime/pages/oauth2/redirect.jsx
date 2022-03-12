@@ -22,7 +22,9 @@ export default function Redirect() {
     if (setting.token) {
       router.push("/");
     }
-  }, [token]);
+  }, [setting]);
+
+
   return <></>;
 }
 
