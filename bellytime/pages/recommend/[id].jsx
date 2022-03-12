@@ -19,7 +19,7 @@ export default function Recommend() {
 
   useEffect(() => {
     getFriendWithFood(id, setFriendList);
-  }, []);
+  }, [id]);
 
   useEffect(() => {
     getShopWithFood(filter, id, position.lat, position.lng, setShopList);

@@ -6,7 +6,7 @@ export const getPopularShopList = async () => {
     //   "/static/dummyData/followingShops.json"
     // );
     const list = await axiosInstance.get("/shop/popular");
-    console.log(list.data);
+    console.log(list);
     return list.data;
   } catch (e) {
     console.log(e);

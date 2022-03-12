@@ -1,10 +1,9 @@
 import { searchFood } from "@/fetch";
-import { setCoolTimeState } from "@/state/atom";
 import { debounce } from "lodash";
-import { useCallback, useEffect, useState } from "react";
-import { useSetRecoilState, useRecoilValue } from "recoil";
+import { useCallback, useState } from "react";
+import { SearchInputUI } from "./SearchInputUI";
 
-export const SearchFood = ({ setCoolTimeSet,coolTimeSet }) => {
+export const SearchFood = ({ setCoolTimeSet, coolTimeSet }) => {
   const [value, setValue] = useState("");
   const [searchData, setSearchData] = useState("");
   const onDebounceChange = useCallback(
@@ -13,27 +12,23 @@ export const SearchFood = ({ setCoolTimeSet,coolTimeSet }) => {
     }, 200),
     []
   );
+  const handleOnChange = (e) => {
+    setValue(e.target.value);
+    if (e.target.value) onDebounceChange(e.target.value);
+  };
 
+  const handleOnSubmit = (e) => {
+    e.preventDefault();
+    searchFood(value, setSearchData);
+  };
   return (
     <div className="flex flex-col">
       <div>
-        {" "}
-        <i className="fa fa-search text-gray-400 z-20 hover:text-gray-500"></i>{" "}
-      </div>{" "}
-      <input
-        type="text"
-        className="h-14 w-96 pl-10 pr-20 rounded-lg z-0 focus:shadow focus:outline-none"
-        placeholder="Search anything..."
-        onChange={(e) => {
-          setValue(e.target.value);
-          if (e.target.value) onDebounceChange(e.target.value);
-        }}
-        value={value}
-      />
-      <button className="h-10 w-20 text-white rounded-lg bg-red-500 hover:bg-red-600">
-        Search
-      </button>
-      <div>
+        <SearchInputUI
+          handleOnChange={handleOnChange}
+          input={value}
+          onSubmit={handleOnSubmit}
+        />
         {searchData.length ? (
           <div>
             {searchData.map(({ foodId, foodName }) => (

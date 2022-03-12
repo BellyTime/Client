@@ -28,7 +28,7 @@ export const ShopList = ({ content, child }) => {
       contact: [{ profileImg, contactId: shopId }],
       roomName: shopName,
     });
-    const  roomId  = await plusChatRoom([shopId], "shop", shopName);
+    const roomId = await plusChatRoom([shopId], "shop", shopName);
     console.log("roomId");
     router.push({
       pathname: `/chatting/room/${roomId}`,
@@ -47,7 +47,7 @@ export const ShopList = ({ content, child }) => {
         <div>{shopName}</div>
         <div>{address}</div>
         <div>리뷰수:{reviewCount}</div>
-        <div>운영상태:{status}</div>
+        <div>운영상태:{status ? "open" : "closed"}</div>
         <div>벨점:{score}</div>
         <div>팔로워수:{followerCount}</div>
         <button onClick={handleChattingButton} className="block">

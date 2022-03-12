@@ -37,7 +37,6 @@ export default function ChatList() {
 
   const handleContact = (inviteId) => {
     plusChatRoom(inviteId, IsFriend, roomNameRef.current.value).then((res) => {
-      
       if (res) {
         router.push({ pathname: `/chatting/room/${res}`, query: { IsFriend } });
       }
@@ -122,7 +121,8 @@ export default function ChatList() {
                     />
                   </>
                 )
-              : contact.map((content) => (
+              : contact &&
+                contact.map((content) => (
                   <ShopList key={uuidv4()} content={content} />
                 ))
           }

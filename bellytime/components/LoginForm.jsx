@@ -2,7 +2,7 @@ import { Formik, Field, Form, ErrorMessage } from "formik";
 import { loginSchema } from "./validation/loginSchema";
 import { handleOauth } from "../fetch/oauthLogin";
 import { baseURL } from "@/public/static/data";
-import {login} from "../fetch/login";
+import { login } from "../fetch/login";
 export const LoginForm = ({ styles }) => (
   <>
     <Formik
@@ -13,7 +13,7 @@ export const LoginForm = ({ styles }) => (
       validationSchema={loginSchema}
       onSubmit={(values) => {
         alert(JSON.stringify(values, null, 2));
-        login(values)
+        login(values);
       }}
     >
       <Form>
@@ -40,19 +40,19 @@ export const LoginForm = ({ styles }) => (
           <button type="submit" className={styles.button}>
             Login
           </button>
-          <a
-            href={`${baseURL}oauth2/authorize/google?redirect_uri=http://localhost:3000/oauth2/redirect`}
-          >
-            <button
-              type="submit"
-              className={styles.button}
-              onClick={(e) => handleOauth(e)}
-            >
-              Google
-            </button>
-          </a>
         </div>
       </Form>
     </Formik>
+    <div className="flex-col">
+      <a href={`${baseURL}/oauth2/authorize/google`}>
+        <button className={styles.button}>Google</button>
+      </a>
+      <a href={`${baseURL}/oauth2/authorize/naver`}>
+        <button className={styles.button}>Naver</button>
+      </a>
+      <a href={`${baseURL}/oauth2/authorize/kakao`}>
+        <button className={styles.button}>Kakao</button>
+      </a>
+    </div>
   </>
 );
