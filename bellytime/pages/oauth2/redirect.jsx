@@ -10,6 +10,11 @@ export default function Redirect() {
   const [user, setUser] = useRecoilState(userState);
   useEffect(() => {
     console.log("token");
+    console.log(
+      router.query.accessToken,
+      router.query.userId,
+      router.query.userNickName
+    );
     setSetting((old) => ({ ...old, token: router.query.accessToken }));
     setUser((old) => ({
       ...old,
@@ -22,8 +27,7 @@ export default function Redirect() {
     if (setting.token) {
       router.push("/");
     }
-  }, [setting]);
-
+  }, [setting.token]);
 
   return <></>;
 }
