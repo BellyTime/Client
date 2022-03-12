@@ -29,7 +29,7 @@ export default function Redirect() {
       userId: router.query.userId,
       userNickName: router.query.userNickName,
     }));
-    if (setting.token) {
+    if (router.query.accessToken) {
       router.push("/");
     }
   }, [router]);
