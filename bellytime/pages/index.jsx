@@ -17,6 +17,7 @@ import {
   settingState,
 } from "../state/atom";
 
+import getCookie from "../util/getCookie";
 import { useRecoilState } from "recoil";
 export default function Home() {
   const router = useRouter();
@@ -29,8 +30,13 @@ export default function Home() {
   const [popularShopList, setPopularShopList] = useState(null);
   const [setting, setSetting] = useRecoilState(settingState);
   useEffect(() => {
-    if (document.cookie) router.push("/memberPage");
+    const cookie = getCookie("refreshToken");
+    if (cookie) router.push("/memberPage");
     // console.log();
+
+    //https://www.tabnine.com/academy/javascript/how-to-get-cookies/
+    //https://www.codegrepper.com/code-examples/javascript/get+cookie+by+name+javascript
+
     return () => {
       setShopFeed("");
     };
