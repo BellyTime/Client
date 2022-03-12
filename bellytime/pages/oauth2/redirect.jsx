@@ -16,7 +16,7 @@ export default function Redirect() {
       userId: router.query.userId,
       userNickName: router.query.userNickName,
     }));
-    if (router.query.accessToken) {
+    if (setting.token) {
       router.push("/");
     }
   }, []);
