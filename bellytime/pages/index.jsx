@@ -32,7 +32,7 @@ export default function Home() {
   useEffect(() => {
     const cookie = getCookie("refreshToken");
     console.log("cookie", cookie);
-    if (!res) router.push("/memberPage");
+    if (!cookie) router.push("/memberPage");
 
     // if (!cookie) router.push("/memberPage");
     // console.log();
