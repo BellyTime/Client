@@ -31,7 +31,8 @@ export default function Home() {
   const [setting, setSetting] = useRecoilState(settingState);
   useEffect(() => {
     const cookie = getCookie("refreshToken");
-    if (cookie) router.push("/memberPage");
+    console.log("cookie", cookie);
+    if (!cookie) router.push("/memberPage");
     // console.log();
 
     //https://www.tabnine.com/academy/javascript/how-to-get-cookies/
