@@ -9,7 +9,7 @@ export const login = async (values) => {
       },
       withCredentials: true,
     });
-    console.log(response);
+    console.log("response", response.data);
     console.log(response.data.accessToken);
     window.localStorage.setItem("accessToken", response.data.accessToken);
     return response.data.accessToken;

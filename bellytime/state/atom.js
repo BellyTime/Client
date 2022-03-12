@@ -34,6 +34,14 @@ export const settingState = atom({
   }, // default value (aka initial value)
 });
 
+export const userState = atom({
+  key: "userState",
+  default: {
+    userId: null,
+    userNickName: null,
+  },
+});
+
 export const chatImageState = atom({
   key: "chatImageState",
   default: { contact: [], roomName: null },

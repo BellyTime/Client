@@ -1,3 +1,5 @@
+
+
 function setInterceptors(instance) {
   instance.interceptors.request.use(
     function (config) {
@@ -18,6 +20,9 @@ function setInterceptors(instance) {
       // Any status code that lie within the range of 2xx cause this function to trigger
       // Do something with response data
       if (response.data.accessToken) {
+        //리코일에 저장하고,
+        //요청다시보내고
+        return axios.request(config);
       }
       return response;
     },
