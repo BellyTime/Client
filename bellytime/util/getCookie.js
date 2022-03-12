@@ -1,4 +1,4 @@
-export default function getCookie(name) {
+function getCookie2(name) {
   var nameEQ = name + "=";
   var ca = document.cookie.split(";");
   for (var i = 0; i < ca.length; i++) {
@@ -10,7 +10,7 @@ export default function getCookie(name) {
 }
 
 
-function getCookie2(cookie, name) {
+export default function getCookie(cookie, name) {
   const q = {};
   cookie
     ?.replace(/\s/g, "")
