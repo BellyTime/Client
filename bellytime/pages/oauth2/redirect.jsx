@@ -2,12 +2,20 @@ import Lottie from "react-lottie-player";
 
 import { settingState, userState } from "../../state/atom";
 import { useRecoilState } from "recoil";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 export default function Redirect() {
   const router = useRouter();
   const [setting, setSetting] = useRecoilState(settingState);
   const [user, setUser] = useRecoilState(userState);
+  // const [query, setQuery] = useState({
+  //   accessToken: null,
+  //   userId: null,
+  //   userNickName: null,
+  // });
+  // useEffect(() => {
+  //   setQuery({accessToken:})
+  // }, []);
   useEffect(() => {
     console.log("token");
     console.log(
@@ -24,7 +32,7 @@ export default function Redirect() {
     if (setting.token) {
       router.push("/");
     }
-  }, [setting]);
+  }, [router]);
 
   return <></>;
 }
