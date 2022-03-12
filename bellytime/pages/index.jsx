@@ -30,10 +30,10 @@ export default function Home() {
   const [popularShopList, setPopularShopList] = useState(null);
   const [setting, setSetting] = useRecoilState(settingState);
   useEffect(() => {
-    getCookie("refreshToken").then((res) => {
-      console.log("cookie", res);
-      if (!res) router.push("/memberPage");
-    });
+    const cookie = getCookie("refreshToken");
+    console.log("cookie", cookie);
+    if (!res) router.push("/memberPage");
+
     // if (!cookie) router.push("/memberPage");
     // console.log();
 
