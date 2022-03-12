@@ -21,13 +21,10 @@ export default function Redirect() {
       userId: router.query.userId,
       userNickName: router.query.userNickName,
     }));
-  }, []);
-
-  useEffect(() => {
     if (setting.token) {
       router.push("/");
     }
-  }, [setting.token]);
+  }, [setting]);
 
   return <></>;
 }
