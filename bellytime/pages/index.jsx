@@ -29,11 +29,7 @@ export default function Home() {
   const [popularShopList, setPopularShopList] = useState(null);
   const [setting, setSetting] = useRecoilState(settingState);
   useEffect(() => {
-    if (
-      !setting.token
-      // || !document.cookie
-    )
-      router.push("/memberPage");
+    if (document.cookie) router.push("/memberPage");
     // console.log();
     return () => {
       setShopFeed("");
