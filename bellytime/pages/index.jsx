@@ -29,8 +29,8 @@ export default function Home() {
   const [shopFeed, setShopFeed] = useState("");
   const [popularShopList, setPopularShopList] = useState(null);
   const [setting, setSetting] = useRecoilState(settingState);
-  useEffect(() => {
-    const cookie = getCookie("refreshToken");
+  useEffect(async () => {
+    const cookie = await getCookie(document.cookie, "refreshToken");
     console.log("cookie", cookie);
     if (!cookie) router.push("/memberPage");
 
