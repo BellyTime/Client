@@ -1,19 +1,7 @@
-import Gauge from "@/components/Gauge";
 import { CoolTimeList } from "@/components";
 import { getCoolTime } from "@/fetch";
 import { useEffect, useState } from "react";
-import {
-  useRecoilState,
-  useSetRecoilState,
-  useRecoilValue,
-  useResetRecoilState,
-} from "recoil";
-import {
-  modalState,
-  modalContentState,
-  alertState,
-  setCoolTimeState,
-} from "../state/atom";
+
 import { CoolTimeModal, AlertModal } from "@/components";
 import { ModalButton } from "@/components";
 import { deleteCoolTime, setCoolTime } from "@/fetch";

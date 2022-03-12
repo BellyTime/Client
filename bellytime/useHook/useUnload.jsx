@@ -12,3 +12,4 @@ export const useUnload = (fn) => {
     };
   }, [cb]);
 };
+//https://www.30secondsofcode.org/react/s/use-unload

@@ -5,7 +5,7 @@ import axios from "axios";
 import { baseURL } from "@/public/static/data";
 import { Navbar } from "components";
 import { RecoilRoot } from "recoil";
-
+// import "/trusted-security-policies";
 function MyApp(
   { Component, pageProps }: AppProps,
   navigator: Navigator,
@@ -49,6 +49,5 @@ export default MyApp;
 
 //캐시 지우는법
 //https://gist.github.com/deanhume/4b7e1f136cbee288cff9f0fc46318fbb
-
 
 //https://backend-intro.vlpt.us/6/06.html?q=

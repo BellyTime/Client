@@ -6,7 +6,7 @@ export const getFriendWithFood = async (id, setFriendList) => {
     //   "../static/dummyData/friendCoolTimeWithFriend.json"
     // );
     const lists = await axiosInstance.get(`/cooltime/followList?foodId=${id}`);
-    console.log(lists.data);
+    console.log(lists);
     setFriendList(lists.data);
     return lists.data;
   } catch (e) {

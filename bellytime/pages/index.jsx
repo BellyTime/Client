@@ -27,10 +27,14 @@ export default function Home() {
   const [filter, setFilter] = useState("follow");
   const [shopFeed, setShopFeed] = useState("");
   const [popularShopList, setPopularShopList] = useState(null);
-  // const [setting, setSetting] = useRecoilState(settingState);
-  // useEffect(() => {
-  //   if (!document.cookie) router.push("/memberPage");
-  // }, []);
+  const [setting, setSetting] = useRecoilState(settingState);
+  useEffect(() => {
+    if (!setting.token || !document.cookie) router.push("/memberPage");
+    // console.log();
+    return () => {
+      setShopFeed("");
+    };
+  }, []);
   const fetchCoolTime = async () => {
     const fetchList = await getCoolTime();
     setCoolTimeList(fetchList);

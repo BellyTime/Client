@@ -1,8 +1,6 @@
 import { Subject } from "../modal/Subject";
 import { ModalButton } from "..";
 import { DurationModify } from "..";
-// import { modalState, setCoolTimeState } from "@/state/atom";
-// import { useRecoilState, useRecoilValue } from "recoil";
 import { Calender } from "..";
 import { SearchFood } from "./SearchFood";
 
@@ -16,8 +14,6 @@ const CoolTimeModal = ({
   coolTimeSet,
   setCoolTimeSet,
 }) => {
-  // const modal = useRecoilValue(modalState);
-  // const [coolTimeSet, setCoolTimeSet] = useRecoilState(setCoolTimeState);
   return (
     <div
       className={
@@ -94,6 +90,7 @@ const CoolTimeModal = ({
                   }}
                   label={"쿨타임수정"}
                   modal={"medium-modal"}
+                  disabled={false}
                 />
                 <ModalButton
                   onClick={() => {
@@ -102,6 +99,7 @@ const CoolTimeModal = ({
                   }}
                   label={"쿨타임 삭제"}
                   modal={"medium-modal"}
+                  disabled={false}
                 />
               </>
             )}{" "}
@@ -113,6 +111,7 @@ const CoolTimeModal = ({
                   }}
                   label={"확인"}
                   modal={"medium-modal"}
+                  disabled={false}
                 />
                 <ModalButton
                   onClick={() => {
@@ -122,6 +121,7 @@ const CoolTimeModal = ({
                   }}
                   label={"취소"}
                   modal={"medium-modal"}
+                  disabled={false}
                 />
               </>
             )}
@@ -133,6 +133,7 @@ const CoolTimeModal = ({
                   }}
                   label={"확인"}
                   modal={"medium-modal"}
+                  disabled={!coolTimeSet.foodId || !coolTimeSet.duration}
                 />
                 <ModalButton
                   onClick={() => {
@@ -142,6 +143,7 @@ const CoolTimeModal = ({
                   }}
                   label={"취소"}
                   modal={"medium-modal"}
+                  disabled={false}
                 />
               </>
             )}

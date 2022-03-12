@@ -8,6 +8,7 @@ export const getShopList = async (name, sortBy) => {
       { name, sortBy }
     );
     console.log({ name, sortBy });
+    console.log(lists);
     return lists.data;
   } catch (e) {
     console.log(e);

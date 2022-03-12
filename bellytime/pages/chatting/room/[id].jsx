@@ -34,6 +34,7 @@ export default function ChatRoom() {
   const reset = useResetRecoilState(chatImageState);
   console.log("contactInfo", contactInfo);
   const socketJs = new SockJS("https://backend.bellytime.kr/chat/chatting");
+
   let stompcli = Stomp.over(socketJs);
   stompcli.debug = () => {};
   //https://stackoverflow.com/questions/25683022/how-to-disable-debug-messages-on-sockjs-stomp
@@ -76,6 +77,8 @@ export default function ChatRoom() {
     getPreviousChat(router.query.id, setAllContent);
     return () => {
       componentWillUnmount.current = true;
+      setAllContent("");
+      //https://stackoverflow.com/questions/54954385/react-useeffect-causing-cant-perform-a-react-state-update-on-an-unmounted-comp
     };
   }, []);
 
@@ -85,45 +88,6 @@ export default function ChatRoom() {
     };
   }, []);
 
-  // useEffect(() => {
-  //   setId(router.query.id);
-  //   setIsFriend(router.query.IsFriend);
-  // }, []);
-
-  useEffect(() => {
-    console.log(inviteId);
-  }, [inviteId]);
-
-  useEffect(() => {
-    console.log(connected);
-  }, [connected]);
-
-  useEffect(() => {
-    console.log(contactInfo);
-    console.log(contactInfo.roomName);
-  }, [contactInfo]);
-  // const handleContent = (e) => {
-  //   e.preventDefault();
-  //   setContent(e.target.value);
-  // };
-  // const handleSubmit = (e) => {
-  //   e.preventDefault();
-  //   if (content) {
-  //     let date = new Date(+new Date() + 3240 * 10000)
-  //       .toISOString()
-  //       .split("T")[0];
-  //     let time = new Date().toTimeString().split(" ")[0];
-  //     let msg = {
-  //       roomId: "11",
-  //       sender: 4,
-  //       nickName: "eunsun",
-  //       content,
-  //       sendTime: time,
-  //     };
-  //     // setAllContent((old) => [...old, msg]);
-  //     setContent("");
-  //   }
-  // };
   const handleExitButton = (e) => {
     exitChatRoom(router.query.id).then(() => {
       router.push("/chatting/chatList");
@@ -301,7 +265,15 @@ export default function ChatRoom() {
             <ContactList
               inviteId={inviteId}
               setInviteId={setInviteId}
-              contact={contact}
+              contact={
+                contact &&
+                contact.filter(
+                  ({ contactId }) =>
+                    !contactInfo.contact
+                      .map(({ contactId }) => contactId)
+                      .includes(contactId)
+                )
+              }
               IsFriend="customer"
             />
           }

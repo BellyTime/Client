@@ -1,9 +1,13 @@
-import { deleteRecentSearch } from "../fetch";
-
+import { deleteRecentSearch, getSearchWords } from "../fetch";
 import { useRef, useEffect, useState, useCallback } from "react";
-import { SearchInput, RecentSearch, ShopList } from "../components";
+import {
+  RecentSearch,
+  ShopList,
+  SearchInputUI,
+} from "../components";
 import { getShopList, getRecentSearch } from "../fetch";
 import { v4 as uuidv4 } from "uuid";
+import { debounce } from "lodash";
 
 //1. 실시간 인기 검색
 // 2. 검색어 리스트
@@ -63,18 +67,31 @@ export default function Search() {
     setInput(content);
     handleOnClick(content);
   };
+
+  const handleOnSubmit = (e) => {
+    handleInputEnter(e, input, sortBy);
+  };
+
+  const onDebounceChange = useCallback(
+    debounce((value) => {
+      value && getSearchWords(value, setSearchData);
+    }, 500),
+    []
+  );
+  const handleOnChange = (e) => {
+    e.preventDefault();
+    setSearched(false);
+    setShopList("");
+    setInput(e.target.value);
+    onDebounceChange(e.target.value);
+  };
+
   return (
     <div>
-      <SearchInput
+      <SearchInputUI
+        handleOnChange={handleOnChange}
         input={input}
-        setInput={setInput}
-        setSearchData={setSearchData}
-        setShopList={setShopList}
-        onSubmit={(e) => {
-          handleInputEnter(e, input, sortBy);
-        }}
-        setSearched={setSearched}
-        //엔터눌럿을때도 검색가게. 엔터누르면 키보드 사라지기
+        onSubmit={handleOnSubmit}
       />
       {searched && (
         <div className="flex justify-evenly">
@@ -89,7 +106,7 @@ export default function Search() {
           <button
             onClick={(e) => {
               e.preventDefault();
-              setSortBy("bellScore");
+              setSortBy("bellscore");
             }}
           >
             벨점순

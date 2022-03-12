@@ -1,21 +1,5 @@
-import { debounce } from "lodash";
-import { useCallback, useState } from "react";
-import { getSearchWords } from "../../fetch";
-export const SearchInput = ({
-  input,
-  setInput,
-  setShopList,
-  setSearchData,
-  onClick,
-  onSubmit,
-  setSearched,
-}) => {
-  const onDebounceChange = useCallback(
-    debounce((value) => {
-      value && getSearchWords(value, setSearchData);
-    }, 500),
-    []
-  );
+export const SearchInputUI = ({ handleOnChange, input
+  , onSubmit }) => {
   return (
     <div className="pt-2 relative mx-auto text-gray-600">
       <form autoComplete="off" onSubmit={onSubmit} id="search-button">
@@ -24,18 +8,13 @@ export const SearchInput = ({
           type="search"
           name="search"
           placeholder="Search"
-          onChange={(e) => {
-            e.preventDefault();
-            setSearched(false);
-            setShopList("");
-            setInput(e.target.value);
-            onDebounceChange(e.target.value);
-          }}
-          onFocus={() => {}}
+          onChange={handleOnChange}
           value={input}
+     
         />
       </form>
       <button
+
         type="submit"
         form="search-button"
         className="absolute right-0 top-0 mt-5 mr-4"
