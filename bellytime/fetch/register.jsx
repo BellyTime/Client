@@ -1,14 +1,10 @@
 import axios from "axios";
-import { axiosInstance } from "./instance";
-export const register = async ( values ) => {
+import { loginInstance } from "./instance/loginInstance";
+export const register = async (values) => {
   const URL = `/join`;
   console.log(values);
   try {
-    await axiosInstance.post(URL, values, {
-      headers: {
-        "Content-Type": "multipart/form-data",
-      },
-    });
+    await loginInstance.post(URL, values);
   } catch (e) {
     console.log(e);
   }
