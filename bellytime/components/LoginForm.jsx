@@ -3,11 +3,12 @@ import { loginSchema } from "./validation/loginSchema";
 import { handleOauth } from "../fetch/oauthLogin";
 import { baseURL } from "@/public/static/data";
 import { login } from "../fetch/login";
-import { settingState } from "@/state/atom";
+import { settingState, userState } from "@/state/atom";
 import { useRecoilState } from "recoil";
 import { useRouter } from "next/router";
 export const LoginForm = ({ styles }) => {
   const [setting, setSetting] = useRecoilState(settingState);
+  const [user, setUser] = useRecoilState(userState);
   const router = useRouter();
   return (
     <>
@@ -19,8 +20,10 @@ export const LoginForm = ({ styles }) => {
         validationSchema={loginSchema}
         onSubmit={async (values) => {
           alert(JSON.stringify(values, null, 2));
-          const accessToken = await login(values);
+          const { userId, userNickName, accessToken } = await login(values);
+          console.log("form", userId, userNickName, accessToken);
           setSetting((old) => ({ ...old, token: accessToken }));
+          setUser((old) => ({ ...old, userId, userNickName }));
           if (accessToken) router.push("/");
         }}
       >
