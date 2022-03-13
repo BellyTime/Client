@@ -76,7 +76,7 @@ export default function ChatList() {
           >
             {contact?.map(({ profileImg }) => (
               <img
-                src={profileImg == "null" ? "/public/icon.png" : profileImg}
+                src={profileImg == "null" ? "/icon.png" : profileImg}
                 className="inline object-cover w-16 h-16 mr-2 rounded-full"
                 key={uuidv4()}
               />

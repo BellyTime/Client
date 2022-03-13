@@ -1,7 +1,13 @@
 import { useState, useRef } from "react";
 import { v4 as uuidv4 } from "uuid";
-import { useRecoilState } from "recoil";
-import { settingState } from "../../state/atom";
+import { useRecoilState, useResetRecoilState } from "recoil";
+import {
+  chatImageState,
+  mainPageCoolTimeState,
+  positionState,
+  settingState,
+  userState,
+} from "../../state/atom";
 import { useEffect } from "react";
 import { Link } from "../../components";
 import { fetchSetting } from "../../fetch/myPage/setting";
@@ -9,6 +15,10 @@ import { fetchSetting } from "../../fetch/myPage/setting";
 export default function Setting() {
   const [setting, setSetting] = useRecoilState(settingState);
   const componentWillUnmount = useRef(false);
+  const resetSetting = useResetRecoilState(settingState);
+  const resetUser = useResetRecoilState(userState);
+  const resetPosition = useResetRecoilState(positionState);
+  const resetCoolTime = useResetRecoilState(mainPageCoolTimeState);
 
   useEffect(() => {
     return () => {
@@ -22,8 +32,7 @@ export default function Setting() {
         fetchSetting(setting);
       }
     };
-  }, [setting]); 
-
+  }, [setting]);
 
   return (
     <>
@@ -71,7 +80,10 @@ export default function Setting() {
           <Link href="/memberPage">
             <button
               onClick={() => {
-                setSetting({ ...setting, token: "" });
+                resetSetting();
+                resetCoolTime();
+                resetPosition();
+                resetUser();
                 document.cookie = `refreshToken=;Expires=${new Date().toUTCString()}`;
               }}
             >
@@ -88,6 +100,5 @@ export default function Setting() {
 // 저장한것을 여기서 useEffect, useRecoilState로 적용
 // 로그인한 상태면,,,, 로그아웃하기전까진 계속 로그인
 //로그아웃하면 쿠키,제거
-
 
 //https://headlessui.dev/react/switch
