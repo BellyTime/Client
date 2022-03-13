@@ -10,7 +10,9 @@ export const enrollReview = async (
   try {
     // const lists = await axios.post(
     //   "https://backend.bellytime.kr/cooltime/setting",
-    //   data
+    //   data,{
+    //   "content-type": "multipart/form-data",
+    // }
     // );
     const formData = new FormData();
     console.log(content, images, visible, score, reservationId);
@@ -25,3 +27,4 @@ export const enrollReview = async (
     console.log(e);
   }
 };
+//multipart form으로 header넣기
