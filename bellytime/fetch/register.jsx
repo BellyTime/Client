@@ -9,7 +9,7 @@ export const register = async ({
   profileImg,
 }) => {
   const URL = `/join`;
-  console.log(values);
+
   const formData = new FormData();
   formData.append("name", name);
   formData.append("email", email);
