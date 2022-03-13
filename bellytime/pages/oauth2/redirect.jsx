@@ -17,7 +17,6 @@ export default function Redirect() {
       userNickName: router.query.userNickName,
     }));
     if (router.query.accessToken) {
-      fetchSetting();
       router.push("/");
     }
   }, [router]);
