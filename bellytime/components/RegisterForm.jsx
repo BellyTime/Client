@@ -72,7 +72,7 @@ export const RegisterForm = ({ styles }) => (
           accept="img/*"
           className="hidden"
         />
-        <Field className={styles.field} id="profileImg" name="profileImg" />
+
         <ErrorMessage
           component="a"
           className={styles.errorMsg}
