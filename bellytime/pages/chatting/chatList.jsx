@@ -9,8 +9,8 @@ import {
   plusChatRoom,
 } from "../../fetch";
 import { ContactList, Modal, ShopList } from "../../components";
-import { useResetRecoilState, useRecoilState } from "recoil";
-import { chatImageState } from "../../state/atom";
+import { useResetRecoilState, useRecoilState, useRecoilValue } from "recoil";
+import { chatImageState, userState } from "../../state/atom";
 export default function ChatList() {
   const [IsFriend, setIsFriend] = useState("customer");
   const [chatList, setChatList] = useState(""); //채팅리스트
@@ -18,10 +18,12 @@ export default function ChatList() {
   const [contact, setContact] = useState(""); //새로운채팅
   const [inviteId, setInviteId] = useState([]);
   const [contactInfo, setContactInfo] = useRecoilState(chatImageState); //채팅방에 담을 정보
+  const { userNickName, userId } = useRecoilValue(userState);
   const router = useRouter();
   const roomNameRef = useRef();
 
   useEffect(() => {
+    console.log("user", userNickName, userId);
     getChatList(IsFriend, setChatList);
   }, [IsFriend]);
   const handlePlusChatRoom = async () => {
