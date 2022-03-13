@@ -9,7 +9,7 @@ axiosInstance.interceptors.request.use(
     // Do something before request is sent
     config.baseURL = "https://backend.bellytime.kr/";
     config.params = { ...config.params, timestamp: Date.now() };
-    config.headers = { Authorization: "Bearer " + setting.token };
+    // config.headers = { Authorization: "Bearer " + setting.token };
     config.withCredentials = true;
     return config;
   },
@@ -24,14 +24,14 @@ axiosInstance.interceptors.response.use(
   function (response) {
     // Any status code that lie within the range of 2xx cause this function to trigger
     // Do something with response data
-    if (response.data.accessToken) {
-      //리코일에 저장하고,
-      //요청다시보내고
-      axiosInstance.defaults.headers = {
-        Authorization: "Bearer " + response.data.accessToken,
-      };
-      return axiosInstance.request(config);
-    }
+    // if (response.data.accessToken) {
+    //   //리코일에 저장하고,
+    //   //요청다시보내고
+    //   axiosInstance.defaults.headers = {
+    //     Authorization: "Bearer " + response.data.accessToken,
+    //   };
+    //   return axiosInstance.request(config);
+    // }
     return response;
   },
   function (error) {
