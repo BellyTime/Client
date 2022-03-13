@@ -13,6 +13,6 @@ export const registerSchema = Yup.object().shape({
   email: Yup.string().email().required("Required"),
   password: Yup.string().required("Required").min(3, "Too Short!"),
   phoneNumber: Yup.string().matches(phoneRegExp, "Phone number is not valid"),
-  profileImg: Yup.string(),
+  profileImg: Yup.mixed(),
 });
 

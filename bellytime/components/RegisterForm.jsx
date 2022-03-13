@@ -64,17 +64,28 @@ export const RegisterForm = ({ styles }) => (
         <label className={styles.label} htmlFor="profileImg">
           프로필이미지
         </label>
+
+        <input
+          type="file"
+          id="profileImg"
+          name="profileImg"
+          accept="img/*"
+          className="hidden"
+        />
         <Field className={styles.field} id="profileImg" name="profileImg" />
         <ErrorMessage
           component="a"
           className={styles.errorMsg}
           name="profileImg"
         />
-  
-          <button type="submit" className={styles.button} onClick={()=>console.log("hi")}>
-            Register
-          </button>
-  
+
+        <button
+          type="submit"
+          className={styles.button}
+          onClick={() => console.log("hi")}
+        >
+          Register
+        </button>
       </Form>
     </Formik>
   </>
