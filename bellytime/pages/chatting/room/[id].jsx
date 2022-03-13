@@ -14,7 +14,7 @@ import { v4 as uuidv4 } from "uuid";
 import { set } from "lodash";
 import { Drawer, Modal } from "../../../components";
 import { chatImageState, userState } from "../../../state/atom";
-import { useRecoilState, useResetRecoilState } from "recoil";
+import { useRecoilState, useResetRecoilState, useRecoilValue } from "recoil";
 import { ContactList } from "../../../components";
 export default function ChatRoom() {
   const router = useRouter();
@@ -107,13 +107,13 @@ export default function ChatRoom() {
   const handleGoReserve = () => {
     router.push(`/shop/${contactInfo.contact[0].contactId}`);
   };
-  const sendWithStomp = (sender, nickName, content) => {
+  const sendWithStomp = (content) => {
     let date = new Date(+new Date() + 3240 * 10000).toISOString().split("T")[0];
     let time = new Date().toTimeString().split(" ")[0];
     let msg = {
       roomId: router.query.id,
-      sender,
-      nickName,
+      sender : userId,
+      nickName : userNickName,
       content,
       sendTime: date + " " + time,
     };
@@ -214,7 +214,7 @@ export default function ChatRoom() {
             e.preventDefault();
             const value = inputRef.current.value;
             // setContent(value);
-            if (value && connected) sendWithStomp(userId, userNickName, value);
+            if (value && connected) sendWithStomp(value);
           }}
         >
           <input
