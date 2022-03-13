@@ -11,6 +11,7 @@ import {
 import { useEffect } from "react";
 import { Link } from "../../components";
 import { fetchSetting } from "../../fetch/myPage/setting";
+import { logout } from "../../fetch";
 
 export default function Setting() {
   const [setting, setSetting] = useRecoilState(settingState);
@@ -80,6 +81,7 @@ export default function Setting() {
           <Link href="/memberPage">
             <button
               onClick={() => {
+                logout();
                 resetSetting();
                 resetCoolTime();
                 resetPosition();

@@ -34,3 +34,4 @@ export * from "./main/getPopularShopList";
 export * from "./main/getPostDetail";
 export * from "./recommend/getFriendWithFood";
 export * from "./recommend/getShopWithFood";
+export * from "./logout";
