@@ -1,15 +1,9 @@
 import axios from "axios";
-import { axiosInstance } from "./instance";
-import {loginInstance} from "./instance"
+import { loginInstance } from "./instance/loginInstance";
 export const login = async (values) => {
   const URL = `/login`;
   try {
-    const response = await axiosInstance.post(URL, values, {
-      headers: {
-        "Content-Type": "application/json",
-      },
-      withCredentials: true,
-    });
+    const response = await loginInstance.post(URL, values);
     console.log("response", response.data);
     // console.log(response.data.accessToken);
     // window.localStorage.setItem("accessToken", response.data.accessToken);
