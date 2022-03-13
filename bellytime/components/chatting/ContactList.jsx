@@ -39,7 +39,7 @@ export const ContactList = ({ inviteId, setInviteId, contact, IsFriend }) => {
             <div>
               <img
                 className="inline object-cover w-16 h-16 mr-2 rounded-full"
-                src={profileImg == "null" ? "/public/icon.png" : profileImg}
+                src={profileImg == "null" ? "/icon.png" : profileImg}
               />
               <span>{name}</span>
             </div>
