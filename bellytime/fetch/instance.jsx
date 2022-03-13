@@ -7,7 +7,7 @@ axiosInstance.interceptors.request.use(
   function (config) {
     const setting = getRecoil(settingState);
     // Do something before request is sent
-    config.baseURL = "https://backend.bellytime.kr/";
+    config.baseURL = "https://backend.bellytime.kr";
     config.params = { ...config.params, timestamp: Date.now() };
     config.headers = { Authorization: "Bearer " + setting.token };
     config.withCredentials = true;
