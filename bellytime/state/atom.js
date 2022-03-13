@@ -25,7 +25,10 @@ import { recoilPersist } from "recoil-persist";
 //     duration: 0,
 //   }, // default value (aka initial value)
 // });
-const { persistAtom } = recoilPersist();
+const { persistAtom } = recoilPersist({
+  key: "recoil-persist",
+  storage: localStorage,
+});
 export const settingState = atom({
   key: "settingState", // unique ID (with respect to other atoms/selectors)
   default: {
