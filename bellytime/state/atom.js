@@ -1,5 +1,6 @@
 import { atom } from "recoil";
 import { recoilPersist } from "recoil-persist";
+
 // export const modalState = atom({
 //   key: "modalState", // unique ID (with respect to other atoms/selectors)
 //   default: false, // default value (aka initial value)
@@ -28,7 +29,7 @@ import { recoilPersist } from "recoil-persist";
 
 const { persistAtom } = recoilPersist({
   key: "recoil-persist",
-  storage: window.localStorage,
+  storage: typeof window !== "undefined" && window.localStorage,
 });
 export const settingState = atom({
   key: "settingState", // unique ID (with respect to other atoms/selectors)
