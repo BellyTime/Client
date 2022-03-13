@@ -13,7 +13,7 @@ import {
 import { v4 as uuidv4 } from "uuid";
 import { set } from "lodash";
 import { Drawer, Modal } from "../../../components";
-import { chatImageState } from "../../../state/atom";
+import { chatImageState, userState } from "../../../state/atom";
 import { useRecoilState, useResetRecoilState } from "recoil";
 import { ContactList } from "../../../components";
 export default function ChatRoom() {
@@ -21,7 +21,7 @@ export default function ChatRoom() {
   // const [id, setId] = useState("");
   // const [IsFriend, setIsFriend] = useState("");
   const [contactInfo, setContactInfo] = useRecoilState(chatImageState);
-
+  const { userNickName, userId } = useRecoilValue(userState);
   // const [content, setContent] = useState("");
   const [allContent, setAllContent] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
@@ -34,7 +34,7 @@ export default function ChatRoom() {
   const reset = useResetRecoilState(chatImageState);
   console.log("contactInfo", contactInfo);
   const socketJs = new SockJS("https://backend.bellytime.kr/chat/chatting");
-
+  console.log(userId, userNickName);
   let stompcli = Stomp.over(socketJs);
   stompcli.debug = () => {};
   //https://stackoverflow.com/questions/25683022/how-to-disable-debug-messages-on-sockjs-stomp
@@ -182,7 +182,7 @@ export default function ChatRoom() {
                 sender == -1 || sender == -2
                   ? ""
                   : `${
-                      nickName !== "eunsun" ? "text-left" : "text-right"
+                      nickName !== userNickName ? "text-left" : "text-right"
                     } px-1 py-1 w-full`
               }
             >
@@ -192,7 +192,7 @@ export default function ChatRoom() {
                 ) : (
                   <>
                     <p className="text-blue-600 ">
-                      {nickName == "eunsun"
+                      {nickName == userNickName
                         ? null
                         : nickName
                         ? nickName
@@ -214,7 +214,7 @@ export default function ChatRoom() {
             e.preventDefault();
             const value = inputRef.current.value;
             // setContent(value);
-            if (value && connected) sendWithStomp(4, "eunsun", value);
+            if (value && connected) sendWithStomp(userId, userNickName, value);
           }}
         >
           <input
