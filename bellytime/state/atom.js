@@ -1,4 +1,5 @@
 import { atom } from "recoil";
+import { recoilPersist } from "recoil-persist";
 // export const modalState = atom({
 //   key: "modalState", // unique ID (with respect to other atoms/selectors)
 //   default: false, // default value (aka initial value)
@@ -24,7 +25,7 @@ import { atom } from "recoil";
 //     duration: 0,
 //   }, // default value (aka initial value)
 // });
-
+const { persistAtom } = recoilPersist();
 export const settingState = atom({
   key: "settingState", // unique ID (with respect to other atoms/selectors)
   default: {
@@ -32,6 +33,7 @@ export const settingState = atom({
     alarm: false,
     token: "",
   }, // default value (aka initial value)
+  effects_UNSTABLE: [persistAtom],
 });
 
 export const userState = atom({
@@ -40,11 +42,13 @@ export const userState = atom({
     userId: null,
     userNickName: null,
   },
+  effects_UNSTABLE: [persistAtom],
 });
 
 export const chatImageState = atom({
   key: "chatImageState",
   default: { contact: [], roomName: null },
+  effects_UNSTABLE: [persistAtom],
 });
 
 //페이지간 전달할것이 아니면 지우기
@@ -52,9 +56,11 @@ export const chatImageState = atom({
 export const positionState = atom({
   key: "positionState",
   default: { lat: null, lng: null, address: null },
+  effects_UNSTABLE: [persistAtom],
 });
 
 export const mainPageCoolTimeState = atom({
   key: "mainPageCoolTimeState",
   default: null,
+  effects_UNSTABLE: [persistAtom],
 });
