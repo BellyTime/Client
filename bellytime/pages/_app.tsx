@@ -6,6 +6,7 @@ import { baseURL } from "@/public/static/data";
 import { Navbar } from "components";
 import { RecoilRoot } from "recoil";
 import RecoilNexus from "recoil-nexus";
+import { useEffect } from "react";
 // import "/trusted-security-policies";
 function MyApp(
   { Component, pageProps }: AppProps,

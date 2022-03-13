@@ -2,7 +2,8 @@ import { useEffect, useState, useRef } from "react";
 import { followingFriendList, newFriend, unfollowFriend } from "../../fetch";
 import { Friend, SearchFriend, Modal } from "../../components";
 import { useUnload } from "../../useHook/useUnload";
-
+import { useRecoilValue } from "recoil";
+import { userState } from "../../state/atom";
 export default function FollowingFriend() {
   const [followingFriends, setFollowingFriends] = useState([]);
   const [unfollow, setUnfollow] = useState([]);
@@ -13,7 +14,8 @@ export default function FollowingFriend() {
   const handleUnfollowFriend = () => {
     unfollowFriend(unfollow);
   };
-
+  const { userId, userNickName } = useRecoilValue(userState);
+  console.log("user", userId, userNickName);
   useUnload((e) => {
     e.preventDefault();
     unfollowFriend(unfollow);
