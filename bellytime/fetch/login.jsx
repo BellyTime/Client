@@ -1,9 +1,10 @@
 import axios from "axios";
 import { axiosInstance } from "./instance";
+import { loginInstance } from "./instance/loginInstance";
 export const login = async (values) => {
   const URL = `/login`;
   try {
-    const response = await axiosInstance.post(URL, values, {
+    const response = await loginInstance.post(URL, values, {
       headers: {
         "Content-Type": "application/json",
       },
