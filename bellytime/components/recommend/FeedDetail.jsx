@@ -11,7 +11,7 @@ export const FeedDetail = ({ feedContent }) => {
       />
       <p>{shopName}</p>
       <p>{title}</p>
-      <PhotoSlider images={images} />
+      {images.length !== 0 && <PhotoSlider images={images} />}
       <p>{content}</p>
     </>
   );

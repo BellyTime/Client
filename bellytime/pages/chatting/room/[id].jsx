@@ -123,6 +123,7 @@ export default function ChatRoom() {
     let time = new Date().toTimeString().split(" ")[0];
     let msg = {
       roomId: router.query.id,
+
       sender: userId,
       nickName: userNickName,
       content,
@@ -193,7 +194,8 @@ export default function ChatRoom() {
                 sender == -1 || sender == -2
                   ? ""
                   : `${
-                      nickName !== userNickName ? "text-left" : "text-right"
+                      nickName !== "피피" ? "text-left" : "text-right"
+                      // nickName !== userNickName ? "text-left" : "text-right"
                     } px-1 py-1 w-full`
               }
             >
@@ -203,8 +205,9 @@ export default function ChatRoom() {
                 ) : (
                   <>
                     <p className="text-blue-600 ">
-                      {nickName == userNickName
-                        ? null
+                      {nickName == "피피"
+                        ? // {nickName == userNickName
+                          null
                         : nickName
                         ? nickName
                         : "undefined"}
