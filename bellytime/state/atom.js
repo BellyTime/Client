@@ -52,7 +52,7 @@ export const userState = atom({
 
 export const chatImageState = atom({
   key: "chatImageState",
-  default: { contact: [], roomName: null },
+  default: { contact: [] },
 });
 
 export const startChatState = atom({
@@ -61,9 +61,16 @@ export const startChatState = atom({
     contact: [],
     roomName: null,
   },
+  effects_UNSTABLE: [persistAtom],
 });
 
 //페이지간 전달할것이 아니면 지우기
+
+export const chatContentState = atom({
+  key: "chatContentState",
+  default: "",
+  effects_UNSTABLE: [persistAtom],
+});
 
 export const positionState = atom({
   key: "positionState",

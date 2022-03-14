@@ -13,7 +13,12 @@ import {
 import { v4 as uuidv4 } from "uuid";
 import { set } from "lodash";
 import { Drawer, Modal } from "../../../components";
-import { chatImageState, userState } from "../../../state/atom";
+import {
+  chatContentState,
+  chatImageState,
+  startChatState,
+  userState,
+} from "../../../state/atom";
 import { useRecoilState, useResetRecoilState, useRecoilValue } from "recoil";
 import { ContactList } from "../../../components";
 export default function ChatRoom() {
@@ -21,23 +26,32 @@ export default function ChatRoom() {
   // const [id, setId] = useState("");
   // const [IsFriend, setIsFriend] = useState("");
   const [contactInfo, setContactInfo] = useRecoilState(chatImageState);
-  const { userNickName, userId } = useRecoilValue(userState);
+  const [startChatInfo, setStartChatInfo] = useRecoilState(startChatState);
+  // const { userNickName, userId } = useRecoilValue(userState);
+  const userNickName = "피피";
+  const userId = "26";
   // const [content, setContent] = useState("");
-  const [allContent, setAllContent] = useState([]);
+  const [allContent, setAllContent] = useRecoilState(chatContentState);
   const [isOpen, setIsOpen] = useState(false);
   const [modal, setModal] = useState(false);
   const [inviteId, setInviteId] = useState([]);
   const [contact, setContact] = useState("");
   const [connected, setConneted] = useState(false);
-  const componentWillUnmount = useRef(false);
   const inputRef = useRef();
-  const reset = useResetRecoilState(chatImageState);
   console.log("contactInfo", contactInfo);
   const socketJs = new SockJS("https://backend.bellytime.kr/chat/chatting");
   console.log(userId, userNickName);
   let stompcli = Stomp.over(socketJs);
   stompcli.debug = () => {};
+
   //https://stackoverflow.com/questions/25683022/how-to-disable-debug-messages-on-sockjs-stomp
+  useEffect(() => {
+    getPreviousChat(router.query.id, setAllContent);
+
+    return () => {
+      //https://stackoverflow.com/questions/54954385/react-useeffect-causing-cant-perform-a-react-state-update-on-an-unmounted-comp
+    };
+  }, []);
   useEffect(() => {
     stompcli.connect(
       {},
@@ -47,7 +61,7 @@ export default function ChatRoom() {
           console.log(mssg);
           setAllContent((old) => [...old, mssg]);
           if (mssg.sender == -1) {
-            setContactInfo(({ contact, roomName }) => ({
+            setStartChatInfo(({ contact, roomName }) => ({
               roomName,
               contact: contact.filter(
                 ({ nickName }) => nickName !== mssg.nickName
@@ -55,15 +69,19 @@ export default function ChatRoom() {
             }));
           }
           if (mssg.sender == -2) {
-            setContactInfo(({ contact, roomName }) => ({
-              contact: [
-                ...contact,
-                {
-                  contactId: mssg.contactId,
-                  profileImg: mssg.profileImg,
-                  nickName: mssg.nickName,
-                },
-              ],
+            const newArray = [
+              ...startChatInfo.contact,
+              {
+                contactId: mssg.contactId,
+                profileImg: mssg.profileImg,
+                nickName: mssg.nickName,
+              },
+            ];
+            const uniqueArray = [
+              ...new Set(newArray.map((o) => JSON.stringify(o))),
+            ].map((s) => JSON.parse(s));
+            setStartChatInfo(({ contact, roomName }) => ({
+              contact: [...uniqueArray],
               roomName,
             }));
           }
@@ -72,20 +90,6 @@ export default function ChatRoom() {
       },
       () => setConneted(false)
     );
-  }, []);
-  useEffect(() => {
-    getPreviousChat(router.query.id, setAllContent);
-    return () => {
-      componentWillUnmount.current = true;
-      setAllContent("");
-      //https://stackoverflow.com/questions/54954385/react-useeffect-causing-cant-perform-a-react-state-update-on-an-unmounted-comp
-    };
-  }, []);
-
-  useEffect(() => {
-    return () => {
-      if (componentWillUnmount.current) reset();
-    };
   }, []);
 
   const handleExitButton = (e) => {
@@ -99,10 +103,17 @@ export default function ChatRoom() {
   };
 
   const handleSetModal = () => {
-    setModal(false);
     inviteId.length && plusFriend(inviteId, router.query.id);
-    setIsOpen(false);
     setInviteId("");
+    setContactInfo({ contact: [] });
+    setIsOpen(false);
+    setModal(false);
+  };
+
+  const handleClose = () => {
+    setInviteId("");
+    setModal(false);
+    setContactInfo({ contact: [] });
   };
   const handleGoReserve = () => {
     router.push(`/shop/${contactInfo.contact[0].contactId}`);
@@ -112,8 +123,8 @@ export default function ChatRoom() {
     let time = new Date().toTimeString().split(" ")[0];
     let msg = {
       roomId: router.query.id,
-      sender : userId,
-      nickName : userNickName,
+      sender: userId,
+      nickName: userNickName,
       content,
       sendTime: date + " " + time,
     };
@@ -130,8 +141,8 @@ export default function ChatRoom() {
         <div className="flex justify-center items-center">
           {" "}
           <i className="mdi mdi-arrow-left font-normal text-gray-300 ml-1"></i>{" "}
-          {contactInfo?.contact &&
-            contactInfo.contact.map(({ profileImg, contactId }) => (
+          {startChatInfo?.contact &&
+            startChatInfo.contact.map(({ profileImg, contactId }) => (
               <img
                 key={uuidv4()}
                 src={profileImg}
@@ -140,19 +151,19 @@ export default function ChatRoom() {
                 height="25"
               />
             ))}
-          {contactInfo?.roomName ? (
+          {startChatInfo?.roomName ? (
             <span
               key={uuidv4()}
               className="text-xs font-medium text-gray-300 ml-1"
             >
-              {contactInfo.roomName}
+              {startChatInfo.roomName}
             </span>
           ) : (
             <span
               key={uuidv4()}
               className="text-xs font-medium text-gray-300 ml-1"
             >
-              {contactInfo.contact.map(({ nickName }) => nickName).join(",")}
+              {startChatInfo.contact.map(({ nickName }) => nickName).join(",")}
             </span>
           )}
         </div>
@@ -174,7 +185,7 @@ export default function ChatRoom() {
         </div>
       </nav>
       <div className="bg-gray-300 h-[80vh]  overflow-scroll scrollbar-hide">
-        {allContent &&
+        {allContent?.length &&
           allContent.map(({ nickName, content, sendTime, sender }) => (
             <div
               key={uuidv4()}
@@ -265,19 +276,11 @@ export default function ChatRoom() {
             <ContactList
               inviteId={inviteId}
               setInviteId={setInviteId}
-              contact={
-                contact &&
-                contact.filter(
-                  ({ contactId }) =>
-                    !contactInfo.contact
-                      .map(({ contactId }) => contactId)
-                      .includes(contactId)
-                )
-              }
+              contact={contact}
               IsFriend="customer"
             />
           }
-          close={() => setModal(false)}
+          close={handleClose}
         />
       )}
     </div>

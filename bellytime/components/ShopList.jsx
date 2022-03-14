@@ -4,7 +4,7 @@ import { Link } from "./Link";
 import { plusChatRoom } from "@/fetch";
 import { useRouter } from "next/router";
 import { useRecoilState } from "recoil";
-import { chatImageState } from "../state/atom";
+import { chatImageState, startChatState } from "../state/atom";
 export const ShopList = ({ content, child }) => {
   const {
     shopId,
@@ -21,7 +21,7 @@ export const ShopList = ({ content, child }) => {
   //   useEffect(() => {
   //     drawCanvas(100, 100, canvasRef, imgRef, profileImg);
   //   }, []);
-  const [chatState, setChatState] = useRecoilState(chatImageState);
+  const [chatState, setChatState] = useRecoilState(startChatState);
   const router = useRouter();
   const handleChattingButton = async () => {
     setChatState({

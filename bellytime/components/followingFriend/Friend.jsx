@@ -1,12 +1,17 @@
 import { useEffect, useRef } from "react";
 import { drawCanvas } from "../followingShop/drawCanvas";
-import { plusChatRoom } from "@/fetch";
+import { plusChatRoom, getPreviousChat } from "@/fetch";
 import { Link } from "..";
 import { useRouter } from "next/router";
 import { useRecoilState } from "recoil";
-import { chatImageState } from "../../state/atom";
+import {
+  chatContentState,
+  chatImageState,
+  startChatState,
+} from "../../state/atom";
+import useGoChatRoom from "@/util/useGoChatRoom";
 export const Friend = ({
-  name,
+  nickName,
   profileImg,
   friendId,
   setUnfollow,
@@ -15,14 +20,15 @@ export const Friend = ({
   const canvasRef = useRef();
   const imgRef = useRef();
   const router = useRouter();
-  const [chatState, setChatState] = useRecoilState(chatImageState);
+  const [chatState, setChatState] = useRecoilState(startChatState);
+  const [chatContent, setChatContent] = useRecoilState(chatContentState);
   useEffect(() => {
     drawCanvas(100, 100, canvasRef, imgRef, profileImg);
   }, []);
   const handleChattingButton = async () => {
     setChatState({
       contact: [{ profileImg, contactId: friendId }],
-      roomName: name,
+      roomName: nickName,
     });
     const roomId = await plusChatRoom([friendId], "customer");
     console.log(roomId);
@@ -35,7 +41,7 @@ export const Friend = ({
     <div>
       <img ref={imgRef} />
       <canvas ref={canvasRef} />
-      <p>{name}</p>
+      <p>{nickName}</p>
       <Link href="#">쿨타임</Link>
       <button onClick={handleChattingButton} className="block">
         채팅

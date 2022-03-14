@@ -1,18 +1,18 @@
 import { useEffect, useRef } from "react";
 import { drawCanvas } from "../followingShop/drawCanvas";
 import { Link } from "..";
-import { plusChatRoom } from "@/fetch";
+import { plusChatRoom, getPreviousChat } from "@/fetch";
 import { useRecoilState } from "recoil";
-import { chatImageState } from "../../state/atom";
+import { startChatState } from "../../state/atom";
 import { useRouter } from "next/router";
-
+import useGoChatRoom from "@/util/useGoChatRoom";
 export const NewFriend = ({ findedFriend, setNewFriendId, newFriendId }) => {
   const canvasRef = useRef();
   const imgRef = useRef();
 
   const { nickName, id, profileImg, follow } = findedFriend;
   const router = useRouter();
-  const [chatState, setChatState] = useRecoilState(chatImageState);
+  const [chatState, setChatState] = useRecoilState(startChatState);
   useEffect(() => {
     drawCanvas(100, 100, canvasRef, imgRef, profileImg);
   }, []);

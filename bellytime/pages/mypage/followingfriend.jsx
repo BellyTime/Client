@@ -55,11 +55,11 @@ export default function FollowingFriend() {
       </button>
       <div>팔로우하는 친구리스트</div>
       {followingFriends.length &&
-        followingFriends.map(({ name, contactId, profileImg }) => (
+        followingFriends.map(({ nickName, contactId, profileImg }) => (
           <Friend
             setUnfollow={setUnfollow}
             unfollow={unfollow}
-            name={name}
+            nickName={nickName}
             friendId={contactId}
             profileImg={profileImg}
             key={contactId}
