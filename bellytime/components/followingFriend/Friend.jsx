@@ -9,7 +9,6 @@ import {
   chatImageState,
   startChatState,
 } from "../../state/atom";
-import useGoChatRoom from "@/util/useGoChatRoom";
 export const Friend = ({
   nickName,
   profileImg,

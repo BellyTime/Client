@@ -185,7 +185,7 @@ export default function ChatRoom() {
         </div>
       </nav>
       <div className="bg-gray-300 h-[80vh]  overflow-scroll scrollbar-hide">
-        {allContent?.length &&
+        {allContent &&
           allContent.map(({ nickName, content, sendTime, sender }) => (
             <div
               key={uuidv4()}

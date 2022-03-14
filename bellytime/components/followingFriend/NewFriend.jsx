@@ -5,7 +5,7 @@ import { plusChatRoom, getPreviousChat } from "@/fetch";
 import { useRecoilState } from "recoil";
 import { startChatState } from "../../state/atom";
 import { useRouter } from "next/router";
-import useGoChatRoom from "@/util/useGoChatRoom";
+
 export const NewFriend = ({ findedFriend, setNewFriendId, newFriendId }) => {
   const canvasRef = useRef();
   const imgRef = useRef();
