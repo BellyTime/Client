@@ -1,7 +1,7 @@
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { positionState, mainPageCoolTimeState } from "../../state/atom";
-import { CoolTimeList, ShopList, Modal } from "../../components";
+import { CoolTimeList, ShopList, Modal, Friend } from "../../components";
 import Gauge from "../../components/Gauge";
 import { useRecoilState } from "recoil";
 import { v4 as uuidv4 } from "uuid";
@@ -88,8 +88,25 @@ export default function Recommend() {
             ))
         }
       </div>
-      {modal && (
-        <Modal setModal={() => setModal(false)} close={() => setModal(false)} />
+      {modal && friendList && (
+        <Modal
+          setModal={() => setModal(false)}
+          subject="친구의 쿨타임"
+          close={() => setModal(false)}
+          content={
+            <div>
+              {friendList.map(({ friendId, gauge, name, profileImg }) => (
+                <Friend
+                  key={uuidv4()}
+                  nickName={name}
+                  profileImg={profileImg}
+                  friendId={friendId}
+                  handleClickGauge={() => handleClickGauge(foodId)}
+                />
+              ))}
+            </div>
+          }
+        />
       )}
     </div>
   );

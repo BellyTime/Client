@@ -9,6 +9,7 @@ import {
   chatImageState,
   startChatState,
 } from "../../state/atom";
+import { ProfileImg } from "../common/ProfileImg";
 export const Friend = ({
   nickName,
   profileImg,
@@ -21,9 +22,9 @@ export const Friend = ({
   const router = useRouter();
   const [chatState, setChatState] = useRecoilState(startChatState);
   const [chatContent, setChatContent] = useRecoilState(chatContentState);
-  useEffect(() => {
-    drawCanvas(100, 100, canvasRef, imgRef, profileImg);
-  }, []);
+  // useEffect(() => {
+  //   drawCanvas(100, 100, canvasRef, imgRef, profileImg);
+  // }, []);
   const handleChattingButton = async () => {
     setChatState({
       contact: [{ profileImg, contactId: friendId }],
@@ -38,26 +39,28 @@ export const Friend = ({
   };
   return (
     <div>
-      <img ref={imgRef} />
-      <canvas ref={canvasRef} />
+      <ProfileImg src={profileImg} />
+      {/* <canvas ref={canvasRef} /> */}
       <p>{nickName}</p>
       <Link href="#">쿨타임</Link>
       <button onClick={handleChattingButton} className="block">
         채팅
       </button>
-      <button
-        onClick={() => {
-          if (unfollow.filter((e) => e.friendId == friendId).length > 0) {
-            setUnfollow((unfollow) =>
-              unfollow.filter((e) => e.friendId !== friendId)
-            );
-          } else {
-            setUnfollow((unfollow) => [...unfollow, { friendId }]);
-          }
-        }}
-      >
-        팔로우 활성/비활성
-      </button>
+      {unfollow && setUnfollow && (
+        <button
+          onClick={() => {
+            if (unfollow.filter((e) => e.friendId == friendId).length > 0) {
+              setUnfollow((unfollow) =>
+                unfollow.filter((e) => e.friendId !== friendId)
+              );
+            } else {
+              setUnfollow((unfollow) => [...unfollow, { friendId }]);
+            }
+          }}
+        >
+          팔로우 활성/비활성
+        </button>
+      )}
     </div>
   );
 };

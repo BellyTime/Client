@@ -29,6 +29,7 @@ export default function Home() {
   const [shopFeed, setShopFeed] = useState("");
   const [popularShopList, setPopularShopList] = useState(null);
   const [setting, setSetting] = useRecoilState(settingState);
+  const [friendModal, setFriendModal] = useState(false);
   useEffect(() => {
     // if (!setting.token) router.push("/memberPage");
     //https://www.tabnine.com/academy/javascript/how-to-get-cookies/
@@ -145,3 +146,5 @@ export default function Home() {
 //https://iamawebdeveloper.tistory.com/44
 
 //https://github.com/postcss/autoprefixer/issues/1258
+
+//https://www.inflearn.com/questions/16195

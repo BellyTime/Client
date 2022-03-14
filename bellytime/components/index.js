@@ -31,3 +31,4 @@ export * from "./PhotoSlider";
 export * from "./Gauge";
 export * from "./cooltime/SearchInputUI";
 
+export * from "./common/ProfileImg";
