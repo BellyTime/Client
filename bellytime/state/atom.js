@@ -53,7 +53,14 @@ export const userState = atom({
 export const chatImageState = atom({
   key: "chatImageState",
   default: { contact: [], roomName: null },
+});
 
+export const startChatState = atom({
+  key: "startChatState",
+  default: {
+    contact: [],
+    roomName: null,
+  },
 });
 
 //페이지간 전달할것이 아니면 지우기
