@@ -47,11 +47,8 @@ export default function ChatRoom() {
   //https://stackoverflow.com/questions/25683022/how-to-disable-debug-messages-on-sockjs-stomp
   useEffect(() => {
     getPreviousChat(router.query.id, setAllContent);
-
-    return () => {
-      //https://stackoverflow.com/questions/54954385/react-useeffect-causing-cant-perform-a-react-state-update-on-an-unmounted-comp
-    };
-  }, []);
+    //https://stackoverflow.com/questions/54954385/react-useeffect-causing-cant-perform-a-react-state-update-on-an-unmounted-comp
+  }, [router]);
   useEffect(() => {
     stompcli.connect(
       {},
