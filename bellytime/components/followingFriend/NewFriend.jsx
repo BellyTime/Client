@@ -1,10 +1,11 @@
 import { useEffect, useRef } from "react";
 import { drawCanvas } from "../followingShop/drawCanvas";
 import { Link } from "..";
-import { plusChatRoom } from "@/fetch";
+import { plusChatRoom, getPreviousChat } from "@/fetch";
 import { useRecoilState } from "recoil";
-import { chatImageState } from "../../state/atom";
+import { startChatState } from "../../state/atom";
 import { useRouter } from "next/router";
+import { ProfileImg } from "../common/ProfileImg";
 
 export const NewFriend = ({ findedFriend, setNewFriendId, newFriendId }) => {
   const canvasRef = useRef();
@@ -12,10 +13,10 @@ export const NewFriend = ({ findedFriend, setNewFriendId, newFriendId }) => {
 
   const { nickName, id, profileImg, follow } = findedFriend;
   const router = useRouter();
-  const [chatState, setChatState] = useRecoilState(chatImageState);
-  useEffect(() => {
-    drawCanvas(100, 100, canvasRef, imgRef, profileImg);
-  }, []);
+  const [chatState, setChatState] = useRecoilState(startChatState);
+  // useEffect(() => {
+  //   drawCanvas(100, 100, canvasRef, imgRef, profileImg);
+  // }, []);
   const handleChattingButton = async () => {
     setChatState({
       contact: [{ profileImg, contactId: id }],
@@ -29,8 +30,8 @@ export const NewFriend = ({ findedFriend, setNewFriendId, newFriendId }) => {
   };
   return (
     <div>
-      <img ref={imgRef} />
-      <canvas ref={canvasRef} />
+      <ProfileImg src={profileImg} />
+      {/* <canvas ref={canvasRef} /> */}
       <p>{nickName}</p>
       <Link href="#">쿨타임</Link>
       <button onClick={handleChattingButton} className="block">

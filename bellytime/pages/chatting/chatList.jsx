@@ -6,11 +6,18 @@ import {
   followingFriendList,
   followingShopList,
   getChatList,
+  getPreviousChat,
   plusChatRoom,
 } from "../../fetch";
 import { ContactList, Modal, ShopList } from "../../components";
 import { useResetRecoilState, useRecoilState, useRecoilValue } from "recoil";
-import { chatImageState, userState } from "../../state/atom";
+import {
+  chatContentState,
+  chatImageState,
+  startChatState,
+  userState,
+} from "../../state/atom";
+
 export default function ChatList() {
   const [IsFriend, setIsFriend] = useState("customer");
   const [chatList, setChatList] = useState(""); //채팅리스트
@@ -18,14 +25,20 @@ export default function ChatList() {
   const [contact, setContact] = useState(""); //새로운채팅
   const [inviteId, setInviteId] = useState([]);
   const [contactInfo, setContactInfo] = useRecoilState(chatImageState); //채팅방에 담을 정보
+  const [startChatInfo, setStartChatInfo] = useRecoilState(startChatState);
+  const [chatContent, setChatContent] = useRecoilState(chatContentState);
   const { userNickName, userId } = useRecoilValue(userState);
+
   const router = useRouter();
   const roomNameRef = useRef();
 
   useEffect(() => {
+    setStartChatInfo({ contact: [], roomName: null });
+    setContactInfo({ contact: [] });
     console.log("user", userNickName, userId);
     getChatList(IsFriend, setChatList);
   }, [IsFriend]);
+
   const handlePlusChatRoom = async () => {
     if (IsFriend == "customer") {
       followingFriendList(setContact);
@@ -33,20 +46,55 @@ export default function ChatList() {
       followingShopList(setContact);
     }
   };
+
   useEffect(() => {
     console.log("inviteId", inviteId);
   }, [inviteId]);
 
-  const handleContact = (inviteId) => {
-    plusChatRoom(inviteId, IsFriend, roomNameRef.current.value).then((res) => {
-      if (res) {
-        router.push({ pathname: `/chatting/room/${res}`, query: { IsFriend } });
-      }
+  const handleContact = (e) => {
+    if (inviteId.length) {
+      setStartChatInfo({
+        contact: contactInfo.contact,
+        roomName: roomNameRef.current.value,
+      });
+      plusChatRoom(inviteId, IsFriend, roomNameRef.current.value).then(
+        (res) => {
+          if (res) {
+            router.push({
+              pathname: `/chatting/room/${res}`,
+              query: { IsFriend },
+            });
+          }
+        }
+      );
+    }
+    setInviteId([]);
+    setContactInfo({
+      contact: [],
     });
+    setModal(false);
   }; //친구를 inviteId 배열에 담은 후 방으로 이동
+
+  const handleEnter = (contact, roomName, chatRoomId) => {
+    // setContactInfo({ contact, roomName });
+    setStartChatInfo({ contact, roomName });
+    // setInviteId(contact.map(({ contactId }) => contactId));
+    router.push({
+      pathname: `/chatting/room/${chatRoomId}`,
+      query: { IsFriend },
+    });
+  };
+
+  const handleClose = () => {
+    setInviteId("");
+    setModal(false);
+    setContactInfo({ contact: [] });
+  };
+
   useEffect(() => {
     console.log(contactInfo);
   }, [contactInfo]);
+
   return (
     <div>
       <button
@@ -65,14 +113,7 @@ export default function ChatList() {
         chatList.map(({ roomName, chatRoomId, contact, recentContent }) => (
           <div
             key={uuidv4()}
-            onClick={() => {
-              setContactInfo({ contact, roomName: roomName });
-              //contact :  [{”contactId”:””,profileImg:””,nickName:””},{}]
-              router.push({
-                pathname: `/chatting/room/${chatRoomId}`,
-                query: { IsFriend },
-              });
-            }}
+            onClick={() => handleEnter(contact, roomName, chatRoomId)}
           >
             {contact?.map(({ profileImg }) => (
               <img
@@ -92,20 +133,8 @@ export default function ChatList() {
         ))}
       {modal && (
         <Modal
-          setModal={() => {
-            if (inviteId.length) {
-              setModal(false);
-              handleContact(inviteId);
-
-              setContactInfo((old) => ({
-                ...old,
-                roomName: roomNameRef.current.value,
-              }));
-            }
-          }}
-          close={() => {
-            setModal(false);
-          }}
+          setModal={handleContact}
+          close={handleClose}
           subject={IsFriend == "customer" ? "친구목록" : "가게목록"}
           content={
             IsFriend == "customer"
