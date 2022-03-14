@@ -15,5 +15,9 @@ export default function ShopFeed() {
     const detail = await getPostDetail(id);
     setDetail(detail);
   };
-  return <div>{detail && <FeedDetail feedContent={detail} />}</div>;
+  return (
+    <div>
+      {detail && <FeedDetail feedContent={detail} />}
+    </div>
+  );
 }
