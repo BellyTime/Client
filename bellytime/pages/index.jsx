@@ -30,7 +30,7 @@ export default function Home() {
   const [popularShopList, setPopularShopList] = useState(null);
   const [setting, setSetting] = useRecoilState(settingState);
   useEffect(() => {
-    if (!setting.token) router.push("/memberPage");
+    // if (!setting.token) router.push("/memberPage");
     //https://www.tabnine.com/academy/javascript/how-to-get-cookies/
     //https://www.codegrepper.com/code-examples/javascript/get+cookie+by+name+javascript
 

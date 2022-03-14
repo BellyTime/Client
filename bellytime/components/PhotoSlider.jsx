@@ -6,7 +6,7 @@ export const PhotoSlider = ({ images }) => {
   const [moving, setMoving] = useState("right");
   const [steps, setSteps] = useState([
     "current",
-    ...new Array(images.length - 1).fill("upcoming"),
+    ...new Array(images.length > 1 ? images.length - 1 : 0).fill("upcoming"),
   ]);
 
   const prevStep = () => {
