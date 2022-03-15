@@ -49,7 +49,7 @@ export default function Recommend() {
                 content={{ foodId, foodName, gauge, foodImg }}
                 handleClickGauge={(e) => {
                   e.preventDefault();
-                  if (foodId !== id) handleClickGauge(foodId);
+                  if (foodId !== router.query.id) handleClickGauge(foodId);
                 }}
               />
             ))

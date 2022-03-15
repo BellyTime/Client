@@ -6,7 +6,7 @@ import { v4 } from "uuid";
 export default function ShopFeed() {
   const router = useRouter();
   const [detail, setDetail] = useState(null);
-  // const { id } = router.query;
+  const { id } = router.query;
   // console.log(id);
   useEffect(() => {
     handlePostDetail(router.query.id);
