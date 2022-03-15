@@ -4,6 +4,7 @@ export * from "./coolTime/deleteCoolTime";
 export * from "./coolTime/getcoolTime";
 export * from "./myPage/followingShop/followingShopList";
 export * from "./myPage/followingShop/unfollowShop";
+export * from "./myPage/followingShop/followShop";
 export * from "./myPage/getMyProfile";
 export * from "./myPage/calender/getCalender";
 export * from "./myPage/calender/postTodayCheck";

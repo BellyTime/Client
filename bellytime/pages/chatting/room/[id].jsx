@@ -11,7 +11,6 @@ import {
   followingFriendList,
 } from "../../../fetch";
 import { v4 as uuidv4 } from "uuid";
-import { set } from "lodash";
 import { Drawer, Modal } from "../../../components";
 import {
   chatContentState,

@@ -15,14 +15,18 @@ export default function Recommend() {
   const [filter, setFilter] = useState("follow");
   const [modal, setModal] = useState(false);
 
-  const { id } = router.query;
+  useEffect(() => {
+    getFriendWithFood(router.query.id, setFriendList);
+  }, [router]);
 
   useEffect(() => {
-    getFriendWithFood(id, setFriendList);
-  }, [id]);
-
-  useEffect(() => {
-    getShopWithFood(filter, id, position.lat, position.lng, setShopList);
+    getShopWithFood(
+      filter,
+      router.query.id,
+      position.lat,
+      position.lng,
+      setShopList
+    );
   }, [filter]);
 
   const handleClickGauge = (id) => {
@@ -35,7 +39,6 @@ export default function Recommend() {
 
   return (
     <div>
-      추천페이지입니다{id}
       <div className="flex ">
         {
           // 쿨타임리스트

@@ -5,16 +5,12 @@ export const RecentSearch = ({
   content,
   onClick,
   setRecent,
-  setRecentDel,
-
 }) => {
-
   const handleDelete = () => {
     setRecent((recent) => recent.filter((val) => val != content));
-    setRecentDel((recentDel) => [...recentDel, content]);
+    deleteRecentSearch([content]);
+    // setRecentDel((recentDel) => [...recentDel, content]);
   };
-
-
 
   return (
     <div className="pt-2 relative mx-auto text-gray-600">

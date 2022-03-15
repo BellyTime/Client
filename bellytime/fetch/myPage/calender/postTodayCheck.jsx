@@ -6,10 +6,7 @@ export const postTodayCheck = async (data) => {
     //   "https://backend.bellytime.kr/cooltime/setting",
     //   data
     // );
-    await axiosInstance.post(
-      "https://backend.bellytime.kr/cooltime/setting",
-      data
-    );
+    await axiosInstance.post("/user/cal/check", data);
     console.log("postToday", data);
   } catch (e) {
     console.log(e);

@@ -6,14 +6,13 @@ import { v4 as uuidv4 } from "uuid";
 import { AlertModal } from "../../../components";
 export default function VisitedReview() {
   const router = useRouter();
-  const { id } = router.query;
   const [review, setReview] = useState("");
   const [alert, setAlert] = useState(false);
 
   useEffect(async () => {
-    const rv = await getMyReview(id);
+    const rv = await getMyReview(router.query.id);
     setReview(rv);
-  }, []);
+  }, [router]);
 
   const handleDelete = () => {
     deleteReview(id);

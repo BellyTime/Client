@@ -1,6 +1,11 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { drawCanvas } from "../followingShop/drawCanvas";
-import { plusChatRoom, getPreviousChat } from "@/fetch";
+import {
+  plusChatRoom,
+  getPreviousChat,
+  unfollowFriend,
+  newFriend,
+} from "@/fetch";
 import { Link } from "..";
 import { useRouter } from "next/router";
 import { useRecoilState } from "recoil";
@@ -10,18 +15,13 @@ import {
   startChatState,
 } from "../../state/atom";
 import { ProfileImg } from "../common/ProfileImg";
-export const Friend = ({
-  nickName,
-  profileImg,
-  friendId,
-  setUnfollow,
-  unfollow,
-}) => {
+export const Friend = ({ nickName, profileImg, friendId }) => {
   const canvasRef = useRef();
   const imgRef = useRef();
   const router = useRouter();
   const [chatState, setChatState] = useRecoilState(startChatState);
   const [chatContent, setChatContent] = useRecoilState(chatContentState);
+  const [unfollowCheck, setUnfollowCheck] = useState(false);
   // useEffect(() => {
   //   drawCanvas(100, 100, canvasRef, imgRef, profileImg);
   // }, []);
@@ -46,21 +46,19 @@ export const Friend = ({
       <button onClick={handleChattingButton} className="block">
         채팅
       </button>
-      {unfollow && setUnfollow && (
-        <button
-          onClick={() => {
-            if (unfollow.filter((e) => e.friendId == friendId).length > 0) {
-              setUnfollow((unfollow) =>
-                unfollow.filter((e) => e.friendId !== friendId)
-              );
-            } else {
-              setUnfollow((unfollow) => [...unfollow, { friendId }]);
-            }
-          }}
-        >
-          팔로우 활성/비활성
-        </button>
-      )}
+
+      <button
+        onClick={() => {
+          if (unfollowCheck) {
+            newFriend(friendId);
+          } else {
+            unfollowFriend([{ friendId }]);
+          }
+          setUnfollowCheck((old) => !old);
+        }}
+      >
+        {unfollowCheck ? "팔로우" : "언팔로우"}
+      </button>
     </div>
   );
 };

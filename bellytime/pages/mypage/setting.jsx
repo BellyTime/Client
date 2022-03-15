@@ -15,25 +15,14 @@ import { logout } from "../../fetch";
 
 export default function Setting() {
   const [setting, setSetting] = useRecoilState(settingState);
-  const componentWillUnmount = useRef(false);
   const resetSetting = useResetRecoilState(settingState);
   const resetUser = useResetRecoilState(userState);
   const resetPosition = useResetRecoilState(positionState);
   const resetCoolTime = useResetRecoilState(mainPageCoolTimeState);
 
-  useEffect(() => {
-    return () => {
-      componentWillUnmount.current = true;
-    };
-  }, []);
-
-  useEffect(() => {
-    return () => {
-      if (componentWillUnmount.current) {
-        fetchSetting(setting);
-      }
-    };
-  }, [setting]);
+  const handleSaveButton = () => {
+    fetchSetting(setting);
+  };
 
   return (
     <>
@@ -93,7 +82,9 @@ export default function Setting() {
             </button>
           </Link>
         }
-        <div></div>
+        <div>
+          <button onClick={handleSaveButton}>저장</button>
+        </div>
       </div>
     </>
   );
