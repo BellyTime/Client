@@ -32,3 +32,4 @@ export * from "./Gauge";
 export * from "./cooltime/SearchInputUI";
 
 export * from "./common/ProfileImg";
+export * from "./main/FeedSection";

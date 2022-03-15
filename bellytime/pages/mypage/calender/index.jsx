@@ -98,7 +98,7 @@ export default function CoolTimeCalender() {
             </button>
           </div>
         ))}
-      <button onClick={handleSaveButton}>저장하기</button>
+      {isToday && <button onClick={handleSaveButton}>저장하기</button>}
     </>
   );
 }
