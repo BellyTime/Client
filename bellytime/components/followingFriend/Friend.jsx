@@ -42,7 +42,7 @@ export const Friend = ({ nickName, profileImg, friendId }) => {
       <ProfileImg src={profileImg} />
       {/* <canvas ref={canvasRef} /> */}
       <p>{nickName}</p>
-      <Link href="#">쿨타임</Link>
+      <Link href={`./calender/${friendId}`}>쿨타임</Link>
       <button onClick={handleChattingButton} className="block">
         채팅
       </button>

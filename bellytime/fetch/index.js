@@ -36,3 +36,4 @@ export * from "./main/getPostDetail";
 export * from "./recommend/getFriendWithFood";
 export * from "./recommend/getShopWithFood";
 export * from "./logout";
+export * from "./myPage/calender/getFriendCalender";

@@ -11,10 +11,8 @@ import {
 } from "date-fns";
 
 export const CooltimeCalender = ({
-  setTodayCheck,
   setCoolTimeDate,
   setYearAndMonth,
-  yearAndMonth,
   setIsToday,
 }) => {
   const DAYS = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
