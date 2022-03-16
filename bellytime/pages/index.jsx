@@ -1,13 +1,10 @@
-import styles from "../styles/Home.module.css";
 import "tailwindcss/tailwind.css";
-import { Address, Modal, AlertModal } from "components";
+import { Address, Modal, AlertModal, FeedSection } from "components";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import {
   getCoolTime,
-  getShopFeed,
   getPopularShopList,
-  fetchSetting,
 } from "@/fetch";
 import { CoolTimeList, ShopList, Feed } from "components";
 import { v4 as uuidv4 } from "uuid";
@@ -17,7 +14,6 @@ import {
   settingState,
 } from "../state/atom";
 
-import getCookie from "../util/getCookie";
 import { useRecoilState } from "recoil";
 export default function Home() {
   const router = useRouter();
@@ -25,29 +21,16 @@ export default function Home() {
   const [modal, setModal] = useState(false);
   const [position, setPosition] = useRecoilState(positionState);
   const [alert, setAlert] = useState(false);
-  const [filter, setFilter] = useState("follow");
-  const [shopFeed, setShopFeed] = useState("");
   const [popularShopList, setPopularShopList] = useState(null);
   const [setting, setSetting] = useRecoilState(settingState);
-  const [friendModal, setFriendModal] = useState(false);
-  useEffect(() => {
+
     // if (!setting.token) router.push("/memberPage");
     //https://www.tabnine.com/academy/javascript/how-to-get-cookies/
     //https://www.codegrepper.com/code-examples/javascript/get+cookie+by+name+javascript
 
-    return () => {
-      setShopFeed("");
-    };
-  }, []);
   const fetchCoolTime = async () => {
     const fetchList = await getCoolTime();
     setCoolTimeList(fetchList);
-  };
-
-  const fetchShopFeed = async () => {
-    const { lng, lat } = position;
-    const fetchList = await getShopFeed(filter, lng, lat);
-    setShopFeed(fetchList);
   };
 
   const fetchPopularShopList = async () => {
@@ -55,10 +38,6 @@ export default function Home() {
     setPopularShopList(fetchList);
   };
 
-  const handleClickFeedFilter = (e) => {
-    e.preventDefault();
-    setFilter(e.target.id);
-  };
   const handleClickGauge = (foodId) => {
     router.push(`/recommend/${foodId}`);
   };
@@ -66,11 +45,6 @@ export default function Home() {
     fetchCoolTime();
     fetchPopularShopList();
   }, []);
-
-  useEffect(() => {
-    if (filter == "follow" || (filter == "near" && position.lat))
-      fetchShopFeed();
-  }, [filter]);
 
   return (
     <div>
@@ -120,23 +94,8 @@ export default function Home() {
           popularShopList.map((content) => (
             <ShopList content={content} key={uuidv4()} />
           ))
-      }
-      <div>
-        <button id="follow" onClick={handleClickFeedFilter}>
-          구독
-        </button>
-        {position?.lat && (
-          <button id="near" onClick={handleClickFeedFilter}>
-            근처
-          </button>
-        )}
-      </div>
-      <div className="flex">
-        {shopFeed &&
-          shopFeed?.map((content) => (
-            <Feed key={uuidv4()} router={router} feedContent={content} />
-          ))}
-      </div>
+      }     
+      <FeedSection router={router} position={position} />
     </div>
   );
 }

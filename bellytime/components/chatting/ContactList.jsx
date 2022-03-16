@@ -6,16 +6,8 @@ import { useRecoilState } from "recoil";
 export const ContactList = ({ inviteId, setInviteId, contact, IsFriend }) => {
   const [contactInfo, setContactInfo] = useRecoilState(chatImageState);
   const [startChatInfo, setStartChatInfo] = useRecoilState(startChatState);
-  // const [contactCheck, setContactCheck] = useState([]);
-
-  useEffect(() => {
-    console.log(contact);
-    console.log(contactInfo.contact.length);
-    // setContactCheck(new Array(contact.length).fill(false));
-  }, [contact, contactInfo]);
 
   const handleContact = (e, Id, nickName, profileImg, index) => {
-    console.log("selectedId", Id);
     e.target.checked = !e.target.checked;
 
     if (inviteId.includes(Id)) {
@@ -31,12 +23,7 @@ export const ContactList = ({ inviteId, setInviteId, contact, IsFriend }) => {
         contact: [...contact, { contactId: Id, profileImg, nickName }],
       }));
     }
-    // setContactCheck((old) => old.map((item, i) => (i == index ? !item : item)));
   };
-
-  // useEffect(() => {
-  //   console.log(contactCheck);
-  // }, [contactCheck]);
 
   return (
     <>

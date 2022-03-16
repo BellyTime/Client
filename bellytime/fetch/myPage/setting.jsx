@@ -7,7 +7,7 @@ export const fetchSetting = async (data) => {
     //   "https://backend.bellytime.kr/cooltime/setting",
     //   data
     // );
-    await axiosInstance.post("https://backend.bellytime.kr/cooltime/setting", {
+    await axiosInstance.post("/user/setting", {
       alarm,
       duration,
     });

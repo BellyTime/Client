@@ -1,10 +1,6 @@
 import { deleteRecentSearch, getSearchWords } from "../fetch";
 import { useRef, useEffect, useState, useCallback } from "react";
-import {
-  RecentSearch,
-  ShopList,
-  SearchInputUI,
-} from "../components";
+import { RecentSearch, ShopList, SearchInputUI } from "../components";
 import { getShopList, getRecentSearch } from "../fetch";
 import { v4 as uuidv4 } from "uuid";
 import { debounce } from "lodash";
@@ -19,23 +15,12 @@ export default function Search() {
   const [searchData, setSearchData] = useState("");
   const [shopList, setShopList] = useState("");
   const [input, setInput] = useState("");
-  const [recentDel, setRecentDel] = useState([]);
-  const componentWillUnmount = useRef(false);
+
   const [sortBy, setSortBy] = useState("follow");
   const [searched, setSearched] = useState(false);
   useEffect(() => {
     getRecentSearch(setRecent);
-    return () => {
-      componentWillUnmount.current = true;
-    };
   }, []);
-
-  useEffect(() => {
-    return () => {
-      if (componentWillUnmount.current && recentDel.length)
-        deleteRecentSearch(recentDel);
-    };
-  }, [recentDel]);
 
   useEffect(() => {
     handleOnClick(input, sortBy);
@@ -121,8 +106,6 @@ export default function Search() {
             index={index}
             onClick={() => handleRecentSearch(content)}
             setRecent={setRecent}
-            setRecentDel={setRecentDel}
-            recentDel={recentDel}
           />
           //x누르면 검색어 삭제되게.
         ))}

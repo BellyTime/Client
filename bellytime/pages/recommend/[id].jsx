@@ -1,7 +1,13 @@
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { positionState, mainPageCoolTimeState } from "../../state/atom";
-import { CoolTimeList, ShopList, Modal, Friend } from "../../components";
+import {
+  CoolTimeList,
+  ShopList,
+  Modal,
+  Friend,
+  ShopListSection,
+} from "../../components";
 import Gauge from "../../components/Gauge";
 import { useRecoilState } from "recoil";
 import { v4 as uuidv4 } from "uuid";
@@ -15,16 +21,9 @@ export default function Recommend() {
   const [filter, setFilter] = useState("follow");
   const [modal, setModal] = useState(false);
 
-  const { id } = router.query;
-
   useEffect(() => {
-    getFriendWithFood(id, setFriendList);
-  }, [id]);
-
-  useEffect(() => {
-    getShopWithFood(filter, id, position.lat, position.lng, setShopList);
-  }, [filter]);
-
+    getFriendWithFood(router.query.id, setFriendList);
+  }, [router]);
   const handleClickGauge = (id) => {
     router.push(`/recommend/${id}`);
   };
@@ -35,8 +34,7 @@ export default function Recommend() {
 
   return (
     <div>
-      추천페이지입니다{id}
-      <div className="flex ">
+      <div className="flex">
         {
           // 쿨타임리스트
           coolTimeList &&
@@ -46,7 +44,7 @@ export default function Recommend() {
                 content={{ foodId, foodName, gauge, foodImg }}
                 handleClickGauge={(e) => {
                   e.preventDefault();
-                  if (foodId !== id) handleClickGauge(foodId);
+                  if (foodId !== router.query.id) handleClickGauge(foodId);
                 }}
               />
             ))
@@ -79,15 +77,7 @@ export default function Recommend() {
           </button>
         )}
       </div>
-      <div>
-        {
-          //음식에 따른 추천리스트
-          shopList &&
-            shopList.map((content) => (
-              <ShopList key={uuidv4()} content={content} />
-            ))
-        }
-      </div>
+      <ShopListSection position={position} foodId={router.query.id} />
       {modal && friendList && (
         <Modal
           setModal={() => setModal(false)}

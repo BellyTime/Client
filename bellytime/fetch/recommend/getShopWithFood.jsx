@@ -1,19 +1,19 @@
 import axios from "axios";
 import { axiosInstance } from "../instance";
-export const getShopWithFood = async (filter, id, lat, lng, setShopList) => {
+export const getShopWithFood = async (filter, foodId, lat, lng, page) => {
+  console.log(filter, foodId, lat, lng, page);
   try {
-    // const lists = await axiosInstance.get(
-    //   "../static/dummyData/followingShops.json"
-    // );
     let lists;
     if (filter == "follow") {
-      lists = await axios.get("../static/dummyData/followingShops.json");
+      lists = await axiosInstance.get(
+        `/cooltime/shopList?foodId=${foodId}&filter=${filter}&page=${page}`
+      );
     } else if (filter == "nearby") {
-      lists = await axios.get("../static/dummyData/followingShops.json");
+      lists = await axiosInstance.get(
+        `/cooltime/shopList?foodId=${foodId}&filter=${filter}&lat=${lat}&lon=${lng}&page=${page}`
+      );
     }
 
-    setShopList(lists.data);
-    console.log(lists.data);
     return lists.data;
   } catch (e) {
     console.log(e);

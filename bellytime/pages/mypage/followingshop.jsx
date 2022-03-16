@@ -4,40 +4,17 @@ import { Shop } from "../../components";
 
 export default function FollowingShop() {
   const [followingShops, setFollowingShops] = useState([]);
-  const [unfollow, setUnfollow] = useState([]);
-  const componentWillUnmount = useRef(false);
-
-  useEffect(() => {
-    return () => {
-      componentWillUnmount.current = true;
-    };
-  }, []);
-  useEffect(() => {
-    return () => {
-      if (componentWillUnmount.current && unfollow.length)
-        unfollowShop(unfollow);
-    };
-  }, [unfollow]);
 
   useEffect(() => {
     followingShopList(setFollowingShops);
   }, []);
-
-  useEffect(() => {
-    console.log(unfollow);
-  }, [unfollow]);
 
   return (
     <>
       <div>팔로우하는 가게리스트</div>
       {followingShops.length &&
         followingShops.map((content) => (
-          <Shop
-            key={content.shopId}
-            setUnfollow={setUnfollow}
-            unfollow={unfollow}
-            content={content}
-          />
+          <Shop key={content.shopId} content={content} />
         ))}
     </>
   );

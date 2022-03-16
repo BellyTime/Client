@@ -1,19 +1,25 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { drawCanvas } from "../followingShop/drawCanvas";
 import { Link } from "..";
-import { plusChatRoom, getPreviousChat } from "@/fetch";
+import {
+  plusChatRoom,
+  getPreviousChat,
+  unfollowFriend,
+  newFriend,
+} from "@/fetch";
 import { useRecoilState } from "recoil";
 import { startChatState } from "../../state/atom";
 import { useRouter } from "next/router";
 import { ProfileImg } from "../common/ProfileImg";
 
-export const NewFriend = ({ findedFriend, setNewFriendId, newFriendId }) => {
+export const NewFriend = ({ findedFriend}) => {
   const canvasRef = useRef();
   const imgRef = useRef();
 
   const { nickName, id, profileImg, follow } = findedFriend;
   const router = useRouter();
   const [chatState, setChatState] = useRecoilState(startChatState);
+  const [followCheck, setFollowCheck] = useState(follow);
   // useEffect(() => {
   //   drawCanvas(100, 100, canvasRef, imgRef, profileImg);
   // }, []);
@@ -40,17 +46,15 @@ export const NewFriend = ({ findedFriend, setNewFriendId, newFriendId }) => {
       <button
         onClick={() => {
           console.log(id);
-          if (newFriendId) {
-            setNewFriendId(null);
+          if (followCheck) {
+            unfollowFriend([{ friendId: id }]);
           } else {
-            setNewFriendId(id);
+            newFriend(id);
           }
+          setFollowCheck((old) => !old);
         }}
-        disabled={follow}
       >
-        <span className={follow ? "text-gray-100" : "text-red-600"}>
-          팔로우
-        </span>
+        <span>{followCheck ? "언팔로우" : "팔로우"}</span>
       </button>
     </div>
   );

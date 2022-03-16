@@ -1,5 +1,4 @@
 import { useEffect, useState, useRef } from "react";
-
 import { CooltimeCalender } from "../../../components";
 import { getCalender, postTodayCheck } from "../../../fetch";
 import { v4 as uuidv4 } from "uuid";
@@ -16,22 +15,10 @@ export default function CoolTimeCalender() {
   const [coolTimeData, setCoolTimeData] = useState(null);
   const [coolTimeOfDay, setCoolTimeOfDay] = useState(null);
   const [isToday, setIsToday] = useState(true);
-  const componentWillUnmount = useRef(false);
 
-  useEffect(() => {
-    return () => {
-      componentWillUnmount.current = true;
-    };
-  }, []);
-
-  useEffect(() => {
-    // console.log(checkFood);
-    console.log("changed", changed);
-    return () => {
-      if (componentWillUnmount.current == true && changed.length)
-        postTodayCheck(checkFood);
-    }; //형태 변환할것 [{foodId,eat}]
-  }, [changed]);
+  const handleSaveButton = (e) => {
+    if (changed.length) postTodayCheck(checkFood);
+  };
 
   useEffect(() => {
     getCalender(setTodayCheck, setCoolTimeData, yearAndMonth, setCheckFood); //오늘데이터, 쿨타임데이터, 쿼리로 보낼 연월
@@ -111,6 +98,7 @@ export default function CoolTimeCalender() {
             </button>
           </div>
         ))}
+      {isToday && <button onClick={handleSaveButton}>저장하기</button>}
     </>
   );
 }

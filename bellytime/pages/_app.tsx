@@ -6,7 +6,9 @@ import { baseURL } from "@/public/static/data";
 import { Navbar } from "components";
 import { RecoilRoot } from "recoil";
 import RecoilNexus from "recoil-nexus";
-import { useEffect } from "react";
+import { Hydrate, QueryClient, QueryClientProvider } from "react-query";
+import { ReactQueryDevtools } from "react-query/devtools";
+import { useState } from "react";
 // import "/trusted-security-policies";
 function MyApp(
   { Component, pageProps }: AppProps,
@@ -14,7 +16,7 @@ function MyApp(
   window: Window
 ) {
   // axios.defaults.baseURL = baseURL;
-
+  const [queryClient] = useState(() => new QueryClient());
   if ("serviceWorker" in navigator) {
     navigator.serviceWorker
       .register("/service-worker.js")
@@ -28,16 +30,21 @@ function MyApp(
 
   return (
     <>
-      <RecoilRoot>
-        <RecoilNexus />
-        <Component {...pageProps}>
-          <meta
-            name="viewport"
-            content="minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no, user-scalable=no, viewport-fit=cover"
-          />
-        </Component>
-        <Navbar />
-      </RecoilRoot>
+      <QueryClientProvider client={queryClient} contextSharing={true}>
+        <Hydrate state={pageProps.dehydratedState}>
+          <RecoilRoot>
+            <RecoilNexus />
+            <Component {...pageProps}>
+              <meta
+                name="viewport"
+                content="minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no, user-scalable=no, viewport-fit=cover"
+              />
+            </Component>
+            <Navbar />
+          </RecoilRoot>
+          <ReactQueryDevtools initialIsOpen={false}></ReactQueryDevtools>
+        </Hydrate>
+      </QueryClientProvider>
     </>
   );
 }

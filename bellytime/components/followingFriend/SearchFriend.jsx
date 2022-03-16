@@ -2,12 +2,7 @@ import { SearchBar } from "..";
 import { findFriend } from "@/fetch";
 import { useState } from "react";
 import { NewFriend } from "..";
-export const SearchFriend = ({
-  setFindedFriend,
-  findedFriend,
-  newFriendId,
-  setNewFriendId,
-}) => {
+export const SearchFriend = ({ setFindedFriend, findedFriend }) => {
   const [value, setValue] = useState("");
   return (
     <>
@@ -17,15 +12,7 @@ export const SearchFriend = ({
         onClick={() => value && findFriend(setFindedFriend, value)}
       />
 
-      {findedFriend ? (
-        <NewFriend
-          findedFriend={findedFriend}
-          newFriendId={newFriendId}
-          setNewFriendId={setNewFriendId}
-        />
-      ) : (
-        "친구없음"
-      )}
+      {findedFriend ? <NewFriend findedFriend={findedFriend} /> : "친구없음"}
     </>
   );
 };
