@@ -40,3 +40,4 @@ export * from "./chatting/ChatNavbar";
 export * from "./chatting/ChatInputSend";
 export * from "./chatting/ChatSection";
 export * from "./chatting/ChatDrawerNModal";
+export * from "./search/SearchResultSection";
