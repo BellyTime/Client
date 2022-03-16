@@ -10,7 +10,6 @@ import { Link } from "..";
 import { useRouter } from "next/router";
 import { useRecoilState } from "recoil";
 import {
-  chatContentState,
   chatImageState,
   startChatState,
 } from "../../state/atom";
@@ -20,7 +19,6 @@ export const Friend = ({ nickName, profileImg, friendId }) => {
   const imgRef = useRef();
   const router = useRouter();
   const [chatState, setChatState] = useRecoilState(startChatState);
-  const [chatContent, setChatContent] = useRecoilState(chatContentState);
   const [unfollowCheck, setUnfollowCheck] = useState(false);
   // useEffect(() => {
   //   drawCanvas(100, 100, canvasRef, imgRef, profileImg);
