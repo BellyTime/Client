@@ -12,7 +12,6 @@ import {
 import { ContactList, Modal, ShopList } from "../../components";
 import { useResetRecoilState, useRecoilState, useRecoilValue } from "recoil";
 import {
-  chatContentState,
   chatImageState,
   startChatState,
   userState,
@@ -26,7 +25,6 @@ export default function ChatList() {
   const [inviteId, setInviteId] = useState([]);
   const [contactInfo, setContactInfo] = useRecoilState(chatImageState); //채팅방에 담을 정보
   const [startChatInfo, setStartChatInfo] = useRecoilState(startChatState);
-  const [chatContent, setChatContent] = useRecoilState(chatContentState);
   const { userNickName, userId } = useRecoilValue(userState);
 
   const router = useRouter();

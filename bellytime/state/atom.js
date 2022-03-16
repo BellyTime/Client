@@ -40,11 +40,6 @@ export const startChatState = atom({
 });
 
 
-export const chatContentState = atom({
-  key: "chatContentState",
-  default: "",
-});
-
 export const positionState = atom({
   key: "positionState",
   default: { lat: null, lng: null, address: null },
@@ -55,9 +50,4 @@ export const mainPageCoolTimeState = atom({
   key: "mainPageCoolTimeState",
   default: null,
   effects_UNSTABLE: [persistAtom],
-});
-
-export const previousChatState = atom({
-  key: "previousChatState",
-  default: "",
 });

@@ -8,7 +8,6 @@ import {
   ChatSection,
 } from "../../../components";
 import {
-  chatContentState,
   startChatState,
   userState,
 } from "../../../state/atom";
@@ -20,7 +19,7 @@ export default function ChatRoom() {
   const [startChatInfo, setStartChatInfo] = useRecoilState(startChatState);
   const userNickName = "피피";
   const userId = "26";
-  const [allContent, setAllContent] = useRecoilState(chatContentState);
+  const [allContent, setAllContent] = useState("");
   const [connected, setConneted] = useState(false);
   const stompcli = stompClient("https://backend.bellytime.kr/chat/chatting");
   stompcli.debug = () => {};
@@ -29,7 +28,6 @@ export default function ChatRoom() {
   useEffect(() => {
     const objDiv = document.getElementById("scrollableDiv");
     objDiv.scrollTop = objDiv.scrollHeight;
-    setAllContent("");
     stompConnect(
       stompcli,
       router.query.id,
