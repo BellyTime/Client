@@ -26,10 +26,17 @@ export * from "./chatting/ContactList";
 export * from "./ShopList";
 export * from "./main/Address";
 export * from "./main/Feed";
-export * from "./recommend/FeedDetail";
+export * from "./main/FeedDetail";
 export * from "./PhotoSlider";
 export * from "./Gauge";
 export * from "./cooltime/SearchInputUI";
 
 export * from "./common/ProfileImg";
 export * from "./main/FeedSection";
+export * from "./recommend/ShopListSection";
+export * from "./chatting/PreviousChatSection";
+export * from "./chatting/ChatMessage";
+export * from "./chatting/ChatNavbar";
+export * from "./chatting/ChatInputSend";
+export * from "./chatting/ChatSection";
+export * from "./chatting/ChatDrawerNModal";
