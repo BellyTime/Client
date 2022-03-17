@@ -10,7 +10,7 @@ export * from "./AlertModal";
 export * from "./Calender";
 export * from "./followingShop/Shop";
 export * from "./myPage/Profile";
-export * from "./myPage/CooltimeCalender";
+export * from "./myPage/coolTime/CooltimeCalender";
 export * from "./followingFriend/Friend";
 export * from "./SearchBar";
 export * from "./followingFriend/SearchFriend";
@@ -41,3 +41,6 @@ export * from "./chatting/ChatInputSend";
 export * from "./chatting/ChatSection";
 export * from "./chatting/ChatDrawerNModal";
 export * from "./search/SearchResultSection";
+
+export * from "./myPage/coolTime/NotTodayFood";
+export * from "./myPage/coolTime/TodayFood";

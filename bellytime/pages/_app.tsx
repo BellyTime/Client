@@ -9,6 +9,7 @@ import RecoilNexus from "recoil-nexus";
 import { Hydrate, QueryClient, QueryClientProvider } from "react-query";
 import { ReactQueryDevtools } from "react-query/devtools";
 import { useState } from "react";
+
 // import "/trusted-security-policies";
 function MyApp(
   { Component, pageProps }: AppProps,
