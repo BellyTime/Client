@@ -33,7 +33,6 @@ export default function ChatList() {
   useEffect(() => {
     setStartChatInfo({ contact: [], roomName: null });
     setContactInfo({ contact: [] });
-    console.log("user", userNickName, userId);
     getChatList(IsFriend, setChatList);
   }, [IsFriend]);
 
@@ -44,10 +43,6 @@ export default function ChatList() {
       followingShopList(setContact);
     }
   };
-
-  useEffect(() => {
-    console.log("inviteId", inviteId);
-  }, [inviteId]);
 
   const handleContact = (e) => {
     if (inviteId.length) {
