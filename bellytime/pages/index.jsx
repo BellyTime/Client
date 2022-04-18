@@ -1,5 +1,5 @@
 import "tailwindcss/tailwind.css";
-import { Address, Modal, AlertModal, FeedSection } from "components";
+import { Address, Modal, AlertModal, FeedSection, Shop } from "components";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import {
@@ -92,7 +92,7 @@ export default function Home() {
         //인기가게 불러오기
         popularShopList &&
           popularShopList.map((content) => (
-            <ShopList content={content} key={uuidv4()} />
+            <Shop content={content} key={uuidv4()} />
           ))
       }     
       <FeedSection router={router} position={position} />
