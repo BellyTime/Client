@@ -6,6 +6,7 @@ export const ChatInputSend = ({
   roomId,
   sender,
   nickName,
+  scrollableTarget,
 }) => {
   const inputRef = useRef();
 
@@ -14,7 +15,6 @@ export const ChatInputSend = ({
     let time = new Date().toTimeString().split(" ")[0];
     let msg = {
       roomId,
-
       sender,
       nickName,
       content,
@@ -22,12 +22,11 @@ export const ChatInputSend = ({
     };
 
     stompcli.send(`/pub/chat/chatting`, {}, JSON.stringify(msg));
-    console.log("send", msg);
-    // setContent("");
     inputRef.current.value = "";
+    inputRef.current.focus();
   };
   return (
-    <div className={`flex border fixed w-screen h-[15vh] float`}>
+    <div className={`flex border w-screen h-[15vh] float`}>
       <form
         key={uuidv4()}
         id="chat-input"
@@ -36,15 +35,18 @@ export const ChatInputSend = ({
           const value = inputRef.current.value;
           // setContent(value);
           if (value && connected) sendWithStomp(value);
+              console.log(scrollableTarget.current.scrollTop);
+              scrollableTarget.current.scrollTo({
+                top: scrollableTarget.current.scrollHeight + 20,
+                behavior: "smooth",
+              });
         }}
       >
         <input
           key={uuidv4()}
           type="content"
           ref={inputRef}
-          // onChange={handleContent}
-          // value={content}
-          className={`border mb-[10vh] h-[5vh] w-[90vw]`}
+          className={`border mb-[10vh] h-[5vh] w-[90vw] `}
         />
       </form>
       <button

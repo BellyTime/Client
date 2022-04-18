@@ -5,14 +5,15 @@ export const stompConnect = (
   setAllContent,
   startChatInfo,
   setStartChatInfo,
-  setConneted
+  setConneted,
+  scrollableTarget
 ) => {
   stompcli.connect(
     {},
     () => {
       stompcli.subscribe(`/sub/chatting/room/${roomId}`, (data) => {
         const mssg = JSON.parse(data.body);
-        console.log(mssg);
+        // console.log(mssg);
         useSetChatRoomState(
           setAllContent,
           mssg,
@@ -21,6 +22,11 @@ export const stompConnect = (
         );
       });
       setConneted(true);
+      console.log(scrollableTarget.current.scrollTop);
+      scrollableTarget.current.scrollTo({
+        top: scrollableTarget.current.scrollHeight + 20,
+        behavior: "smooth",
+      });
     },
     () => setConneted(false)
   );

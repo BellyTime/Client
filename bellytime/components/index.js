@@ -40,6 +40,7 @@ export * from "./chatting/ChatNavbar";
 export * from "./chatting/ChatInputSend";
 export * from "./chatting/ChatSection";
 export * from "./chatting/ChatDrawerNModal";
+export * from "./chatting/ButtonToBottom";
 export * from "./search/SearchResultSection";
 
 export * from "./myPage/coolTime/NotTodayFood";

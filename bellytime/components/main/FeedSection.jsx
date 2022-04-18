@@ -39,16 +39,7 @@ export const FeedSection = ({ router, position }) => {
       retry: 1,
     }
   );
-  //   const fetchShopFeed = async () => {
-  //     const { lng, lat } = position;
-  //     const fetchList = await getShopFeed(filter, lng, lat);
-  //     setShopFeed(fetchList);
-  //   };
 
-  //   useEffect(() => {
-  //     if (filter == "follow" || (filter == "near" && position.lat))
-  //       fetchShopFeed();
-  //   }, [filter]);
   useEffect(() => {
     console.log("data", data);
   }, [data]);
@@ -83,7 +74,7 @@ export const FeedSection = ({ router, position }) => {
           <div className="flex-col">
             {data?.pages?.map((page) => (
               <>
-                {page.map((content) => (
+                {page?.map((content) => (
                   <Feed key={uuidv4()} router={router} feedContent={content} />
                 ))}
               </>

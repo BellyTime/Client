@@ -1,11 +1,11 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { v4 as uuidv4 } from "uuid";
 import { getPreviousChat } from "../../fetch";
 import { ChatMessage } from "./ChatMessage";
 import { useInfiniteQuery } from "react-query";
 import InfiniteScroll from "react-infinite-scroll-component";
 
-export const PreviousChatSection = ({ roomId }) => {
+export const PreviousChatSection = ({ roomId, scrollableTarget }) => {
   const {
     data,
     status,
@@ -40,10 +40,6 @@ export const PreviousChatSection = ({ roomId }) => {
     }
   );
 
-  useEffect(() => {
-    console.log("data", data);
-  }, [data]);
-
   return (
     <div id="scrollableDiv">
       {status === "success" && (
@@ -52,18 +48,17 @@ export const PreviousChatSection = ({ roomId }) => {
           next={fetchNextPage}
           inverse={true}
           hasMore={hasNextPage}
-          style={{ display: "flex", flexDirection: "column-reverse" }}
           loader={<h4>Loading...</h4>}
           endMessage={
             <p style={{ textAlign: "center" }}>
               <b>대화를 모두 불러왔습니다</b>
             </p>
           }
-          scrollableTarget="scrollableDiv"
+          scrollableTarget={scrollableTarget}
         >
           {data?.pages?.map((page) => (
-            <>
-              {page.map(({ nickName, content, sendTime, sender }) => (
+            <div key={uuidv4()}>
+              {page?.map(({ nickName, content, sendTime, sender }) => (
                 <ChatMessage
                   nickName={nickName}
                   content={content}
@@ -71,7 +66,7 @@ export const PreviousChatSection = ({ roomId }) => {
                   sender={sender}
                 />
               ))}
-            </>
+            </div>
           ))}
         </InfiniteScroll>
       )}
