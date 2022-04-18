@@ -20,14 +20,12 @@ export default function ChatRoom() {
   const userId = "26";
   const [allContent, setAllContent] = useState("");
   const [connected, setConneted] = useState(false);
-  const [scrollFlag, setScrollFlag] = useState(false);
+  const [scrollFlag, setScrollFlag] = useState(true);
   const stompcli = stompClient("https://backend.bellytime.kr/chat/chatting");
   stompcli.debug = () => {};
   const scrollableTarget = useRef();
   //https://stackoverflow.com/questions/25683022/how-to-disable-debug-messages-on-sockjs-stomp
   useEffect(() => {
-    const objDiv = document.getElementById("scrollableDiv");
-    objDiv.scrollTop = objDiv.scrollHeight;
     stompConnect(
       stompcli,
       router.query.id,
@@ -43,7 +41,7 @@ export default function ChatRoom() {
   const updateScroll = () => {
     const { scrollTop, scrollHeight } = scrollableTarget.current;
     const { offsetHeight } = scrollableTarget.current;
-    if (scrollTop >= scrollHeight - offsetHeight) {
+    if (scrollTop >= 0) {
       setScrollFlag(true);
     } else {
       setScrollFlag(false);
@@ -53,7 +51,6 @@ export default function ChatRoom() {
 
   useEffect(() => {
     const targetCurrent = scrollableTarget.current;
-    console.log(targetCurrent);
     targetCurrent.addEventListener("scroll", handleScroll);
     return () => {
       targetCurrent.removeEventListener("scroll", handleScroll);

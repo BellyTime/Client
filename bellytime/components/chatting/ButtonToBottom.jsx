@@ -1,9 +1,7 @@
 export const ButtonToBottom = ({ scrollableTarget }) => {
   const toBottomFunction = () => {
-    console.log(scrollableTarget.current.scrollTop);
-    console.log();
     scrollableTarget.current.scrollTo({
-      top: scrollableTarget.current.scrollHeight,
+      top: 0,
       behavior: "smooth",
     });
   };
