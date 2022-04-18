@@ -19,7 +19,7 @@ export const PreviousChatSection = ({ roomId, scrollableTarget }) => {
   } = useInfiniteQuery(
     "previousChat",
     async ({ pageParam = 1 }) => {
-      console.log(pageParam);
+      console.log("pageParam", pageParam);
       return await getPreviousChat(roomId, pageParam).then((result) => result);
     },
 
@@ -28,6 +28,8 @@ export const PreviousChatSection = ({ roomId, scrollableTarget }) => {
         pages: [...data.pages].reverse(),
         pageParams: [...data.pageParams].reverse(),
       }),
+      //https://react-query-beta.tanstack.com/guides/infinite-queries#what-if-i-want-to-show-the-pages-in-reversed-order
+
       getNextPageParam: (lastPage, pages) => {
         const morePagesExist = lastPage?.length === 20;
         if (!morePagesExist) {
@@ -36,30 +38,33 @@ export const PreviousChatSection = ({ roomId, scrollableTarget }) => {
         return pages.length + 1;
       },
       retryDelay: 1000,
-      retry: 1,
+      retry: 10,
     }
   );
 
   return (
-    <div id="scrollableDiv">
+    <div
+      id="previousDiv"
+      style={{
+        overflow: "auto",
+        display: "flex",
+        flexDirection: "column-reverse",
+      }}
+    >
       {status === "success" && (
         <InfiniteScroll
+          // scrollThreshold={0}
           dataLength={data?.pages.length * 20}
           next={fetchNextPage}
           inverse={true}
           hasMore={hasNextPage}
-          loader={<h4>Loading...</h4>}
-          endMessage={
-            <p style={{ textAlign: "center" }}>
-              <b>대화를 모두 불러왔습니다</b>
-            </p>
-          }
-          scrollableTarget={scrollableTarget}
+          scrollableTarget="previousDiv"
         >
           {data?.pages?.map((page) => (
             <div key={uuidv4()}>
               {page?.map(({ nickName, content, sendTime, sender }) => (
                 <ChatMessage
+                  key={uuidv4()}
                   nickName={nickName}
                   content={content}
                   sendTime={sendTime}

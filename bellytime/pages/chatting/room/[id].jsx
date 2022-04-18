@@ -27,7 +27,7 @@ export default function ChatRoom() {
   //https://stackoverflow.com/questions/25683022/how-to-disable-debug-messages-on-sockjs-stomp
   useEffect(() => {
     const objDiv = document.getElementById("scrollableDiv");
-    objDiv.scrollTop = objDiv.scrollHeight; //
+    objDiv.scrollTop = objDiv.scrollHeight;
     stompConnect(
       stompcli,
       router.query.id,
@@ -43,16 +43,17 @@ export default function ChatRoom() {
   const updateScroll = () => {
     const { scrollTop, scrollHeight } = scrollableTarget.current;
     const { offsetHeight } = scrollableTarget.current;
-    if (scrollTop > scrollHeight - offsetHeight) {
+    if (scrollTop >= scrollHeight - offsetHeight) {
       setScrollFlag(true);
     } else {
       setScrollFlag(false);
     }
   };
-  const handleScroll = throttle(updateScroll, 500);
+  const handleScroll = throttle(updateScroll, 100);
 
   useEffect(() => {
     const targetCurrent = scrollableTarget.current;
+    console.log(targetCurrent);
     targetCurrent.addEventListener("scroll", handleScroll);
     return () => {
       targetCurrent.removeEventListener("scroll", handleScroll);
