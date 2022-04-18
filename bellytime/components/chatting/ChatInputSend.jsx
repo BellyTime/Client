@@ -1,5 +1,6 @@
 import { v4 as uuidv4 } from "uuid";
 import { useRef } from "react";
+import { throttle } from "lodash";
 export const ChatInputSend = ({
   stompcli,
   connected,
@@ -24,6 +25,14 @@ export const ChatInputSend = ({
     stompcli.send(`/pub/chat/chatting`, {}, JSON.stringify(msg));
     inputRef.current.value = "";
     inputRef.current.focus();
+
+    setTimeout(() => {
+      const top = scrollableTarget.current.scrollHeight;
+      scrollableTarget.current.scrollTo({
+        top: scrollableTarget.current.scrollHeight,
+        behavior: "smooth",
+      });
+    }, 100);
   };
   return (
     <div className={`flex border w-screen h-[15vh] float`}>
@@ -33,13 +42,7 @@ export const ChatInputSend = ({
         onSubmit={(e) => {
           e.preventDefault();
           const value = inputRef.current.value;
-          // setContent(value);
           if (value && connected) sendWithStomp(value);
-              console.log(scrollableTarget.current.scrollTop);
-              scrollableTarget.current.scrollTo({
-                top: scrollableTarget.current.scrollHeight + 20,
-                behavior: "smooth",
-              });
         }}
       >
         <input

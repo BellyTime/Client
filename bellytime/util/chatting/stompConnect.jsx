@@ -5,8 +5,7 @@ export const stompConnect = (
   setAllContent,
   startChatInfo,
   setStartChatInfo,
-  setConneted,
-  scrollableTarget
+  setConneted
 ) => {
   stompcli.connect(
     {},
@@ -22,11 +21,6 @@ export const stompConnect = (
         );
       });
       setConneted(true);
-      console.log(scrollableTarget.current.scrollTop);
-      scrollableTarget.current.scrollTo({
-        top: scrollableTarget.current.scrollHeight + 20,
-        behavior: "smooth",
-      });
     },
     () => setConneted(false)
   );
