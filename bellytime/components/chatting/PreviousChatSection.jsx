@@ -55,7 +55,9 @@ export const PreviousChatSection = ({ roomId, scrollableTarget }) => {
         <InfiniteScroll
           // scrollThreshold={0}
           dataLength={data?.pages.length * 20}
-          next={fetchNextPage}
+          next={() => {
+            setTimeout(fetchNextPage, 1000);
+          }}
           inverse={true}
           hasMore={hasNextPage}
           scrollableTarget="previousDiv"
