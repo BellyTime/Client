@@ -12,7 +12,7 @@ export const stompConnect = (
     () => {
       stompcli.subscribe(`/sub/chatting/room/${roomId}`, (data) => {
         const mssg = JSON.parse(data.body);
-        console.log(mssg);
+        // console.log(mssg);
         useSetChatRoomState(
           setAllContent,
           mssg,

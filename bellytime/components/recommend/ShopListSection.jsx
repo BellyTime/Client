@@ -4,6 +4,7 @@ import { getShopFeed, getShopWithFood } from "../../fetch";
 import { ShopList } from "../ShopList";
 import { useInfiniteQuery } from "react-query";
 import InfiniteScroll from "react-infinite-scroll-component";
+import { Shop } from "../followingShop/Shop";
 
 export const ShopListSection = ({ shopList, position, foodId }) => {
   // const [shopFeed, setShopFeed] = useState("");
@@ -61,7 +62,7 @@ export const ShopListSection = ({ shopList, position, foodId }) => {
             {data?.pages?.map((page) => (
               <>
                 {page.map((content) => (
-                  <ShopList key={uuidv4()} content={content} />
+                  <Shop key={uuidv4()} content={content} />
                 ))}
               </>
             ))}

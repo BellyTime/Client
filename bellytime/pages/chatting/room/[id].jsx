@@ -1,18 +1,17 @@
 import { useRouter } from "next/router";
 import { useEffect } from "react";
-import { useState } from "react";
+import { useState, useRef } from "react";
 import {
   ChatDrawerNModal,
   ChatInputSend,
   ChatNavbar,
   ChatSection,
 } from "../../../components";
-import {
-  startChatState,
-  userState,
-} from "../../../state/atom";
+import { startChatState, userState } from "../../../state/atom";
 import { useRecoilState } from "recoil";
 import { stompConnect, stompClient } from "../../../util";
+import { ButtonToBottom } from "../../../components";
+import { throttle } from "lodash";
 export default function ChatRoom() {
   const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
@@ -21,35 +20,62 @@ export default function ChatRoom() {
   const userId = "26";
   const [allContent, setAllContent] = useState("");
   const [connected, setConneted] = useState(false);
+  const [scrollFlag, setScrollFlag] = useState(true);
   const stompcli = stompClient("https://backend.bellytime.kr/chat/chatting");
   stompcli.debug = () => {};
-
+  const scrollableTarget = useRef();
   //https://stackoverflow.com/questions/25683022/how-to-disable-debug-messages-on-sockjs-stomp
   useEffect(() => {
-    const objDiv = document.getElementById("scrollableDiv");
-    objDiv.scrollTop = objDiv.scrollHeight;
     stompConnect(
       stompcli,
       router.query.id,
       setAllContent,
       startChatInfo,
       setStartChatInfo,
-      setConneted
+      setConneted,
+      scrollableTarget
     );
     //https://stackoverflow.com/questions/54954385/react-useeffect-causing-cant-perform-a-react-state-update-on-an-unmounted-comp
   }, [router]);
 
+  const updateScroll = () => {
+    const { scrollTop, scrollHeight } = scrollableTarget.current;
+    const { offsetHeight } = scrollableTarget.current;
+    if (scrollTop >= 0) {
+      setScrollFlag(true);
+    } else {
+      setScrollFlag(false);
+    }
+  };
+  const handleScroll = throttle(updateScroll, 100);
+
+  useEffect(() => {
+    const targetCurrent = scrollableTarget.current;
+    targetCurrent.addEventListener("scroll", handleScroll);
+    return () => {
+      targetCurrent.removeEventListener("scroll", handleScroll);
+    };
+  }, [scrollableTarget]);
+  //https://stackoverflow.com/questions/66022475/how-to-get-over-cannot-read-property-removeeventlistener-of-null-in-react
   //try catch문으로 안됐을때 에러메시지 띄우기. content가 비워지지 않았을때로 확인?
   return (
-    <div className="h-screen">
+    <div className="h-screen w-screen fixed">
       <ChatNavbar setIsOpen={setIsOpen} startChatInfo={startChatInfo} />
-      <ChatSection roomId={router.query.id} allContent={allContent} />
+      <ChatSection
+        scrollableTarget={scrollableTarget}
+        roomId={router.query.id}
+        allContent={allContent}
+      />
+      <div className={scrollFlag ? "hidden" : "block"}>
+        <ButtonToBottom scrollableTarget={scrollableTarget} />
+      </div>
       <ChatInputSend
         connected={connected}
         roomId={router.query.id}
         sender={userId}
         nickName={userNickName}
         stompcli={stompcli}
+        scrollableTarget={scrollableTarget}
       />
       <div className="h-30" />
       <ChatDrawerNModal
