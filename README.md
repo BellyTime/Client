@@ -19,47 +19,46 @@
 │   ├── api
 │   ├── components
 │   └── page
-├── components
-│   ├── Navbar
-│   ├── chatting
-│   ├── common
-│   ├── cooltime
-│   ├── followingFriend
-│   ├── followingShop
-│   ├── main
-│   ├── modal
-│   ├── myPage
-│   ├── recommend
-│   ├── reservation
-│   ├── search
-│   └── validation
-├── fetch
-│   ├── chat
-│   ├── common
-│   ├── coolTime
-│   ├── instance
-│   ├── main
-│   ├── memberPage
-│   ├── myPage
-│   ├── recommend
-│   ├── search
-│   └── shop
+├── components(페이지별 컴포넌트)
+│   ├── Navbar (하단 네비게이션)
+│   ├── chatting (채팅)
+│   ├── cooltime (쿨타임)
+│   ├── followingFriend (팔로우하는 친구리스트)
+│   ├── followingShop (팔로우하는 가게리스트)
+│   ├── main (메인페이지 컴포넌트)
+│   ├── modal (모달 구성 컴포넌트)
+│   ├── myPage (마이페이지 컴포넌트)
+│   ├── recommend (추천가게 컴포넌트)
+│   ├── reservation (예약한 가계 리스트)
+│   ├── search (검색페이지 컴포넌트)
+│   └── validation (유효성 검사)
+├── fetch (페이지별 api)
+│   ├── chat (채팅 관련 api)
+│   ├── common (axios 인터셉터)
+│   ├── coolTime (쿨타임)
+│   ├── instance (기능별 인스턴스(로그인 시))
+│   ├── main (메인페이지)
+│   ├── memberPage (로그인 및 회원가입 페이지)
+│   ├── myPage (마이페이지)
+│   ├── recommend (추천페이지)
+│   ├── search (검색페이지)
+│   └── shop (가게별 )
 ├── pages
-│   ├── api
-│   ├── chatting
-│   ├── mypage
-│   ├── oauth2
-│   ├── recommend
-│   ├── shop
-│   └── shopfeed
+│   ├── api ()
+│   ├── chatting ()
+│   ├── mypage ()
+│   ├── oauth2 ()
+│   ├── recommend ()
+│   ├── shop ()
+│   └── shopfeed ()
 ├── public
-│   ├── foodImgs
-│   ├── icons
-│   └── static
-├── state
-├── style
-├── styles
-├── useHook
+│   ├── foodImgs ()
+│   ├── icons ()
+│   └── static ()
+├── state ()
+├── style ()
+├── styles ()
+├── useHook ()
 └── util
-    └── chatting
+    └── chatting ()
     ```
